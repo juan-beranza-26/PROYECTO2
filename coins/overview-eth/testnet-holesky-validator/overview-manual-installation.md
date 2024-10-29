@@ -1,25 +1,25 @@
-# Overview - Manual Installation
+# previsualización - Manual de instalación
 
-## :new: Announcements
+## :new: Anuncios
 
-{% hint style="success" %}
-As of Mar 1 2024, this **Version 2 Guide** written for **🦉Dencun**🦉 **Holesky Testnet** :grin:
-{% endhint %}
+{% Pista="Éxito" %}
+A 1 de marzo de 2024, esta **segunda versión de la guía ** Escrita **🦉Dencun**🦉 **Red de prueba de Holesky** :grin:
+{% fin de pista %}
 
-{% hint style="info" %}
-:sparkles:**Always test and practice on testnet first.** [**Mainnet guide available here.**](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/)
-{% endhint %}
+{% Pista="info" %}
+:sparkles:**Rercuerda editar en una red de prueba antes de empezar.** [**Guía disponible aquí.**](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/)
+{% fin de la pista %}
 
-## :wrench: About This Guide
+## :wrench: Sobre esta guía
 
-For the advanced user who wants customization and is comfortable with CLI commands, this guide will walk you through the details of setting up a validator. For most users, the quickest and automated way to setup a staking node is with [EthPillar](../ethpillar.md).
+Para usuarios familiarizacos con comandos CLI y que quieran personalizarlos, esta guía te dará los detalles para crean un validador. Para la mayoría de los usuarios, la forma mas rápida de iniciar a crear un nodo es [EthPillar](../ethpillar.md).
 
-## :thumbsup: Your Github Contributions Welcome
+## :thumbsup: Sus contribuciones a github son bienvenidas
 
-This guide is fully open source and fully powered by home-stakers like you.
+Esta guía es de código abierto y esta hecha por apostadores como tú.
 
-Pull requests or issues can be submitted on [github](https://github.com/coincashew/coincashew).
+Cualquier solicitud para un cambio puede mandarse a [github](https://github.com/coincashew/coincashew).
 
-{% embed url="https://github.com/coincashew/coincashew" %}
+{%url="https://github.com/coincashew/coincashew" %}
 
-#### :arrow\_up: [View Changelog](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/changelog.md): See the latest changes to the guide.
+#### :arrow\_up: [Ver cambios](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/changelog.md): Ve lo mas nuevo de nuestra guía
