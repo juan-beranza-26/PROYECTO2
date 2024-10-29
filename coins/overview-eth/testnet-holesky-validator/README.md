@@ -1,22 +1,20 @@
 ---
 description: >-
-  Using the gold standard of ETH staking, become a solo home staker. Help
-  decentralize Ethereum, a proof-of-stake blockchain. Anyone with 32 ETH can
-  join.
+ Usando el estandarte de oro de las apuestas de ETH, puedes volverte un "apostador solitario". Ayudanos a descentralizar ethereum, una blockchain de participación. Cualquiera con ETH 32 se puede unir.
 ---
 
-# ⛓️ Guide | How to setup a validator for Ethereum staking on testnet HOLESKY
+# ⛓️ Guía | Como poner un validador para las apuestas de ethereum en la net de prueba HOLESKY 
 
-{% hint style="success" %}
-:heart: Support us on **Gitcoin** GR20: [https://explorer.gitcoin.co/#/round/42161/26/34](https://explorer.gitcoin.co/#/round/42161/26/34)
-{% endhint %}
+{% pista="Éxito" %}
+<3: Porfavor apoyanos en **Gitcoin** GR20: [https://explorer.gitcoin.co/#/round/42161/26/34](https://explorer.gitcoin.co/#/round/42161/26/34)
+{% find de la pista %}
 
-## Installation
+## Instalación
 
-### :rocket:Option 1: Quickstart with EthPillar
+### :rocket:Option 1: Inicio rápido con EthPillar
 
-* Recommended for most users.
-* In minutes, rapidly deploys a systemd installation with minority clients Nimbus CL Nethermind EL and mevboost.
+* Recomendado para la mayoría de los usuarios.
+* En minutos, rapidly desplegamos la instalación del sistema con clientes minoritarios Nimbus CL Nethermind EL y mevboost.
 * Supports automated node deployment for both validators and non-staking RPC nodes.
 * When EthPillar is deployed, operating your node becomes a breeze.
 
@@ -32,6 +30,6 @@ To install EthPillar, [visit the quickstart page.](../ethpillar.md)
 * Deploys a systemd installation with any EL/CL combination you choose.
 * After installation, use [EthPillar](../ethpillar.md) to simplify maintenance of your node.
 
-To install manually, continue with this guide.
+Para instalar manualmente, siga leyendo esta guía
 
 #### :shield: Built by home-stakers for home-stakers. :pray:
