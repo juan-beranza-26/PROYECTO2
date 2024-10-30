@@ -1,4 +1,4 @@
-# Table of contents
+# Tabla de contenidos
 
 * [Home](README.md)
 * [About Us](contact-us.md)
@@ -8,12 +8,12 @@
   * [Style Guide](contributing/style-guide.md)
 * [Disclaimer](disclaimer.md)
 
-## Wallets
+## Portafolios
 
 * [Guide: Crypto Wallet Tips 101 - Do's and Don'ts](wallets/guide-wallet-tips-101-dos-and-donts/README.md)
   * [Review: Metal Bitcoin Seed Storage by jlopp](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
 
-## Coins
+## Monedas
 
 * [Ethereum: ETH](coins/overview-eth/README.md)
   * [🛡️ EthPillar: one-liner setup tool and node management TUI](coins/overview-eth/ethpillar.md)
