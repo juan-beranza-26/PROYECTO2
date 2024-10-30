@@ -560,19 +560,19 @@ Source: [https://twitter.com/AbyssFinance/status/1379732382044069888](https://tw
 
 * **Deposit Example**: If you want to run 3 validators you will need to have (32 x 3) = 96 Holesky ETH plus some extra to cover the gas fees.
 * **Verify Deposit Contract:** Your transaction is depositing your ETH to the Holesky Deposit Contract address.**Check**, _double-check_, _**triple-check**_ that the Holesky Deposit Contract address is correct. [`0x4242424242424242424242424242424242424242`](https://holesky.beaconcha.in/address/4242424242424242424242424242424242424242)
-* **Ledger Nano Hardware wallet users**: If you encounter difficulty making the deposit transaction, enable blind signing and contract data.
+* **Usuario de la billetera Ledger Nano Hardware**: If you encounter difficulty making the deposit transaction, enable blind signing and contract data.
 
-## 4. Review backups
+## 4. Revisar copias de seguridad
 
-{% hint style="danger" %}
-:fire: **Critical Crypto Reminder:** **Keep your mnemonics, keep your ETH.**
+{% hint style="peligro" %}
+:fire: **Recordatorio crítico de criptomonedas:** **Mantén tus mnemotecnias, conserva tu ETH.**
 
-* **Stay Offline**: Write down your mnemonic seed **offline**. _Not email. Not cloud._
+* **Mantente desconectado**: Escribe tu semilla mnemotécnica **Sin conexión**. _No correo. No nube._
 * **More than 1 backup of mnemonic**: Multiple copies with multiple locations is better. _Best stored in a_ [_metal seed._](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
 * **Verify your hardware wallet's backup:** Most important of all data, this is where your withdrawal address belongs and ultimately controls the 32 ETH
-* **In case of recovery**: Stored on a USB key, keep copies of
-  * `validator_keys directory` - contains all the keystore .json files
-  * keystore password - used to encrypt keystore files
-{% endhint %}
+* **En caso de recuperacíon**: Almacenando en una llave USB, guarde copias de
+  * `Directorio validación_llaves` - contiene todos los archivos de .json del almacén de claves
+  * Contraseña del almacen de claves - Se utiliza para cifrar archivos del almacén de claves
+{%  Insinuación final %}
 
-#### :tada:Validator key setup and deposits are complete!
+#### :tada:¡La configuración de la clave del validador y los depósitos están completos!
