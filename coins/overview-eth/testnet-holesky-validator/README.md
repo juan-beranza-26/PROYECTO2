@@ -7,7 +7,7 @@ descripción: >-
 
 {% pista="Éxito" %}
 <3: Porfavor apoyanos en **Gitcoin** GR20: [https://explorer.gitcoin.co/#/round/42161/26/34](https://explorer.gitcoin.co/#/round/42161/26/34)
-{% fin de la pista %}
+{% Pista encontrada %}
 
 ## Instalación
 
