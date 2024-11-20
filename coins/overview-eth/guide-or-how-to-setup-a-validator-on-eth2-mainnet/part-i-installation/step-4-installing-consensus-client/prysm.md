@@ -42,7 +42,7 @@ más alineado con el espíritu de FOSS (software libre de código abierto).
 
 <summary>Option 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest binaries.
+Ejecute lo siguiente para descargar automáticamente los últimos binarios.
 
 ```bash
 cd $HOME
@@ -65,7 +65,7 @@ Instalar binarios.
 
 <summary>Option 2 - Construir a partir del código fuente</summary>
 
-Install Go dependencies
+Instalar dependencia de Go
 
 ```bash
 wget -O go.tar.gz https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
@@ -74,21 +74,21 @@ echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
 ```
 
-Verify Go is properly installed by checking the version and cleanup files.
+Verifique que Go está correctamente instalado comprobando la versión y los archivos de limpieza.
 
 ```bash
 go version
 rm go.tar.gz
 ```
 
-Install build dependencies.
+Instalar dependencias de compilación.
 
 ```bash
 sudo apt-get update
 sudo apt install build-essential git
 ```
 
-Build the binaries.
+Crear los binarios.
 
 ```bash
 mkdir -p ~/git
@@ -102,7 +102,7 @@ go build -o=./build/beacon-chain ./cmd/beacon-chain
 go build -o=./build/validator ./cmd/validator
 ```
 
-Install the binaries.
+Instalar Binarios.
 
 ```shell
 sudo cp $HOME/git/prysm/build/beacon-chain /usr/local/bin
@@ -113,13 +113,13 @@ sudo cp $HOME/git/prysm/build/validator /usr/local/bin
 
 ### **3. Setup and configure systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Crear un **systemd unit file** para definir tu `consensus.service` configuracion.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 <pre class="language-bash"><code class="lang-bash"><strong>[Unit]
 </strong>Description=Prysm Consensus Layer Client service for Mainnet
@@ -153,32 +153,32 @@ ExecStart=/usr/local/bin/beacon-chain \
 WantedBy=multi-user.target
 </code></pre>
 
-* Replace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** with your own Ethereum address that you control. Tips are sent to this address and are immediately spendable.
-* **Not staking?** If you only want a full node, delete the whole lines beginning with
+* Reemplazar**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** * con tu propia dirección Ethereum que controlas. Las propinas se envían a esta dirección y son inmediatamente gastables.
+* **Not staking?** Si solo desea un nodo completo, elimine todas las líneas comenzando con
 
 ```
 --suggested-fee-recipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, y luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Finalmente, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presiona `Ctrl` + `C` para salir del estado.
 
-Check your logs to confirm that the consensus clients are up and syncing.
+Verifique sus registros para confirmar que los clientes de consenso están actualizados y sincronizados.
 
 ```bash
 sudo journalctl -fu consensus | ccze
