@@ -227,11 +227,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso de espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -239,14 +239,14 @@ sudo rm -rf /var/lib/prysm/beacon/beaconchaindata
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo para volver a sincronizar el cliente de consenso debe tomar solo un minuto o dos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de replanteo.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+Si desea configurar un nodo completo, no un nodo de replanteo, ¡deténgase aquí! ¡Felicidades por ejecutar tu propio nodo completo! :tada:
 {% endhint %}
