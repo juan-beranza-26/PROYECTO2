@@ -3,20 +3,20 @@
 ## Overview
 
 {% hint style="info" %}
-[Lodestar ](https://lodestar.chainsafe.io)is a Typescript implementation of the official Ethereum specification by the [ChainSafe.io](https://lodestar.chainsafe.io) team. In addition to the beacon chain client, the team is also working on 22 packages and libraries. A complete list can be found [here](https://hackmd.io/CcsWTnvRS\_eiLUajr3gi9g). Finally, the Lodestar team is leading in light client research and development and has received funding from the EF and Moloch DAO for this purpose.
+[Lodestar ](https://lodestar.chainsafe.io)es una implementación de Typescript de la especificación oficial de Ethereum por parte del equipo de[ChainSafe.io](https://lodestar.chainsafe.io). Además del cliente de cadena Beacon, el equipo también está trabajando en 22 paquetes y bibliotecas. Puede encontrar una lista completa [aqui](https://hackmd.io/CcsWTnvRS\_eiLUajr3gi9g). Finalmente, el equipo de Lodestar es líder en la investigación y el desarrollo de clientes ligeros y ha recibido financiación de EF y Moloch DAO para este propósito.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                            |
+| Sujeto        | Enlaces                                                                                            |
 | ------------- | ------------------------------------------------------------------------------------------------ |
-| Releases      | [https://github.com/ChainSafe/lodestar/releases](https://github.com/ChainSafe/lodestar/releases) |
-| Documentation | [https://chainsafe.github.io/lodestar](https://chainsafe.github.io/lodestar/)                    |
-| Website       | [https://lodestar.chainsafe.io](https://lodestar.chainsafe.io/)                                  |
+| Lanzamientos  | [https://github.com/ChainSafe/lodestar/releases](https://github.com/ChainSafe/lodestar/releases) |
+| Documentación | [https://chainsafe.github.io/lodestar](https://chainsafe.github.io/lodestar/)                    |
+| Sirio web     | [https://lodestar.chainsafe.io](https://lodestar.chainsafe.io/)                                  |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -24,7 +24,7 @@ sudo mkdir -p /var/lib/lodestar
 sudo chown -R consensus:consensus /var/lib/lodestar
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt-get install gcc g++ make git curl ccze -y
@@ -32,11 +32,11 @@ sudo apt-get install gcc g++ make git curl ccze -y
 
 ### 2. Install Binaries
 
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Desarrollar a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu del FOSS (software gratuito de código abierto).
 
 <details>
 
-<summary>Option 1 - Build from source code</summary>
+<summary>Opción 1 - Construir desde el código fuente</summary>
 
 Install yarn.
 
