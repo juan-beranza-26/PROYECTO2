@@ -3,20 +3,22 @@
 ## Overview
 
 {% hint style="info" %}
-[Prysm](https://github.com/prysmaticlabs/prysm) is a Go implementation of Ethereum protocol with a focus on usability, security, and reliability. Prysm is developed by [Prysmatic Labs](https://prysmaticlabs.com), a company with the sole focus on the development of their client. Prysm is written in Go and released under a GPL-3.0 license.
+[Prysm](https://github.com/prysmaticlabs/prysm) es una implementación Go del protocolo Ethereum con un enfoque en la usabilidad, la seguridad, y la confiabilidad. Prysm es desarrollado por el [Laboratorio Prysmatic](https://prysmaticlabs.com), una empresa con el único enfoque en el desarrollo de su cliente. 
+Prysm está escrito en Go y lanzado bajo una licencia GPL-3.0.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                              |
+| Asunto       | Enlaces                                                                                              |
 | ------------- | -------------------------------------------------------------------------------------------------- |
-| Releases      | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
-| Documentation | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
-| Website       | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
+| Lanzamientos      | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
+| Documentación | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
+| Sitio web       | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne 
+la propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -24,7 +26,7 @@ sudo mkdir -p /var/lib/prysm/beacon
 sudo chown -R consensus:consensus /var/lib/prysm/beacon
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt install curl jq git ccze -y
@@ -32,12 +34,13 @@ sudo apt install curl jq git ccze -y
 
 ### 2. Install Binaries
 
-* Downloading binaries is often faster and more convenient.
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios es a menudo más rápido y más conveniente.
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está 
+más alineado con el espíritu de FOSS (software libre de código abierto).
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Option 1 - Descargar binarios</summary>
 
 Run the following to automatically download the latest binaries.
 
@@ -51,7 +54,7 @@ curl -f -L "https://prysmaticlabs.com/releases/${file_validator}" -o validator
 chmod +x beacon-chain validator
 ```
 
-Install the binaries.
+Instalar binarios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv beacon-chain validator /usr/local/bin
 </strong></code></pre>
@@ -60,7 +63,7 @@ Install the binaries.
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Option 2 - Construir a partir del código fuente</summary>
 
 Install Go dependencies
 
