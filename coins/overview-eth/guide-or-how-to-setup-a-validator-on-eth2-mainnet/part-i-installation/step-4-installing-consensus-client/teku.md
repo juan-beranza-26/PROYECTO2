@@ -3,24 +3,24 @@
 ## Overview
 
 {% hint style="info" %}
-[PegaSys Teku](https://consensys.net/knowledge-base/ethereum-2/teku/) (formerly known as Artemis) is a Java-based Ethereum client designed & built to meet institutional needs and security requirements. PegaSys is an arm of [ConsenSys](https://consensys.net) dedicated to building enterprise-ready clients and tools for interacting with the core Ethereum platform. Teku is Apache 2 licensed and written in Java, a language notable for its materity & ubiquity.
+[PegaSys Teku](https://consensys.net/knowledge-base/ethereum-2/teku/) (anteriormente conocido como Artemis) es un cliente de Ethereum basado en Java, diseñado y construido para satisfacer las necesidades institucionales y los requisitos de seguridad. PegaSys es una rama de [ConsenSys](https://consensys.net) dedicada a la creación de clientes y herramientas listos para la empresa para interactuar con la plataforma central de Ethereum. Teku tiene licencia Apache 2 y está escrito en Java, un lenguaje notable por su madurez y ubicuidad.
 {% endhint %}
 
 {% hint style="info" %}
-**Note**: Teku is configured to run both **validator client** and **beacon chain client** in one process.
+**Nota**: Teku está configurado para ejecutar tanto el **validator client** como **beacon chain client** en un solo proceso.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                                         |
+| Asunto       | Enlaces                                                                                                         |
 | ------------- | ------------------------------------------------------------------------------------------------------------- |
 | Releases      | [https://github.com/ConsenSys/teku/releases](https://github.com/ConsenSys/teku/releases)                      |
-| Documentation | [https://docs.teku.consensys.net/introduction](https://docs.teku.consensys.net/introduction)                  |
-| Website       | [https://consensys.net/knowledge-base/ethereum-2/teku](https://consensys.net/knowledge-base/ethereum-2/teku/) |
+| Documentación | [https://docs.teku.consensys.net/introduction](https://docs.teku.consensys.net/introduction)                  |
+| Sitio web       | [https://consensys.net/knowledge-base/ethereum-2/teku](https://consensys.net/knowledge-base/ethereum-2/teku/) |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne la propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -28,7 +28,7 @@ sudo mkdir -p /var/lib/teku
 sudo chown -R consensus:consensus /var/lib/teku
 ```
 
-Install dependencies.
+Instale dependencias. .
 
 ```bash
 sudo apt install curl ccze openjdk-17-jdk libsnappy-dev libc6-dev jq git libc6 unzip -y
