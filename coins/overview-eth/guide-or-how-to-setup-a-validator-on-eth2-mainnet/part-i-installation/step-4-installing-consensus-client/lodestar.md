@@ -182,7 +182,7 @@ Presione `Ctrl` + `C` para salir del estado.
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Lodestar Consensus Client Logs**
+**Ejemplo de registros de clientes de consenso de Lodestar sincronizados**
 
 ```bash
 Mar-19 04:09:49.000    info: Synced - slot: 3338 - head: 3355 0x5abb_ac30 - execution: valid(0x1a3c_2ca5) - finalized: 0xfa22_1142:3421 - peers: 25
