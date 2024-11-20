@@ -38,7 +38,7 @@ sudo apt-get install gcc g++ make git curl ccze -y
 
 <summary>Opción 1 - Construir desde el código fuente</summary>
 
-Install yarn.
+Instala el hilo.
 
 ```bash
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -47,14 +47,14 @@ sudo apt update
 sudo apt install yarn -y
 ```
 
-Confirm yarn is installed properly.
+Confirme que el hilo esté instalado correctamente.
 
 ```bash
 yarn --version
 # Should output version >= 1.22.19
 ```
 
-Install nodejs.
+Instalar nodejs.
 
 ```bash
 #Download and import the Nodesource GPG key
@@ -72,7 +72,7 @@ sudo apt-get update
 sudo apt-get install nodejs -y
 ```
 
-Install and build Lodestar.
+Instalar y compilar Lodestar.
 
 ```bash
 mkdir -p ~/git
@@ -83,13 +83,13 @@ yarn install
 yarn run build
 ```
 
-Verify Lodestar was installed properly by displaying the version.
+Verifique que Lodestar se haya instalado correctamente mostrando la versión.
 
 ```bash
 ./lodestar --version
 ```
 
-Sample output of a compatible version.
+Ejemplo de salida de una versión compatible.
 
 ```
 🌟 Lodestar: TypeScript Implementation of the Ethereum Consensus Beacon Chain.
@@ -97,7 +97,7 @@ Sample output of a compatible version.
   * by ChainSafe Systems, 2018-2022
 ```
 
-Install the binaries.
+Instale los archivos binarios.
 
 ```bash
 sudo cp -a $HOME/git/lodestar /usr/local/bin/lodestar
@@ -107,13 +107,13 @@ sudo cp -a $HOME/git/lodestar /usr/local/bin/lodestar
 
 ### **3. Setup and configure systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Cree un **archivo de unidad systemd** para definir su `consensus.service` configuración.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 ```shell
 [Unit]
@@ -148,30 +148,31 @@ ExecStart=/usr/local/bin/lodestar/lodestar beacon \
 WantedBy=multi-user.target
 ```
 
-* Replace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** with your own Ethereum address that you control. Tips are sent to this address and are immediately spendable.
-* **Not staking?** If you only want a full node, delete the whole line beginning with
+* Reemplace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** con su propia dirección de Ethereum que usted controla. Las propinas se envían a esta dirección y se pueden gastar de inmediato.
+* **No estás haciendo staking?** Si solo quieres un nodo completo, elimina toda la línea que comienza con
+
 
 ```
 --suggestedFeeRecipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, y luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Por último, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C` para salir del estado.
 
 ### 4. Helpful consensus client commands
 
@@ -209,11 +210,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso del espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o una falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -221,14 +222,14 @@ sudo rm -rf /var/lib/lodestar/chain-db
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo necesario para volver a sincronizar el cliente de consenso debería tomar solo uno o dos minutos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de staking.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+ Si querías configurar un nodo completo, no un nodo de participación, detente aquí! Felicitaciones por ejecutar tu propio nodo completo! :tada:
 {% endhint %}
