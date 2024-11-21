@@ -41,7 +41,7 @@ sudo apt install curl jq ccze -y
 
 <summary>Opción 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, un-tar y cleanup.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/sigp/lighthouse/releases/latest"
@@ -58,7 +58,7 @@ tar -xzvf lighthouse.tar.gz -C $HOME
 rm lighthouse.tar.gz
 ```
 
-Install the binaries.
+Instale los archivos binarios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv $HOME/lighthouse /usr/local/bin/lighthouse
 </strong></code></pre>
@@ -69,29 +69,29 @@ Install the binaries.
 
 <summary>Opción 2 - Construir desde el código fuente</summary>
 
-**Install rust dependency**
+**Instalar la dependencia de óxido**
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-When prompted, enter '1' to proceed with the default install.
+Cuando se le solicite, ingrese '1' para continuar con la instalación predeterminada.
 
-Update your environment variables.
+Actualice las variables de entorno.
 
 ```bash
 echo export PATH="$HOME/.cargo/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Install rust dependencies.
+Instala dependencias de óxido.
 
 ```bash
 sudo apt-get update
 sudo apt install -y git gcc g++ make cmake pkg-config libssl-dev libclang-dev clang protobuf-compiler
 ```
 
-Build the binaries.
+Compile los archivos binarios.
 
 ```bash
 mkdir -p ~/git
@@ -101,7 +101,7 @@ cd lighthouse
 make
 ```
 
-In case of compilation errors, run the following sequence.
+En caso de errores de compilación, ejecute la siguiente secuencia..
 
 ```bash
 rustup update
@@ -109,13 +109,13 @@ cargo clean
 make
 ```
 
-Verify lighthouse was built properly by checking the version number.
+Verifique que lighthouse se haya construido correctamente verificando el número de versión.
 
 ```
 lighthouse --version
 ```
 
-Install the binary.
+Instale los archivos binarios.
 
 ```bash
 sudo cp $HOME/.cargo/bin/lighthouse /usr/local/bin/lighthouse
