@@ -1,15 +1,15 @@
-# Uninstalling Staking Node
+# Desinstalación del Nodo de Replanteo
 
 {% hint style="info" %}
-Whether changing clients for client diversity purposes, moving to a new node, or retiring a staking node, here's how to uninstall the three key components of a staking node.
+Ya sea para cambiar de cliente por motivos de diversidad de clientes, trasladarse a un nuevo nodo o retirar un nodo de replanteo, a continuación se explica cómo desinstalar los tres componentes clave de un nodo de replanteo.
 {% endhint %}
 
-### Uninstalling execution client&#x20;
+### Desinstalación del cliente de ejecución&#x20;
 
 ```bash
-sudo systemctl stop execution
-sudo systemctl disable execution
-sudo rm /etc/systemd/system/execution.service
+sudo systemctl parar ejecucion 
+sudo systemctl desactivar ejecucion 
+sudo rm /etc/systemd/systema/ejecucion.servicio
 
 #Nethermind
 sudo rm -rf /usr/local/bin/nethermind
@@ -34,12 +34,12 @@ sudo rm -rf /var/lib/reth
 sudo userdel execution
 ```
 
-### Uninstalling consensus client&#x20;
+### Desinstalación del cliente de consenso&#x20;
 
 ```bash
-sudo systemctl stop consensus
-sudo systemctl disable consensus
-sudo rm /etc/systemd/system/consensus.service
+sudo systemctl stop consenso
+sudo systemctl disable consenso
+sudo rm /etc/systemd/system/consenso.servicio
 
 #Lighthouse
 sudo rm -rf /usr/local/bin/lighthouse
@@ -64,7 +64,7 @@ sudo rm -rf /var/lib/prysm
 sudo userdel consensus
 ```
 
-### Uninstalling validator
+### Desistalacion de validador 
 
 ```bash
 sudo systemctl stop validator
@@ -88,5 +88,5 @@ sudo rm -rf /usr/local/bin/nimbus_validator_client
 sudo rm -rf /usr/local/bin/validator
 sudo rm -rf /var/lib/prysm/validators
 
-sudo userdel validator
+sudo userdel validador
 ```
