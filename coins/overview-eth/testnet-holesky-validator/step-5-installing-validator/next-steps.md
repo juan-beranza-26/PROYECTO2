@@ -1,28 +1,29 @@
-# Next Steps
+# Próximos pasos
 
-{% hint style="success" %}
-:tada: Congrats! You've finished the primary steps of setting up your validator. You're now an Ethereum staker!
-{% endhint %}
+{% hint style="éxito" %}
+:tada: Felicidades! Has terminado los pasos principales de la configaración de tu validador. ¡Ahora eres un staker de Ethereum! You've finished the primary steps of setting up your validator. You're now an Ethereum staker!
+{% insinuación final %}
 
-## :track\_next: FAQ
+## :pista\_siguiente: PREGUNTAS FRECUENTES
 
-<details>
+<Detalles>
 
-<summary>Wen staking rewards?</summary>
 
-**Activation Queue**: Once your EL+CL is synced, validator up and running, you just wait for activation. This process can take 24+ hours. Only 900 new validators can join per day. Check the queue length: [https://wenmerge.com ](https://wenmerge.com)
+<Resumen> Recompensas de staking de Wen? </resumen>
 
-**Activated**: When you're activated, your validator will begin creating and voting on blocks while earning staking rewards.
+**Cola de activación**: Una vez que su EL+CL esté sincronizado, el validor en funcionamiento, solo tiene que esperar la activación. Este proceso puede tardar 24+ horas. Solo se pueden unir 900nuevos validadores por día. Compruebe la Once your: [https://wenmerge.com ](https://wenmerge.com)
 
-**Quick monitoring**: Use [https://holesky.beaconcha.in](https://holesky.beaconcha.in/) to create alerts and track your validator's performance.
+**Activado**: Cuando estés activdo, tu validador en funcionamiento, solo tiene que esperar la activación. Este proceso puede tardar  When you're activated, your validator will begin creating and voting on blocks while earning staking rewards.
 
-</details>
+**Monitoreo Rápido**: Uso [https://holesky.beaconcha.in](https://holesky.beaconcha.in/) para crear alertas y realizar un seguimiento del rendimiento de su validador.to create alerts and track your validator's performance.
 
-<details>
+</detalles>
 
-<summary>Sync Timeline</summary>
+<detalles>
 
-Syncing the consensus client is instantaneous with checkpoint sync but the execution client can take up to a day. On nodes with fast NVME drives and gigabit internet, expect your node to be fully synced in a few hours.
+<resumen>Sincronizar línea del tiempo</resumen>
+
+La sincronizacción del cliente de consenso en instantánea con la sincronización de puntos de control, pero el cliente de ejecución puede tardar hasta un día. En nodos con unidades NVME rápidas en internet gigabait, espere que su nodo esté Syncing the consensus client is instantaneous with checkpoint sync but the execution client can take up to a day. On nodes with fast NVME drives and gigabit internet, expect your node to be fully synced in a few hours.
 
 
 
