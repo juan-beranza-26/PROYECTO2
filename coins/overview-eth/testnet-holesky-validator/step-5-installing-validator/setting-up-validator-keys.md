@@ -1,16 +1,16 @@
-# Setting up Validator Keys
+# Configuración de claves de validación
 
-## :seedling: 1. Obtain testnet ETH
+## : plántula: 1. Obtener ETH de la red de prueba
 
 {% hint style="info" %}
-Every 32 ETH you own allows you to make 1 validator. You can run thousands of validators with your node. However on testnet, please only run 1 or 2 validators to keep the activation queue reasonably quick.
+Cada 32 ETH que posees te permite hacer 1 validador. Puede ejecutar miles de validador. Puede ejecutar miles de validadores con su nodo. Sin embargo, en la red de pruebas, solo ejecute 1 o 2 validadores para mantener la cola de activación razonablemente rápida.
 {% endhint %}
 
 <details>
 
-<summary>Option 1: Ethstaker's #cheap-holesky-validator Channel</summary>
+<summary>Opción 1: Canal validador de #cheap-holesky-validador Channel</summary>
 
-* **Step 1**: Visit the [Ethstaker Discord](https://discord.io/ethstaker) and join the #cheap-holesky-validator channel
+* **Step 1**: Visita el Discord de Ethstaker [Ethstaker Discord](https://discord.io/ethstaker) and join the #cheap-holesky-validator channel
 
 <!---->
 
