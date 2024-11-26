@@ -34,27 +34,26 @@ Link: [https://holesky-faucet.pk910.de](https://holesky-faucet.pk910.de/)
 
 #### Before continuing please have the following:
 
-* [ ] **Hardware wallet address or** [**Safe multisig wallet**](https://app.safe.global/welcome) **address**: This is for your [Withdrawal Address](https://notes.ethereum.org/@launchpad/withdrawals-faq#Q-What-are-the-two-types-of-withdrawals). It must be in checksum format, which means some letters are UPPERCASE. If needed, validate your address's checksum format against a block explorer, such as [https://etherscan.io](https://etherscan.io)
-* [ ] **Browser dApp Wallet** (i.e. Metamask) with 32 Ethers for each validator
+* [ ] **Dirección de billetera de hardware o dirección** [**Safe multisig wallet**](https://app.safe.global/welcome) **address**: esta es para su [Withdrawal Address](https://notes.ethereum.org/@launchpad/withdrawals-faq#Q-What-are-the-two-types-of-withdrawals). Debe estar en formato de suma de comprobación, lo que significa que algunas letras están en mayúsculas. Si es necesario, valide el formato de suma de comprobación de su dirección con un explorador de bloques, como [https://etherscan.io](https://etherscan.io)
+* [ ] **Browser dApp Wallet** (es decir, Metamask) con 32 Ethers para cada validador
 
 <figure><img src="../../../../.gitbook/assets/checksum.png" alt=""><figcaption><p>Example of Vitalik's address in checksum format</p></figcaption></figure>
 
 #### Before continuing please understand the following:
 
-* [ ] The **Withdrawal Address** is:
-  * where your ETH is returned upon "voluntary exiting a validator", or also known as full withdrawal.
-  * where you receive partial withdrawals, which is where any excess balance above 32 ETH is periodically scraped and made available for use.
-* [ ] As this is **permanent** once set, **triple check** your address.
-* [ ] DO NOT USE AN :octagonal\_sign: **EXCHANGE ADDRESS** :octagonal\_sign: AS WITHDRAWAL ADDRESS.
-* [ ] For **testnet purposes** it's okay to use a browser/hot wallet address.
+* [ ] La **Dirección de retiro** es:
+  * donde su ETH se devuelve al "salir voluntariamente de un validador", o también se conoce como retiro completo.
+  * donde recibe retiros parciales, que es donde cualquier exceso de saldo superior a 32 ETH se raspa periódicamente y se pone a disposición para su uso.
+* [ ] Como esto es **permanente** una vez configurado, **verifique tres veces** su dirección.
+* [ ] NO UTILICE UNA :octagonal\_sign: **DIRECCIÓN DE INTERCAMBIO** :octagonal\_sign: COMO DIRECCIÓN DE RETIRO.
+* [ ] Para **fines de la red de prueba** está bien usar una dirección de navegador/billetera caliente.
 
 {% hint style="warning" %}
-**Offline Key Generation Best Practices**: The mnemonic seed (24 words) to your validator should be protected by keeping them offline. Use Tails OS (see option 3) or a [Linux Live USB with staking-deposit-cli](https://www.youtube.com/watch?v=oDELXYNSS5w) (Option 1) or Wagyu to generate keys.
-
-If this is not possible, at least physically disconnect from the network by unplugging ethernet cable or disconnecting from Wifi.
+**Mejores prácticas de generación de claves fuera de línea**: La semilla mnemotécnica (24 palabras) de su validador debe protegerse manteniéndola sin conexión. Usa Tails OS (ver opción 3) o un [Linux Live USB with staking-deposit-cli](https://www.youtube.com/watch?v=oDELXYNSS5w) (Opción 1) o Wagyu para generar claves.
+Si esto no es posible, al menos desconéctate físicamente de la red desconectando el cable Ethernet o desconectándote de Wifi.
 {% endhint %}
 
-Ways to create your validator keys:
+Formas de crear tus claves de validación:
 
 <details>
 
@@ -560,19 +559,19 @@ Source: [https://twitter.com/AbyssFinance/status/1379732382044069888](https://tw
 
 * **Deposit Example**: If you want to run 3 validators you will need to have (32 x 3) = 96 Holesky ETH plus some extra to cover the gas fees.
 * **Verify Deposit Contract:** Your transaction is depositing your ETH to the Holesky Deposit Contract address.**Check**, _double-check_, _**triple-check**_ that the Holesky Deposit Contract address is correct. [`0x4242424242424242424242424242424242424242`](https://holesky.beaconcha.in/address/4242424242424242424242424242424242424242)
-* **Ledger Nano Hardware wallet users**: If you encounter difficulty making the deposit transaction, enable blind signing and contract data.
+* **Usuarios de la billetera Ledger Nano Hardware**: Si tienen dificultades para realizar la transacción de depósito, habiliten la firma a ciegas y los datos del contrato.
 
-## 4. Review backups
+## 4. Revisa las copias de seguridad
 
 {% hint style="danger" %}
-:fire: **Critical Crypto Reminder:** **Keep your mnemonics, keep your ETH.**
+:fire: **Recordatorio crítico de criptomonedas:** **Mantenga sus mnemotecnias, mantenga su ETH.**
 
-* **Stay Offline**: Write down your mnemonic seed **offline**. _Not email. Not cloud._
-* **More than 1 backup of mnemonic**: Multiple copies with multiple locations is better. _Best stored in a_ [_metal seed._](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
-* **Verify your hardware wallet's backup:** Most important of all data, this is where your withdrawal address belongs and ultimately controls the 32 ETH
-* **In case of recovery**: Stored on a USB key, keep copies of
-  * `validator_keys directory` - contains all the keystore .json files
-  * keystore password - used to encrypt keystore files
+* **Mantente desconectado**: Escribe tu semilla mnemotécnica **sin conexión**. _No el correo electrónico. No en la nube._
+* **Más de 1 copia de seguridad de mnemotécnico**:  Varias copias con varias ubicaciones es mejor. _Es mejor almacenarlo en una_ [_metal seed._](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
+* **Verifica la copia de seguridad de tu billetera de hardware:**  Lo más importante de todos los datos es que aquí es donde pertenece su dirección de retiro y, en última instancia, controla los 32 ETH
+* **En caso de recuperación**: Almacenado en una llave USB, guarde copias de
+  * `validator_keys directory` - Contiene todos los archivos de .json del almacén de claves
+  * Contraseña del almacén de claves - se utiliza para cifrar archivos del almacén de claves
 {% endhint %}
 
-#### :tada:Validator key setup and deposits are complete!
+#### :tada:¡La configuración de la clave del validador y los depósitos están completos!
