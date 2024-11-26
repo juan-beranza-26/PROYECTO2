@@ -1,6 +1,6 @@
 # Teku
 
-## Overview
+## Vision General
 
 {% hint style="info" %}
 [PegaSys Teku](https://consensys.net/knowledge-base/ethereum-2/teku/) (anteriormente conocido como Artemis) es un cliente de Ethereum basado en Java, diseñado y construido para satisfacer las necesidades institucionales y los requisitos de seguridad. PegaSys es una rama de [ConsenSys](https://consensys.net) dedicada a la creación de clientes y herramientas listos para la empresa para interactuar con la plataforma central de Ethereum. Teku tiene licencia Apache 2 y está escrito en Java, un lenguaje notable por su madurez y ubicuidad.
@@ -10,7 +10,7 @@
 **Nota**: Teku está configurado para ejecutar tanto el **validator client** como **beacon chain client** en un solo proceso.
 {% endhint %}
 
-#### Official Links
+#### Enlaces Oficiales
 
 | Asunto       | Enlaces                                                                                                         |
 | ------------- | ------------------------------------------------------------------------------------------------------------- |
@@ -18,7 +18,7 @@
 | Documentación | [https://docs.teku.consensys.net/introduction](https://docs.teku.consensys.net/introduction)                  |
 | Sitio web       | [https://consensys.net/knowledge-base/ethereum-2/teku](https://consensys.net/knowledge-base/ethereum-2/teku/) |
 
-### 1. Initial configuration
+### 1. Configuración Inicial
 
 Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne la propiedad.
 
@@ -34,7 +34,7 @@ Instale dependencias. .
 sudo apt install curl ccze openjdk-17-jdk libsnappy-dev libc6-dev jq git libc6 unzip -y
 ```
 
-### 2. Install Binaries
+### 2. Instalar Binarios
 
 * La descarga de archivos binarios suele ser más rápida y cómoda.
 * La construcción a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineada con el espíritu del software libre y abierto FOSS (software libre de código abierto).
@@ -102,7 +102,7 @@ sudo cp -a $HOME/git/teku/build/install/teku /usr/local/bin/teku
 
 </details>
 
-### **3. Setup and configure systemd**
+### **3. Instalar y Configurar systemd**
 
 Cree un **archivo de unidad systemd** para definir su `consensus.service` configuración.
 
@@ -247,7 +247,7 @@ teku[64122]: 02:24:28.010 INFO  - Slot Event  *** Slot: 19200, Block: 1468A43F87
 teku[64122]: 02:24:40.010 INFO  - Slot Event  *** Slot: 19200, Block: 72B092AADFE146F5D3F395A720C0AA3B2354B2095E3F10DC18F0E9716D286DCB, Justified: 1132, Finalized: 1133, Peers: 70
 ```
 
-### 4. Helpful consensus client commands
+### 4. Comandos de cliente de consenso útiles
 
 {% tabs %}
 {% tab title="View Logs" %}
