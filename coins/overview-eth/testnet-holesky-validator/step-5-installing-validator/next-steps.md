@@ -1,28 +1,28 @@
-# Next Steps
+# Próximos pasos
 
-{% hint style="success" %}
-:tada: Congrats! You've finished the primary steps of setting up your validator. You're now an Ethereum staker!
-{% endhint %}
+{% hint style="éxito" %}
+:tada: !Felicidades! Has terminado los pasos principales de la configuración de tu validor, !Ahora eres un staker de Ethereum¡
+{% insinuación final %}
 
-## :track\_next: FAQ
+## :pista\_siguiente: PREGUNTAS FRECUENTES
 
-<details>
+<Detalles>
 
-<summary>Wen staking rewards?</summary>
+<resumen>¿Recompensas de stakingWen de Wen?</resumen>
 
-**Activation Queue**: Once your EL+CL is synced, validator up and running, you just wait for activation. This process can take 24+ hours. Only 900 new validators can join per day. Check the queue length: [https://wenmerge.com ](https://wenmerge.com)
+**Cola de activación**: Una vez que su EL+CL esté sincronizadop, el validor del funcionamiento, solo tiene que esperar la activación. Este proceso puede tardar 24+ horas. Solo se pueden unir 900 nuevos validadores por día. Compruebe la longitud de la cola: [https://wenmerge.com ](https://wenmerge.com)
 
-**Activated**: When you're activated, your validator will begin creating and voting on blocks while earning staking rewards.
+**Activado**: Cuando estés activado, tu validador comenzará a crear y votar en bloques mientras ganas recompensas de participación.**
 
-**Quick monitoring**: Use [https://holesky.beaconcha.in](https://holesky.beaconcha.in/) to create alerts and track your validator's performance.
+**Monitoreo Rápido**: Uso [https://holesky.beaconcha.in](https://holesky.beaconcha.in/) para crear alertas y realizar un seguimiento del rendimiento de su validador.
 
-</details>
+</Detalles>
 
-<details>
+<Detalles>
 
-<summary>Sync Timeline</summary>
+<Resumen>Simcronizar línea del tiempo</Resumen>
 
-Syncing the consensus client is instantaneous with checkpoint sync but the execution client can take up to a day. On nodes with fast NVME drives and gigabit internet, expect your node to be fully synced in a few hours.
+La sincronización del cliente en consenso es instantánea con la sincronización de puntos de control, pero el cliente de ejecución puede tardar hasta un día. En nodos con unidades MVME rápidas en Internet gigabai, espere que su nodo esté complentamente sincronizado en unas pocas horas.
 
 
 
