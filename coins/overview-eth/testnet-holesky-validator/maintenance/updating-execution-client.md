@@ -1,50 +1,50 @@
-# Updating Execution Client
+# Actualizando Cliente de Ejecución
 
-## :rocket: Automated Updates
+## :rocket: Actualizaciones Automatizadas
 
-:pill:**Install** [**EthPillar**](../../ethpillar.md): a simple companion UI for node management!&#x20;
+:pill:**Instalar** [**EthPillar**](../../ethpillar.md): ¡una sencilla interfaz de usuario complementaria para la gestión de nodos!&#x20;
 
-Update your software with a keystroke.
+Actualice su software con sólo pulsar una tecla.
 
-To update, navigate to
+Para actualizar, vaya a
 
-`EthPillar > Execution Client > Update to latest release`
+`EthPillar > Cliente de ejecución > Actualizar a la última versión`.
 
-<figure><img src="../../../../.gitbook/assets/el-update.png" alt=""><figcaption><p>EthPillar Update</p></figcaption></figure>
+<figure><img src=«../../../../.gitbook/assets/el-update.png» alt=«»><figcaption><p>Actualización de EthPillar</p></figcaption></figure>
 
-## :fast\_forward: Manual Updates
+## :fast_forward: Actualizaciones manuales
 
-When a new release is cut, you will want to update to the latest stable release. The following shows you how to update your execution client.
+Cuando se corta una nueva versión, usted querrá actualizar a la última versión estable. A continuación se muestra cómo actualizar su cliente de ejecución.
 
-{% hint style="warning" %}
-Always review the **release notes** before updating. There may be changes requiring your attention.
+{% hint style=«warning» %}
+Revise siempre las **notas de lanzamiento** antes de actualizar. Puede haber cambios que requieran su atención.
 
 * [Nethermind](https://github.com/NethermindEth/nethermind/releases)
 * [Besu](https://github.com/hyperledger/besu/releases)
-* [Geth](https://github.com/ethereum/go-ethereum/releases)
-* [Erigon](https://github.com/ledgerwatch/erigon/releases)
+* Geth](https://github.com/ethereum/go-ethereum/releases)
+* Erigon](https://github.com/ledgerwatch/erigon/releases)
 * [Reth](https://github.com/paradigmxyz/reth)
 {% endhint %}
 
-{% hint style="success" %}
-:fire: **Pro tip**: Plan your update to overlap with the longest attestation gap. [Learn how here.](../../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/finding-the-longest-attestation-slot-gap.md)
+{% hint style=«success» %}
+:fuego: **Consejo profesional**: Planifique su actualización para que coincida con el intervalo de atestación más largo. [Aprenda cómo aquí.](../../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/finding-the-longest-attestation-slot-gap.md)
 {% endhint %}
 
-## Step 1: Select your execution client.
+## Paso 1: Seleccione su cliente de ejecución.
 
 ### Nethermind
 
-<details>
+<detalles>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Opción 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest linux release, un-zip and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de linux, descomprimir y limpiar.
 
 ```bash
-RELEASE_URL="https://api.github.com/repos/NethermindEth/nethermind/releases/latest"
-BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep linux-x64)"
+RELEASE_URL="https://api.github.com/repos/NethermindEth/nethermind/releases/latest»
+BINARIOS_URL="$(curl -s $RELEASE_URL | jq -r “.assets[] | select(.name) | .browser_download_url” | grep linux-x64)»
 
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
 wget -O nethermind.zip $BINARIES_URL
@@ -52,26 +52,26 @@ unzip -o nethermind.zip -d $HOME/nethermind
 rm nethermind.zip
 ```
 
-Stop the services.
+Detener servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/nethermind
 sudo mv $HOME/nethermind /usr/local/bin/nethermind
-sudo systemctl start execution
+sudo systemctl Iniciar Ejecucion
 ```
 
 </details>
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2 - Construir desde el código fuente</summary>
 
-Build the binaries.
+Construye los binarios.
 
 ```bash
 cd ~/git/nethermind
@@ -85,13 +85,13 @@ git checkout $latestTag
 dotnet publish src/Nethermind/Nethermind.Runner -c release -o nethermind
 ```
 
-Verify Nethermind was properly built by checking the version.
+Verifique que Nethermind fue construido apropiadamente revisando la versión.
 
 ```shell
 ./nethermind/nethermind --version
 ```
 
-Sample output of a compatible version.
+Ejemplo de salida de una versión compatible.
 
 ```
 Version: 1.25.2+78c7bf5f
@@ -101,12 +101,12 @@ OS: Linux x64
 Runtime: .NET 8.0.1
 ```
 
-Stop the services.
+Detener Servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/nethermind
@@ -138,12 +138,12 @@ rm besu.tar.gz
 sudo mv $HOME/besu-* besu
 ```
 
-Stop the services.
+Detener los servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/besu
@@ -157,7 +157,7 @@ sudo systemctl start execution
 
 <summary>Option 2 - Build from source code</summary>
 
-Build the binaries.
+Construye los binarios.
 
 ```bash
 cd ~/git/besu
@@ -171,13 +171,13 @@ git checkout $latestTag
 ./gradlew installDist
 ```
 
-Verify Besu was properly built by checking the version.
+Compruebe que Besu se ha creado correctamente verificando la versión.
 
 ```shell
 ./build/install/besu/bin/besu --version
 ```
 
-Sample output of a compatible version.
+Ejemplo de salida de una versión compatible.
 
 ```
 besu/v23.4.0/linux-x86_64/openjdk-java-17
@@ -185,15 +185,15 @@ besu/v23.4.0/linux-x86_64/openjdk-java-17
 
 Stop the services.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los archivos binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/besu
 sudo cp -a $HOME/git/besu/build/install/besu /usr/local/bin/besu
-sudo systemctl start execution
+sudo systemctl start implementation
 ```
 
 </details>
@@ -202,29 +202,29 @@ sudo systemctl start execution
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Opción 1: descargar binarios</summary>
 
 <pre class="language-bash"><code class="lang-bash">RELEASE_URL="https://geth.ethereum.org/downloads"
 <strong>FILE="https://gethstore.blob.core.windows.net/builds/geth-linux-amd64[a-zA-Z0-9./?=_%:-]*.tar.gz"
 </strong>BINARIES_URL="$(curl -s $RELEASE_URL | grep -Eo $FILE | head -1)"
 
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
 wget -O geth.tar.gz $BINARIES_URL
 tar -xzvf geth.tar.gz -C $HOME --strip-components=1
 </code></pre>
 
-Stop the services.
+Detener los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Install new binaries, restart the services and cleanup files.
+Instalar nuevos binarios, reiniciar los servicios y limpiar los archivos.
 
 ```bash
 sudo mv $HOME/geth /usr/local/bin
-sudo systemctl start execution
+sudo systemctl start implementation
 rm geth.tar.gz COPYING
 ```
 
@@ -232,29 +232,28 @@ rm geth.tar.gz COPYING
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2: compilar desde el código fuente</summary>
 
-Build the binary.
+Compile el binario.
 
 ```bash
 cd $HOME/git/go-ethereum
-# Get new tags
+# Obtener nuevas etiquetas
 git fetch --tags
-# Get latest tag name
+# Obtener el nombre de la última etiqueta
 latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-# Checkout latest tag
+# Verificar la última etiqueta
 git checkout $latestTag
-# Build
+# Generar
 make geth
 ```
 
-Stop the services.
+Detener los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
-
+Eliminar los binarios antiguos, instalar los nuevos y reiniciar los servicios.
 ```bash
 sudo rm -rf /usr/local/bin/geth
 sudo cp $HOME/git/go-ethereum/build/bin/geth /usr/local/bin
@@ -269,12 +268,12 @@ sudo systemctl start execution
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 <pre class="language-bash"><code class="lang-bash">RELEASE_URL="https://api.github.com/repos/ledgerwatch/erigon/releases/latest"
 <strong>BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep linux_amd64)"
 </strong>
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
 wget -O erigon.tar.gz $BINARIES_URL
@@ -282,48 +281,48 @@ tar -xzvf erigon.tar.gz -C $HOME
 rm erigon.tar.gz README.md
 </code></pre>
 
-Stop the services.
+Detenga los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/erigon
 sudo mv $HOME/erigon /usr/local/bin/erigon
-sudo systemctl start execution
+sudo systemctl start implementation
 ```
 
 </details>
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2: compilar desde el código fuente</summary>
 
-Build the binary.
+Compile el binario.
 
 ```bash
 cd $HOME/git/erigon
 git fetch --tags
-# Get latest tag name
+# Obtener el nombre de la última etiqueta
 latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-# Checkout latest tag
+# Obtener la última etiqueta
 git checkout $latestTag
 make erigon
 ```
 
-Stop the services.
+Detenga los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/erigon
 sudo cp $HOME/git/erigon/build/bin/erigon /usr/local/bin
-sudo systemctl start execution
+sudo systemctl start implementation
 ```
 
 </details>
@@ -332,15 +331,15 @@ sudo systemctl start execution
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Opción 1: descargar binarios</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/paradigmxyz/reth/releases/latest"
 BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep x86_64-unknown-linux-gnu.tar.gz$)"
 
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
 wget -O reth.tar.gz $BINARIES_URL
@@ -348,28 +347,27 @@ tar -xzvf reth.tar.gz -C $HOME
 rm reth.tar.gz
 ```
 
-Stop the services.
+Detenga los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries, display the version, and restart the services.
+Elimine los binarios antiguos, instale los nuevos, muestre la versión y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/reth
 sudo mv $HOME/reth /usr/local/bin
 reth --version
-sudo systemctl restart execution
+sudo systemctl restart implementation
 ```
 
 </details>
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2: compilar desde el código fuente</summary>
 
-Build the binaries.
-
+Compile los binarios.
 ```bash
 cd ~/git/reth
 git fetch --tags
@@ -381,13 +379,13 @@ git checkout $latestTag
 cargo build --release
 ```
 
-Verify Reth was built properly by checking the version number.
+Verifique que Reth se haya compilado correctamente verificando el número de versión.
 
 ```bash
 ~/git/reth/target/release/reth --version
 ```
 
-In case of compilation errors, run the following sequence.
+En caso de errores de compilación, ejecute la siguiente secuencia.
 
 ```bash
 rustup update
@@ -395,35 +393,35 @@ cargo clean
 cargo build --release
 ```
 
-Stop the services.
+Detenga los servicios.
 
-<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop execution
+<pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop implementation
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/reth
 sudo cp ~/git/reth/target/release/reth /usr/local/bin
-sudo systemctl restart execution
+sudo systemctl restart implementation
 ```
 
 </details>
 
-## Step 2: Verify services and logs are working properly
+## Paso 2: Verifique que los servicios y los registros funcionen correctamente
 
 ```bash
-# Verify services status
-sudo systemctl status execution
+# Verifique el estado de los servicios
+sudo systemctl status implementation
 ```
 
 ```bash
-# Check logs
-sudo journalctl -fu execution
+# Verifique los registros
+sudo journalctl -fu implementation
 ```
 
-## Step 3: Optional - Verify your validator's attestations on public block explorer
+## Paso 3: Opcional: Verifique las certificaciones de su validador en el explorador de bloques público
 
-1\) Visit [https://holesky.beaconcha.in](https://holesky.beaconcha.in/)
+1\) Visite [https://holesky.beaconcha.in](https://holesky.beaconcha.in/)
 
-2\) Enter your validator's pubkey into the search bar and look for successful attestations.
+2\) Ingrese la clave pública de su validador en la barra de búsqueda y busque certificaciones exitosas.

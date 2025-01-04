@@ -1,37 +1,35 @@
 ---
-description: >-
-  Using the gold standard of ETH staking, become a solo home staker. Help
-  decentralize Ethereum, a proof-of-stake blockchain. Anyone with 32 ETH can
-  join.
+descripción: >-
+ Usando el estandarte de oro de las apuestas de ETH, puedes volverte un "apostador solitario". Ayudanos a descentralizar ethereum, una blockchain de participación. Cualquiera con ETH 32 se puede unir.
 ---
 
-# ⛓️ Guide | How to setup a validator for Ethereum staking on testnet HOLESKY
+# ⛓️ Guía | Como poner un validador para las apuestas de ethereum en la net de prueba HOLESKY 
 
-{% hint style="success" %}
-:heart: Support us on **Gitcoin** GR20: [https://explorer.gitcoin.co/#/round/42161/26/34](https://explorer.gitcoin.co/#/round/42161/26/34)
-{% endhint %}
+{% pista="Éxito" %}
+<3: Porfavor apoyanos en **Gitcoin** GR20: [https://explorer.gitcoin.co/#/round/42161/26/34](https://explorer.gitcoin.co/#/round/42161/26/34)
+{% Pista encontrada %}
 
-## Installation
+## Instalación
 
-### :rocket:Option 1: Quickstart with EthPillar
+### :rocket:Option 1: Inicio rápido con EthPillar
 
-* Recommended for most users.
-* In minutes, rapidly deploys a systemd installation with minority clients Nimbus CL Nethermind EL and mevboost.
-* Supports automated node deployment for both validators and non-staking RPC nodes.
-* When EthPillar is deployed, operating your node becomes a breeze.
+* Recomendado para la mayoría de los usuarios.
+* En minutos, rapidly desplegamos la instalación del sistema con clientes minoritarios Nimbus CL Nethermind EL y mevboost.
+* Admite la implementación automatizada de nodos tanto para validadores como para nodos RPC sin participación.
+* Cuando se implementa EthPillar, operar su nodo se vuelve muy sencillo.
 
-To install EthPillar, [visit the quickstart page.](../ethpillar.md)
+Para instalar ethpillar, [click aqui.](../ethpillar.md)
 
-<figure><img src="../../../.gitbook/assets/preview02.png" alt=""><figcaption><p>EthPillar's TUI - Navigate the menu to control your node</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/preview02.png" alt=""><figcaption><p>EthPillar's TUI -menu de navejación de tu nodo</p></figcaption></figure>
 
-### :chains:Option 2: Manual Installation
+### :chains:Opción 2: Manual de instalación
 
-* This guide aims to reduce the reliance on scripts in this section to make the learning process more straightforward and understandable.
-* This approach provides a detailed overview of the steps involved, ensuring stakers have a clear understanding of the process.
-* Great for advanced users comfortable with the CLI terminal who want full control and require customization of EL/CL combinations and their configurations.
-* Deploys a systemd installation with any EL/CL combination you choose.
-* After installation, use [EthPillar](../ethpillar.md) to simplify maintenance of your node.
+* Esta guía busca acabar con la dependencia a ver los ejemplos de codigo para hacer mas sencillo y comprensible el aprendizaje.
+* Este enfoque proporciona una descripción detallada de los pasos involucrados, asegurando que los apostadores tengan una comprensión clara del proceso..
+* Genial para usuarios avanzados de CLI terminal que buscan el completo control de combinaciones EL/CL y sus respectivos ajustes.
+* Innstala cualquier sistema con una combinación EL/CL de tu preferencia.
+*Al finalizar, usa [EthPillar](../ethpillar.md) para simplificar el mantenimiento de tu nodo.
 
-To install manually, continue with this guide.
+Para instalar manualmente, siga leyendo esta guía
 
-#### :shield: Built by home-stakers for home-stakers. :pray:
+#### :shield: Construido por apostadores para apostadores. :pray:

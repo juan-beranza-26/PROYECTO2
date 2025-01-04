@@ -3,24 +3,24 @@
 ## Overview
 
 {% hint style="info" %}
-[Nimbus](https://our.status.im/tag/nimbus/) is a research project and a client implementation for Ethereum designed to perform well on embedded systems and personal mobile devices, including older smartphones with resource-restricted hardware. The Nimbus team are from [Status](https://status.im/about/) the company best known for [their messaging app/wallet/Web3 browser](https://status.im) by the same name. Nimbus (Apache 2) is written in Nim, a language with Python-like syntax that compiles to C.
+[Nimbus](https://our.status.im/tag/nimbus/) es un proyecto de investigación y una implementación de cliente para Ethereum diseñado para funcionar bien en sistemas integrados y dispositivos móviles personales, incluidos teléfonos inteligentes más antiguos con hardware restringido por recursos. El equipo de Nimbus es de [Estado](https://status.im/about/) la empresa más conocida por [su aplicación de mensajería/billetera/navegador Web3](https://status.im)  con el mismo nombre. Nimbus (Apache 2)  está escrito en Nim, un lenguaje con sintaxis similar a Python que se compila en C.
 {% endhint %}
 
 {% hint style="info" %}
-**Note**: Nimbus is configured to run both **validator client** and **beacon chain client** in one process.
+**Nota**: Nimbus está configurado para ejecutar ambos **cliente validador** y ** cliente de cadena beacon** en un proceso.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                                  |
+| Asunto       | Enlaces                                                                                                  |
 | ------------- | ------------------------------------------------------------------------------------------------------ |
-| Releases      | [https://github.com/status-im/nimbus-eth2/releases](https://github.com/status-im/nimbus-eth2/releases) |
-| Documentation | [https://nimbus.guide](https://nimbus.guide/)                                                          |
-| Website       | [https://our.status.im/tag/nimbus](https://our.status.im/tag/nimbus/)                                  |
+| Lanzamientos      | [https://github.com/status-im/nimbus-eth2/releases](https://github.com/status-im/nimbus-eth2/releases) |
+| Documentación | [https://nimbus.guide](https://nimbus.guide/)                                                          |
+| Sitio web       | [https://our.status.im/tag/nimbus](https://our.status.im/tag/nimbus/)                                  |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne la propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -28,7 +28,7 @@ sudo mkdir -p /var/lib/nimbus
 sudo chown -R consensus:consensus /var/lib/nimbus
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt install curl libsnappy-dev libc6-dev jq libc6 unzip ccze -y
@@ -36,14 +36,14 @@ sudo apt install curl libsnappy-dev libc6-dev jq libc6 unzip ccze -y
 
 ### 2. Install Binaries
 
-* Downloading binaries is often faster and more convenient.
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios es a menudo más rápido y más conveniente.
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu de FOSS (software libre de código abierto).
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Option 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, un-tar y cleanup.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/status-im/nimbus-eth2/releases/latest"
@@ -62,7 +62,7 @@ mv nimbus-eth2_Linux_amd64_* nimbus
 rm nimbus.tar.gz
 ```
 
-Install the binaries, display version and cleanup.
+Instale los binarios, la versión de visualización y la limpieza.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv nimbus/build/nimbus_beacon_node /usr/local/bin
 </strong>sudo mv nimbus/build/nimbus_validator_client /usr/local/bin
@@ -74,16 +74,16 @@ rm -r nimbus
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Option 2 - Construir a partir del código fuente</summary>
 
-Install dependencies.
+Instale dependencias.
 
 ```bash
 sudo apt-get update
 sudo apt-get install curl build-essential git -y
 ```
 
-Build the binary.
+Compile el binario.
 
 ```bash
 mkdir -p ~/git
@@ -95,14 +95,14 @@ make -j$(nproc) nimbus_beacon_node
 make -j$(nproc) nimbus_validator_client
 ```
 
-Verify Nimbus was built properly by displaying the version.
+Verifique que Nimbus se construyó correctamente mostrando la versión.
 
 ```bash
 cd $HOME/git/nimbus-eth2/build
 ./nimbus_beacon_node --version
 ```
 
-Install the binary.
+Instale los archivos binario.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo cp $HOME/git/nimbus-eth2/build/nimbus_beacon_node /usr/local/bin
 </strong><strong>sudo cp $HOME/git/nimbus-eth2/build/nimbus_validator_client /usr/local/bin
@@ -112,13 +112,13 @@ Install the binary.
 
 ### **3. Setup and configure systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Crear un **archivo de unidad systemd** para definir tu `consensus.service` configuración.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 {% tabs %}
 {% tab title="Standalone Beacon Node (Recommended)" %}
@@ -162,7 +162,8 @@ WantedBy=multi-user.target
 
 {% tab title="Combined (BN+VC)" %}
 {% hint style="info" %}
-This configuration combines the beacon chain and validator into one running service. While it is simpler to manage and run, this configuration is less flexible when it comes to running EL+CL failover nodes or in times you wish to resync your execution client and temporarily use [Rocket Pool's Rescue Node](https://rescuenode.com/docs/how-to-connect/solo).
+Esta configuración 
+combina la cadena de baliza y el validador en un solo servicio en ejecución. Si bien es más fácil de administrar y ejecutar, esta configuración es menos flexible cuando se trata de ejecutar nodos de conmutación por error de EL+CL  o en momentos en que desea volver a sincronizar su cliente de ejecución y usarlo temporalmente [Nodos de rescate de Rocket Pool](https://rescuenode.com/docs/how-to-connect/solo).
 {% endhint %}
 
 ```shell
@@ -202,19 +203,19 @@ WantedBy=multi-user.target
 {% endtab %}
 {% endtabs %}
 
-* Replace `<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>` with your own Ethereum address that you control. Tips are sent to this address and are immediately spendable.
-* **Not staking?** If you only want a full node, use the Standalone Beacon Node configuration and delete the whole line beginning with
+* Reemplazar `<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>` con tu propia dirección Ethereum que controlas. Las propinas se envían a esta dirección y son inmediatamente gastables
+* **Not staking?** Si solo desea un nodo completo, use la configuración de Nodo de Beacon Independiente y elimine toda la línea comenzando con
 
 ```
 --suggested-fee-recipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, y luego `Enter`.
 
-Run the following to quickly sync with Checkpoint Sync.
+Ejecute lo siguiente para sincronizar rápidamente con Checkpoint Sync.
 
 {% hint style="info" %}
-Checkpoint sync allows you to start your consensus layer within minutes instead of days.
+La sincronización de puntos de control le permite iniciar su capa de consenso en cuestión de minutos en lugar de días.
 {% endhint %}
 
 ```bash
@@ -225,33 +226,33 @@ sudo -u consensus /usr/local/bin/nimbus_beacon_node trustedNodeSync \
 --backfill=false
 ```
 
-When the checkpoint sync is complete, you'll see the following message:
+Cuando se complete la sincronización del punto de control, verá el siguiente mensaje:
 
-> Done, your beacon node is ready to serve you! Don't forget to check that you're on the canonical chain by comparing the checkpoint root with other online sources. See https://nimbus.guide/trusted-node-sync.html for more information.
+> Hecho, tu nodo de baliza está listo para servirte! No olvide verificar que está en la cadena canónica comparando la raíz del punto de control con otras fuentes en línea. Ver https://nimbus.guide/trusted-node-sync.html para más información.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Finalmente, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C` para salir del estado.
 
-Check your logs to confirm that the consensus clients are up and syncing.
+Verifique sus registros para confirmar que los clientes de consenso están actualizados y sincronizados.
 
 ```bash
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Consensus Client Logs**
+**Ejemplo de Registros de Clientes de Consenso Sincronizado**
 
 ```
 nimbus_beacon_node[292966]: INF 2023-02-05 01:20:00.000+00:00 Slot start       topics="beacnde" slot=31205 epoch=903 sync=synced peers=80 head=13a131:31204 finalized=1111:cdba33411 delay=69us850ns
@@ -266,7 +267,7 @@ nimbus_beacon_node[292966]: INF 2023-02-05 01:20:08.000+00:00 Slot end         t
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Nimbus Consensus Client Logs**
+**Ejemplo de Registros de Clientes de Consenso de Nimbus Sincronizados**
 
 ```bash
 nimbus_beacon_node[292966]: INF 2023-02-05 01:20:00.000+00:00 Slot start       topics="beacnde" slot=31205 epoch=903 sync=synced peers=80 head=13a131:31204 finalized=1111:cdba33411 delay=69us850ns
@@ -293,11 +294,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+ Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso de espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -313,14 +314,14 @@ sudo -u consensus /usr/local/bin/nimbus_beacon_node trustedNodeSync \
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización del punto de control, el tiempo para volver a sincronizar el cliente de consenso debe tomar solo un minuto o dos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de replanteo.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+Si desea configurar un nodo completo, no un nodo de replanteo, ¡deténgase aquí! ¡Felicidades por ejecutar tu propio nodo completo! :tada:
 {% endhint %}

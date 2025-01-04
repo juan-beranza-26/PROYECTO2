@@ -1,4 +1,4 @@
-# Step 3: Installing execution client
+# Step 3: Instalación del cliente de ejecución
 
 Your choice of either [**Besu**](https://besu.hyperledger.org)**,** [**Nethermind**](https://www.nethermind.io)**,** [**Reth**](reth.md) **or** [**Erigon**](https://github.com/ledgerwatch/erigon)**.**
 
