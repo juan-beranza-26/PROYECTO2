@@ -3,20 +3,22 @@
 ## Overview
 
 {% hint style="info" %}
-[Prysm](https://github.com/prysmaticlabs/prysm) is a Go implementation of Ethereum protocol with a focus on usability, security, and reliability. Prysm is developed by [Prysmatic Labs](https://prysmaticlabs.com), a company with the sole focus on the development of their client. Prysm is written in Go and released under a GPL-3.0 license.
+[Prysm](https://github.com/prysmaticlabs/prysm) es una implementación Go del protocolo Ethereum con un enfoque en la usabilidad, la seguridad, y la confiabilidad. Prysm es desarrollado por el [Laboratorio Prysmatic](https://prysmaticlabs.com), una empresa con el único enfoque en el desarrollo de su cliente. 
+Prysm está escrito en Go y lanzado bajo una licencia GPL-3.0.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                              |
+| Asunto       | Enlaces                                                                                              |
 | ------------- | -------------------------------------------------------------------------------------------------- |
-| Releases      | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
-| Documentation | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
-| Website       | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
+| Lanzamientos      | [https://github.com/prysmaticlabs/prysm/releases](https://github.com/prysmaticlabs/prysm/releases) |
+| Documentación | [https://docs.prylabs.network](https://docs.prylabs.network/)                                      |
+| Sitio web       | [https://prysmaticlabs.com](https://prysmaticlabs.com/)                                            |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne 
+la propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -24,7 +26,7 @@ sudo mkdir -p /var/lib/prysm/beacon
 sudo chown -R consensus:consensus /var/lib/prysm/beacon
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt install curl jq git ccze -y
@@ -32,14 +34,15 @@ sudo apt install curl jq git ccze -y
 
 ### 2. Install Binaries
 
-* Downloading binaries is often faster and more convenient.
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios es a menudo más rápido y más conveniente.
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está 
+más alineado con el espíritu de FOSS (software libre de código abierto).
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Option 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest binaries.
+Ejecute lo siguiente para descargar automáticamente los últimos binarios.
 
 ```bash
 cd $HOME
@@ -51,7 +54,7 @@ curl -f -L "https://prysmaticlabs.com/releases/${file_validator}" -o validator
 chmod +x beacon-chain validator
 ```
 
-Install the binaries.
+Instalar binarios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv beacon-chain validator /usr/local/bin
 </strong></code></pre>
@@ -60,9 +63,9 @@ Install the binaries.
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Option 2 - Construir a partir del código fuente</summary>
 
-Install Go dependencies
+Instalar dependencia de Go
 
 ```bash
 wget -O go.tar.gz https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
@@ -71,21 +74,21 @@ echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
 ```
 
-Verify Go is properly installed by checking the version and cleanup files.
+Verifique que Go está correctamente instalado comprobando la versión y los archivos de limpieza.
 
 ```bash
 go version
 rm go.tar.gz
 ```
 
-Install build dependencies.
+Instalar dependencias de compilación.
 
 ```bash
 sudo apt-get update
 sudo apt install build-essential git
 ```
 
-Build the binaries.
+Crear los binarios.
 
 ```bash
 mkdir -p ~/git
@@ -99,7 +102,7 @@ go build -o=./build/beacon-chain ./cmd/beacon-chain
 go build -o=./build/validator ./cmd/validator
 ```
 
-Install the binaries.
+Instalar Binarios.
 
 ```shell
 sudo cp $HOME/git/prysm/build/beacon-chain /usr/local/bin
@@ -110,13 +113,13 @@ sudo cp $HOME/git/prysm/build/validator /usr/local/bin
 
 ### **3. Setup and configure systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Crear un **systemd unit file** para definir tu `consensus.service` configuracion.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 <pre class="language-bash"><code class="lang-bash"><strong>[Unit]
 </strong>Description=Prysm Consensus Layer Client service for Mainnet
@@ -150,32 +153,32 @@ ExecStart=/usr/local/bin/beacon-chain \
 WantedBy=multi-user.target
 </code></pre>
 
-* Replace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** with your own Ethereum address that you control. Tips are sent to this address and are immediately spendable.
-* **Not staking?** If you only want a full node, delete the whole lines beginning with
+* Reemplazar**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** * con tu propia dirección Ethereum que controlas. Las propinas se envían a esta dirección y son inmediatamente gastables.
+* **Not staking?** Si solo desea un nodo completo, elimine todas las líneas comenzando con
 
 ```
 --suggested-fee-recipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, y luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Finalmente, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presiona `Ctrl` + `C` para salir del estado.
 
-Check your logs to confirm that the consensus clients are up and syncing.
+Verifique sus registros para confirmar que los clientes de consenso están actualizados y sincronizados.
 
 ```bash
 sudo journalctl -fu consensus | ccze
@@ -224,11 +227,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso de espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -236,14 +239,14 @@ sudo rm -rf /var/lib/prysm/beacon/beaconchaindata
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo para volver a sincronizar el cliente de consenso debe tomar solo un minuto o dos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de replanteo.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+Si desea configurar un nodo completo, no un nodo de replanteo, ¡deténgase aquí! ¡Felicidades por ejecutar tu propio nodo completo! :tada:
 {% endhint %}
