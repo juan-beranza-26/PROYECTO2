@@ -570,4 +570,5 @@ Fuente: [https://twitter.com/AbyssFinance/status/1379732382044069888](https://tw
   * Contraseña del almacén de claves: se utiliza para cifrar archivos del almacén de claves
 {% endhint %}
 
+
 #### :tada:¡La configuración de la clave del validador y los depósitos están completos!
