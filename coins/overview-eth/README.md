@@ -3,6 +3,7 @@ descripción: >-
   Una plataforma global de código abierto para aplicaciones descentralizadas. En Etereum,
   puede escribir código que controle el valor digital, se ejecute exactamente según lo programado,
   y es accesible en cualquier parte del mundo.
+
 ---
 
 # Ethereum: ETH
