@@ -1,29 +1,30 @@
 ---
-description: >-
-  Scenario: In discord, you see an alert that your consensus client just
-  announced a new release. How best to update?
+descripcion : >-
+  Escenario: En tu discord, tu vez una alerta de los consensos del cliente 
+  justamente anunciado ahora, Como seria la mejor actualizacion?
+  
 ---
 
-# Updating Consensus Client
+# Cargando Consensos del cliente
 
-## :rocket: Automated Updates
+## :rocket: Automatizando Cargas
 
-:pill:**Install** [**EthPillar**](../../ethpillar.md): a simple companion UI for node management!&#x20;
+:pill:**Instalando** [**EthPillar**](../../ethpillar.md): a una simple comapñia de UI para nodos de gestion!&#x20;
 
-Update your software with a keystroke.
+Actualice su software con sólo pulsar una tecla.
 
-To update, navigate to
+para actualizar, navega por
 
-`EthPillar > Consensus Client > Update to latest release`
+`EthPillar > Consensos de cliente > actualizaiones anteriores realizadas`
 
 <figure><img src="../../../../.gitbook/assets/cl-update.png" alt=""><figcaption><p>EthPillar Update</p></figcaption></figure>
 
-## :fast\_forward: Manual Updates
+## :fast\_forward: Actualizacion Manual
 
-When a new release is cut, you will want to update to the latest stable release. The following shows you how to update your beacon chain and validator.
+Cuando salga una nueva versión, querrá actualizar a la última versión estable. A continuación se muestra cómo actualizar la cadena de balizas y el validador.
 
 {% hint style="warning" %}
-Always review the **release notes** before updating. There may be changes requiring your attention.
+Always review the **release notes** antes de atualizar. ellos pueden tener unos cambios de atencion.
 
 * [Lighthouse](https://github.com/sigp/lighthouse/releases)
 * [Lodestar](https://github.com/ChainSafe/lodestar/releases)
@@ -33,10 +34,10 @@ Always review the **release notes** before updating. There may be changes requir
 {% endhint %}
 
 {% hint style="success" %}
-:fire: **Pro tip**: Plan your update to overlap with the longest attestation gap. [Learn how here.](../../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/finding-the-longest-attestation-slot-gap.md)
+:fire: **Pro tip**: Planifique su actualización para que coincida con el atestado más largo gap. [Learn how here.](../../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/finding-the-longest-attestation-slot-gap.md)
 {% endhint %}
 
-## Step 1: Select your consensus client.
+## Step 1: Selecion de consensos de cliente.
 
 ### Lighthouse
 
@@ -44,7 +45,7 @@ Always review the **release notes** before updating. There may be changes requir
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, un-tar and cleanup.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/sigp/lighthouse/releases/latest"
@@ -61,12 +62,12 @@ tar -xzvf lighthouse.tar.gz -C $HOME
 rm lighthouse.tar.gz
 ```
 
-Stop the services.
+Para los servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus validator
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 <pre class="language-bash"><code class="lang-bash">sudo rm /usr/local/bin/lighthouse
 <strong>sudo mv $HOME/lighthouse /usr/local/bin/lighthouse
@@ -87,15 +88,15 @@ git fetch --all && git checkout stable && git pull
 make
 ```
 
-:bulb:**Tip**: Improve some Lighthouse benchmarks by around 20% at the expense of increased compile time? Use `maxperf` profile.
+:bulb:**Tip**: ¿Mejorar algunos puntos de referencia de Lighthouse en torno a un 20% a costa de aumentar el tiempo de compilación? Usa `maxperf` perfiles.
 
-* To compile with maxperf, replace the above `make` command with
+* Para copilar con maxperf, sustituya el comando `make` anterior por.
 
 ```bash
 PROFILE=maxperf make
 ```
 
-In case of compilation errors, run the following sequence.
+En caso de copilar errores, ve el seguimiento de errores.
 
 ```bash
 rustup update
@@ -103,7 +104,7 @@ cargo clean
 make
 ```
 
-Verify lighthouse was built properly by checking the version number.
+Compruebe que lighthouse se ha creado correctamente verificando el número de versión.
 
 ```
 lighthouse --version
@@ -129,7 +130,7 @@ Remove old binaries, install new binaries and restart the services.
 
 <summary>Option 1 - Build from source code</summary>
 
-Pull the latest source and build Lodestar.
+Obtenga el código fuente más reciente y compile Lodestar.
 
 ```bash
 cd ~/git/lodestar
@@ -138,7 +139,7 @@ yarn install
 yarn run build
 ```
 
-:warning: In case of build errors or missing dependencies, run the following command.
+:warning: Si se producen errores de compilación o faltan dependencias, ejecute el siguiente comando.
 
 ```bash
 yarn clean:nm && yarn install
@@ -153,18 +154,17 @@ Verify Lodestar was installed properly by displaying the version.
 Sample output of a compatible version.
 
 ```
-🌟 Lodestar: TypeScript Implementation of the Ethereum Consensus Beacon Chain.
+🌟 Lodestar: Implementación en TypeScript de la cadena de balizas de consenso de Ethereum.
   * Version: v1.8.0/stable/a4b29cf
   * by ChainSafe Systems, 2018-2022
 ```
 
-Stop the services.
+Detener los servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus validator
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
-
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 ```bash
 sudo rm -rf /usr/local/bin/lodestar
 sudo cp -a $HOME/git/lodestar /usr/local/bin/lodestar
@@ -179,8 +179,7 @@ sudo systemctl start consensus validator
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
-
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 ```bash
 RELEASE_URL="https://api.github.com/repos/ConsenSys/teku/releases/latest"
 LATEST_TAG="$(curl -s $RELEASE_URL | jq -r ".tag_name")"
@@ -198,7 +197,7 @@ mv teku-* teku
 rm teku.tar.gz
 ```
 
-Stop the services.
+Parar el servicio.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus
 </strong><strong>
@@ -206,24 +205,24 @@ Stop the services.
 sudo systemctl stop validator
 </code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Eliminar los binarios antiguos, instalar los nuevos y reiniciar los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/teku
 sudo mv $HOME/teku /usr/local/bin/teku
 sudo systemctl start consensus
 
-# If running Standalone Teku Validator
-sudo systemctl start validator
+# If running Standalone Teku Validador
+sudo systemctl iniciar validador
 ```
 
-</details>
+</detalles>
 
-<details>
+<detalles>
 
 <summary>Option 2 - Build from source code</summary>
 
-Fetch the latest tags and build the binaries.
+Obtén las últimas etiquetas y compila los binarios.
 
 ```bash
 cd ~/git/teku
@@ -234,30 +233,30 @@ git checkout tags/$RELEASETAG
 ./gradlew distTar installDist
 ```
 
-Verify Teku was built properly by displaying the version.
+Verifique que Teku fue construido correctamente mostrando la version.
 
 ```shell
 cd $HOME/git/teku/build/install/teku/bin
 ./teku --version
 ```
 
-Stop the services.
+parar los servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus
 </strong><strong>
-</strong># If running Standalone Teku Validator
-sudo systemctl stop validator
+</strong># If running Standalone Teku Validador
+sudo systemctl parar validador
 </code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm -rf /usr/local/bin/teku
 sudo cp -a $HOME/git/teku/build/install/teku /usr/local/bin/teku
-sudo systemctl start consensus
+sudo systemctl start consenso
 
-# If running Standalone Teku Validator
-sudo systemctl start validator
+# Si ejecuta el validador Teku independiente
+sudo systemctl start validador
 ```
 
 </details>
@@ -268,7 +267,7 @@ sudo systemctl start validator
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/status-im/nimbus-eth2/releases/latest"
@@ -287,14 +286,14 @@ mv nimbus-eth2_Linux_amd64_* nimbus
 rm nimbus.tar.gz
 ```
 
-Stop the services.
+Detener los servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus
 </strong># If running standalone Nimbus Validator
 <strong>sudo systemctl stop validator
 </strong></code></pre>
 
-Remove old binaries, install new binaries, cleanup and restart the services.
+Elimine los binarios antiguos, instale los nuevos, limpie y reinicie los servicios.
 
 ```bash
 sudo rm /usr/local/bin/nimbus_beacon_node
@@ -304,54 +303,53 @@ sudo mv nimbus/build/nimbus_validator_client /usr/local/bin
 rm -r nimbus
 sudo systemctl start consensus
 # If running standalone Nimbus Validator
-sudo systemctl start validator
+sudo systemctl start validador
 ```
 
-Reminder: In combined CL+VC Nimbus configuration, there will be no validator systemctl service.
+Recordatorio: En la configuración combinada CL+VC Nimbus, no habrá servicio systemctl del validador.
 
 </details>
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2 - Construir desde el código fuente</summary>
 
-Pull the latest source code and build the binary.
+pon el último código fuente y construir el binario.
 
 <pre class="language-bash"><code class="lang-bash">cd ~/git/nimbus-eth2
 git checkout stable &#x26;&#x26; git pull
 make -j$(nproc) update
 <strong>make -j$(nproc) nimbus_beacon_node
-</strong>make -j$(nproc) nimbus_validator_client
+</strong>make -j$(nproc) nimbus_validador de cliente
 </code></pre>
 
-Verify Nimbus was built properly by displaying the version.
-
+Verifica que Nimbus fue construido correctamente mostrando la versión.
 ```bash
 cd $HOME/git/nimbus-eth2/build
 ./nimbus_beacon_node --version
 ```
 
-Stop the services.
+Detener servicios
 
 ```bash
-sudo systemctl stop consensus
-# If running standalone Nimbus Validator
-sudo systemctl stop validator
+sudo systemctl stop consenso
+# Si se ejecuta el validador Nimbus independiente
+sudo systemctl stop validador
 ```
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios..
 
 ```bash
 sudo rm /usr/local/bin/nimbus_beacon_node
 sudo rm /usr/local/bin/nimbus_validator_client
 sudo cp $HOME/git/nimbus-eth2/build/nimbus_beacon_node /usr/local/bin
 sudo cp $HOME/git/nimbus-eth2/build/nimbus_validator_client /usr/local/bin
-sudo systemctl start consensus
-# If running standalone Nimbus Validator
-sudo systemctl start validator
+sudo systemctl start consenso
+# Si se ejecuta el Validador Nimbus independiente
+sudo systemctl start validador
 ```
 
-Reminder: In combined CL+VC Nimbus configuration, there will be no validator systemctl service.
+Recordatorio: En la configuración combinada CL+VC Nimbus, no habrá servicio systemctl del validador.
 
 </details>
 
@@ -359,32 +357,32 @@ Reminder: In combined CL+VC Nimbus configuration, there will be no validator sys
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Option 1 - Descargar binarios</summary>
 
-Run the following to automatically download the latest binaries.
+Ejecute lo siguiente para descargar automáticamente los últimos binarios.
 
 ```bash
 cd $HOME
 prysm_version=$(curl -f -s https://prysmaticlabs.com/releases/latest)
-file_beacon=beacon-chain-${prysm_version}-linux-amd64
-file_validator=validator-${prysm_version}-linux-amd64
-curl -f -L "https://prysmaticlabs.com/releases/${file_beacon}" -o beacon-chain
-curl -f -L "https://prysmaticlabs.com/releases/${file_validator}" -o validator
-chmod +x beacon-chain validator
+file_beacon=cadena-${prysm_version}-linux-amd64
+file_validator=validador-${prysm_version}-linux-amd64
+curl -f -L «https://prysmaticlabs.com/releases/${file_beacon}» -o beacon-chain
+curl -f -L «https://prysmaticlabs.com/releases/${file_validator}» -o validator
+chmod +x baliza-cadena validador
 ```
 
-Stop the services.
+Detener servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus validator
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Eliminar los binarios antiguos, instalar los nuevos y reiniciar los servicios.
 
 ```bash
 sudo rm /usr/local/bin/beacon-chain
 sudo rm /usr/local/bin/validator
-sudo mv beacon-chain validator /usr/local/bin
-sudo systemctl start consensus validator
+sudo mv validador beacon-chain /usr/local/bin
+sudo systemctl start validador de consenso
 ```
 
 </details>
@@ -393,68 +391,68 @@ sudo systemctl start consensus validator
 
 <summary>Option 2 - Build from source code</summary>
 
-Pull the latest source code and build the binaries.
+Extraer el código fuente más reciente y compilar los binarios.
 
 ```bash
 cd $HOME/git/prysm
 git fetch --tags
-RELEASETAG=$(curl -s https://api.github.com/repos/prysmaticlabs/prysm/releases/latest | jq -r .tag_name)
+RELEASETAG=$(curl -s https://api.github.com/repos/prysmaticlabs/prysm/releases/latest | jq -r .nombre_etiqueta)
 git checkout tags/$RELEASETAG
 go build -o=./build/beacon-chain ./cmd/beacon-chain
 go build -o=./build/validator ./cmd/validator
 ```
 
-Stop the services.
+Detener Servicios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl stop consensus validator
 </strong></code></pre>
 
-Remove old binaries, install new binaries and restart the services.
+Elimine los binarios antiguos, instale los nuevos y reinicie los servicios.
 
 ```bash
 sudo rm /usr/local/bin/beacon-chain
 sudo rm /usr/local/bin/validator
 sudo cp $HOME/git/prysm/build/beacon-chain /usr/local/bin
 sudo cp $HOME/git/prysm/build/validator /usr/local/bin
-sudo systemctl start consensus validator
+sudo systemctl start validador de consenso
 ```
 
 </details>
 
-## Step 2: Verify services and logs are working properly
+## Paso 2: Verificar que los servicios y registros funcionan correctamente
 
 {% tabs %}
-{% tab title="Lighthouse | Prysm | Lodestar | Nimbus | Teku" %}
+{% tab title=«Faro | Prysm | Lodestar | Nimbus | Teku» %}
 ```bash
-# Verify services status
+# Verificar el estado de los servicios
 sudo systemctl status consensus validator
 ```
 
 ```bash
 # Check logs
-sudo journalctl -fu consensus
+sudo journalctl -fu consenso
 ```
 
 ```bash
-sudo journalctl -fu validator
+sudo journalctl -fu validador
 ```
 {% endtab %}
 
 {% tab title=" Combined BN+VC for Nimbus | Teku" %}
 ```bash
-# Check services status
+# Comprobar el estado de los servicios
 sudo systemctl status consensus 
 ```
 
 ```bash
 # Check logs
-sudo journalctl -fu consensus
+sudo journalctl -fu consenso
 ```
 {% endtab %}
 {% endtabs %}
 
-## Step 3: Optional - Verify your validator's attestations on public block explorer
+## Paso 3: Opcional - Verifique las atestaciones de su validador en el explorador público de bloques
 
-1\) Visit [https://holesky.beaconcha.in](https://holesky.beaconcha.in/)
+1\) Visita [https://holesky.beaconcha.in](https://holesky.beaconcha.in/)
 
-2\) Enter your validator's pubkey into the search bar and look for successful attestations.
+2\) Introduzca la pubkey de su validador en la barra de búsqueda y busque los certificados correctos.
