@@ -1,42 +1,39 @@
-# Guide: Crypto Wallet Tips 101 - Do's and Don'ts
-
-## :superhero: Getting Crypto Super Powers
-
-Becoming a crypto super hero can be an exhilarating and rewarding journey.
+# Guía: Consejos 101 sobre Crypto Wallet: qué hacer y qué no hacer
+## :superhero: Obteniendo superpoderes criptográficos
+Convertirse en un superhéroe criptográfico puede ser un viaje estimulante y gratificante.
 
 {% hint style="danger" %}
-It's critical to grasp a solid understanding of crypto wallets. \
-Without such, a wallet can be quickly emptied. :sob: \
-There is no help line to call or way to reverse a transaction. \
-Remember, only you can defend yourself with knowledge. :right\_facing\_fist:&#x20;
+Es fundamental tener una comprensión sólida de las billeteras criptográficas. \
+Sin esto, la billetera se puede vaciar rápidamente. :sob: \
+No existe una línea de ayuda a la que llamar ni forma de revertir una transacción. \
+Recuerda, sólo tú puedes defenderte con conocimiento.:right\_facing\_fist:&#x20;
 {% endhint %}
 
-> "**With great power comes great responsibility**"&#x20;
+> "**Un gran poder conlleva una gran responsabilidad**"&#x20;
 >
-> \- Peter Parker Principle
+> \- Peter Parker Principio
 
-## :bulb: The Do's and Don'ts of Crypto Wallets
-
+## :bulb: Lo que se debe y no se debe hacer con las carteras criptográficas
 {% hint style="info" %}
-Listed in order of **what not to do** alongside with the correct action **to do**.
+Enumerados en orden de **qué no hacer** junto con la acción correcta **que hacer**.
 {% endhint %}
 
-## :compass:1. Using Wallets
+## :compass:1. Usando Portafolios
 
-| :crossed\_swords: Don't                                           | :white\_check\_mark:Do                                                                                              |
+| :crossed\_swords: Que no hacer                                           | :white\_check\_mark:Que hacer                                                                                              |
 | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Send a transaction blindly                                        | Double check the cryptocurrency type, amount, and destination address                                               |
-| Send a large amount to new address                                | Send a small test transaction firstly                                                                               |
-| Type a complicated long address                                   | Avoid typos by using a QR scanner or copy/paste an address                                                          |
-| Leave your wallet unattended or unlocked                          | Logout or lock your wallet/device                                                                                   |
-| Blindly trust downloaded wallets                                  | Verify the authenticity of a wallet's hash                                                                          |
-| Store large amounts of crypto on an exchange or your phone/laptop | Store crypto on a dedicated hardware wallet aka Cold Storage                                                        |
-| Use an exchange or 3rd party as a wallet                          | Reduce counterparty risk by using your own wallet                                                                   |
-| Carry around too much on mobile wallets                           | Store only what you need for everyday spending on mobile wallets                                                    |
-| Use simple to guess/lazy passwords                                | Use a "[password manager](https://learn.shakepay.co/passwords-and-password-managers/)" to generate strong passwords |
+| Enviar una transacción a ciegas                                       | Verifique nuevamente el tipo de criptomoneda, la cantidad y la dirección de destino                                              |
+| Enviar una gran cantidad a una nueva dirección                                | Envíe primero una pequeña transacción de prueba                                                                               |
+|Escriba una dirección larga y complicada                                   | Evite errores tipográficos utilizando un escáner QR o copie/pegue una dirección                                                          |
+| Deja tu billetera desatendida o desbloqueada                          | Cerrar sesión o bloquear su billetera/dispositivo                                                                                   |
+| Confíar ciegamente en las carteras descargadas                                  | Verificar la autenticidad del hash de una billetera                                                                          |
+| Almacene grandes cantidades de criptomonedas en un intercambio o en su teléfono/computadora portátil | Almacene criptomonedas en una billetera de hardware dedicada, también conocida como Cold Storage                                                        |
+| Utilice un intercambio o un tercero como billetera                          | Reduzca el riesgo de contraparte usando su propia billetera                                                                   |
+|Llevar demasiado en carteras móviles                           | Almacene solo lo que necesita para sus gastos diarios en billeteras móviles                                                   |
+|Utilice contraseñas fáciles de adivinar o vagas                               | Utilice un "[administrador de contraseñas](https://learn.shakepay.co/passwords-and-password-managers/)" para generar contraseñas seguras |
 
 {% hint style="danger" %}
-Elaborate scams or impersonation attempts are common schemes used by fraudsters to steal your private keys. Don't fall for it!
+Las estafas elaboradas o los intentos de suplantación de identidad son esquemas comunes utilizados por los estafadores para robar sus claves privadas. ¡No caigas en ello!
 {% endhint %}
 
 ## :key2:2. Managing seed phrase and private keys

@@ -1,157 +1,156 @@
-# Step 1: Prerequisites
+# Primer paso: Prerequisitos
 
-## :rocket: How Staking on Ethereum Works
+## :rocket: Como funcionan las pruebas de participación en Ethereum
 
-1. Acquire some hardware (laptop, desktop, server) or rent a VPS (cloud server): You need to run a node to stake.
-2. Sync an execution layer client
-3. Sync a consensus layer client
-4. Generate your validator keys and import them into your validator client
-5. Monitor and maintain your node
+1. Consigue un dispositivo(laptop, pc de escritorio, servidor) o renta un VPS (servidor en la nube): necesitas correr un nodo para hacer la prueba.
+2. Sincroniza una capa de ejecución de cliente
+3. Sincroniza un algoritmo de consenso de prueba de participación
+4. Genera tus claves de validación e importalas a tu cliente de validación
+5. Supervise y mantenga su nodo
 
-A Ethereum node consists of the Execution Layer + Consensus Layer.
+Un nodo de ethereum consisten en la capa de ejecución + la capa de consenso.
 
-A Ethereum Staking node is the previous plus a Validator client.
+Un nodo de prueba de participación de ethereum es el anterior + un cliente validador
 
-<figure><img src="../../../.gitbook/assets/client-stack.png" alt=""><figcaption><p>Client Stack</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/client-stack.png" alt=""><figcaption><p></p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/eth-validator-diagram.png" alt=""><figcaption><p>Big picture: Execution / Consensus / Validator</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/eth-validator-diagram.png" alt=""><figcaption><p>Foto: Ejecución / Consenso / Validador</p></figcaption></figure>
 
-## :wave: Introduction
+## :wave: Introducción
 
-This guide was written for aspiring Ethereum stakers who have basic familiarity with command line tools and it was tested against Ubuntu 22.04.1 LTS client. You’ll want a dedicated cloud VPS or local desktop/server/laptop running a clean install of Ubuntu preferably.
+Esta guia esta escrita para aspirantes a manejo de nodos de prueba de participación que estén familiarizados con lineas de comando que hayan sido probadas con el cliente de Ubuntu 22.04.1 LTS. Querrás una nube dedicada VPS o una pc/servidor/laptop local corriendo una version de Ubuntu, limpia preferentemente.
 
-### Terminology
+### Terminología
 
-Your Ethereum staking node may be
+Su nodo de ethereum puede ser
 
-* **Local:** on a laptop / PC / NUC that you can physically connect keyboard/mouse/monitor.
-* **Remote:** in the cloud on a VPS
+* **Local:** En una laptop/pc/ NUC a la que le puedas concetar fisicamente un teclado/mouse/monitor.
+* **Remoto:** En la nube o en un VPS
 
-If your staking node is **remote**, then you will want to setup SSH, secure shell.
+Si su nodo de prueba de participación es **remoto**, entonces debería agregar una SSH.
 
-If using a VPS or **remote** node, install and start the SSH client for your operating system:
+Si esta usando un VPS o un nodo **remoto** , instale e inicie el cliente SSH para su sistema operativo:
 
 **Windows**: [PuTTY](https://www.puttygen.com/download-putty)
 
-**MacOS and Linux**: from the Terminal, use the native command:
+**MacOS y Linux**: Para la terminal, use el código nativo:
 
 ```
-ssh <YourUserName>@<YourServersIP>
+ssh <Tunombredeusuario>@<LaIPdetuservidor>
 ```
 
-Here's a [guide from Makeuseof](https://www.makeuseof.com/tag/beginners-guide-setting-ssh-linux-testing-setup/) to connect by SSH to your **remote node.**
+Aquí hay una [guía de Makeuseof](https://www.makeuseof.com/tag/beginners-guide-setting-ssh-linux-testing-setup/) para conectar por SSH tu **nodo remoto.**
 
-## :hammer\_pick: How to Run Commands
+## :hammer\_pick: Cómo correr comandos
 
-* Commands are to be run in a terminal window or ssh terminal.
-* Commands preceded by `sudo` will prompt for your password at first, and periodically afterwards.
+* Los comandos corren en una ventana terminal o un ssh terminal.
+* Los comandos que inician con `sudo` pedirán su contraseña al inicio, y periodicamente despues.
 
-## :woman\_technologist: Skills for operating an staking node
+## :woman\_technologist: Habilidades para operar un nodo de prueba de participación
 
-As a validator for Ethereum, you will typically have the following abilities:
+Como un validador de Ethereum, deberías de poseer las siguientes habilidades:
 
-* operational knowledge of how to set up, run and maintain a Ethereum consensus client, execution client and validator continuously
-* a long term commitment to maintain your validator 24/7/365
-* basic operating system skills
+* Conocimiento operacional de como establecer, correr y mantener un cliente de consenso de ETH, cliente de ejecución y un validador constantemente
+* Un compromiso a largo plazo para mantener tu validador 24/7/365
+* Habilidades básicas de operación de sistemas
 
-## :man\_technologist: Experience required to be a successful ETH Staker
+## :man\_technologist: Experiencia requerida para ser un apstador de ETH exitoso
 
-* have perused the vast tomes of the [EthStaker Knowledge Base](https://docs.ethstaker.cc/ethstaker-knowledge-base/)
-* have learned the essentials by watching ['Intro to Eth2 & Staking for Beginners' by Superphiz](https://www.youtube.com/watch?v=tpkpW031RCI)
-* have passed or is actively enrolled in the [Eth2 Study Master course](https://ethereumstudymaster.com)
-* and have read the [8 Things Every Eth2 validator should know.](https://medium.com/chainsafe-systems/8-things-every-eth2-validator-should-know-before-staking-94df41701487)
+* Haber examinado los vastos tomos de ["Conocimiento base de apostadores de ETH"](https://docs.ethstaker.cc/ethstaker-knowledge-base/)
+* Haber aprendido lo escencial viendo ["Introducción a ETH2 y apuestas para principiantes" de Superphiz](https://www.youtube.com/watch?v=tpkpW031RCI)
+* Haber cursado o participar activamente el [Curso de estudio para dominar ETH2](https://ethereumstudymaster.com)
+* Haber leido [8 cosas que cada validador de ETH2 debería saber.](https://medium.com/chainsafe-systems/8-things-every-eth2-validator-should-know-before-staking-94df41701487)
 
-## :reminder\_ribbon: **Minimum Node Setup Requirements**
+## :reminder\_ribbon: **Requisitos mínimos para establecer nodos**
 
-* **Operating system:** 64-bit Linux (i.e. Ubuntu 22.04.1 LTS Server or Desktop)
-* **Processor:** Dual core CPU, Intel Core i5–760 or AMD FX-8100 or better
-* **Memory:** 16GB RAM
-* **Storage:** 1TB SSD for testnet
-* **Internet:** Stable broadband internet connection with speeds at least 5 Mbps upload and download.
-* **Internet Data Plan**: At least 2 TB per month.
-* **Power:** Reliable electrical power. Mitigate with a [Uninterruptible Power Supply (UPS)](https://www.lifewire.com/best-uninterrupted-power-supplies-4142625).
-* **ETH balance:** at least 32 ETH and some ETH for deposit transaction fees
-* **Wallet**: [Rabby](https://rabby.io/) wallet installed
+* **Sisstema operativo:** Linux de 64 bits (i.e. Ubuntu 22.04.1 LTS Serviodor o PC)
+* **Procesador:** CPU de 2 nucleos Intel Core i5–760 o AMD FX-8100 o alguno más potente
+* **RAM:** 16GB RAM
+* **Almacenamiento:** 1TB SSD para redes de prueba
+* **Internet:** Conección de banda ancha estable con una velocidad de almenos 5 Mbps para carga y descarga.
+* **Plan de datos**: Al menos 2 TB mensuales.
+* **Fuente eléctrica:** Confiablel. Mitigar con un [Suministro Eléctrico ininterrumpido (UPS)](https://www.lifewire.com/best-uninterrupted-power-supplies-4142625).
+* **Balance de ETH:** Al menos 32 ETH y algunos ETH fondo para tarifas por transacción de depósitos
+* * **Cartera virtual**: [Rabby](https://rabby.io/) Cartera instalada
 
-## :man\_lifting\_weights: Recommended Node Setup Requirements
+## :man\_lifting\_weights: Requisitos recomendados para establecer nodos
 
-{% hint style="info" %}
-Once done with testnet staking, this hardware configuration would be suitable for a mainnet staking node.
-{% endhint %}
+{% Tipo de pista="información" %}
+Una vez acabado el testeo de redes de replanteo, esta configuración de hardware sera la ideal para establecer los nodos.
+{% Fin de la pista %}
 
-* **Operating system:** 64-bit Linux (i.e. Ubuntu 22.04.1 LTS Server or Desktop)
-* **Processor:** Quad core CPU, Intel Core i7–4770 or AMD FX-8310 or better
-* **Memory:** 32GB RAM
-* **Storage:** 4TB NVME
-* **Internet:** Stable broadband internet connections with speeds at least 10 Mbps without data limit.
-* **Data Plan**: At least 2 TB per month. Ideally, no data cap or unlimited data plan.
-* **Power:** Reliable electrical power with a [Uninterruptible Power Supply (UPS)](https://www.lifewire.com/best-uninterrupted-power-supplies-4142625).
-* **ETH balance:** at least 32 ETH and some ETH for deposit transaction fees
-* **Wallet**: [Rabby](https://rabby.io/) wallet installed
+* **Sistema operativo:** Linux de 64-bit (i.e. Ubuntu 22.04.1 LTS Servidor o pc)
+* **Processor:** Una CPU de 4 núcleos, Intel Core i7–4770 o AMD FX-8310 o más potente
+* **Memoria:** 32GB RAM
+* **Almacenamiento:** 4TB NVME
+* **Internet:** Red de banda ancha estable con una velocidad al menos de 10mbps sin límite de uso.
+* **Plan de datos**: Al menos 2 TB por mes. Lo ideal seria que no hubiera límite de datos
+* **Suministro eléctrico:** Una fuente eléctrica confiable con un[Flujo eléctrico ininterrumpido (UPS)](https://www.lifewire.com/best-uninterrupted-power-supplies-4142625).
+* **EBalance de ETH:** Almenos 32 ETH y algunos ETH for tarifas de transacción de depósitos
+* **Cartera virtual**: [Rabby](https://rabby.io/) Una cartera instalada
+{% Tipo de pista="información" %}
+:desktop: **Construcciones de Hardware**: Para ejemplificar construcciones de hardware de replanteo, checa [Guía de hardware de rocketpool(https://github.com/rocket-pool/docs.rocketpool.net/blob/main/docs/guides/node/local/hardware.md#example-setups) y [Ejemplos de hardware de apostadores de ETH](https://docs.ethstaker.cc/ethstaker-knowledge-base/hardware/hardware-examples).
+{% Fin de la pista %}
 
-{% hint style="info" %}
-:desktop: **Hardware Builds**: For examples of actual staking hardware builds, check out [RocketPool's hardware guide](https://github.com/rocket-pool/docs.rocketpool.net/blob/main/docs/guides/node/local/hardware.md#example-setups) and [Ethstaker's Hardware Examples](https://docs.ethstaker.cc/ethstaker-knowledge-base/hardware/hardware-examples).
-{% endhint %}
+{% Tipo de pista="información" %}
+:cd: **Sugerencias de almacenamiento**: Checa lo siguiente para encontrar tu NUVME o SSD ideal.
 
-{% hint style="info" %}
-:cd: **Storage Suggestion**: Check out the following to find your ideal NVME or SSD drive.
-
-* [**Yorick's Storage Advice**](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038): Refer to Yorick's Great and less great SSDs for Ethereum nodes
-* [**Top SSD List**](https://docs.google.com/spreadsheets/d/1B27\_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4/edit)**:** Suitable drives are identified as Mid-Range or better.
-{% endhint %}
+* [**Consejos de almacenamiento de Yorick**](https://gist.github.com/yorickdowne/f3a3e79a573bf35767cd002cc977b038): Consulte las más y menos grandes recomendaciones de Yorick de SSDs para nodos de ethereum
+* [**Lista de las mejores SSD**](https://docs.google.com/spreadsheets/d/1B27\_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4/edit)**:** Las SSD más apropiadas están en un rango medio o superior
+{% Fin de la pista %}
 
 <figure><img src="../../../.gitbook/assets/ethereum-inside.png" alt=""><figcaption><p>Ethereum Staking Node</p></figcaption></figure>
 
-{% hint style="success" %}
-:sparkles: **Pro Validator Tip**: Highly recommend you begin with a brand new instance of an OS, VM, and/or machine. Avoid headaches by NOT reusing testnet keys, wallets, or databases for your validator.
-{% endhint %}
+{% Estilo de psita="Exito" %}
+:sparkles: **Tip para validadores pro**: Es altamente recomendado que inicies con una instancia completamente nueva de un sistema operativo, máquina virtual y/o máquina. Ahorra dolores de cabeza evitando reusar llaves de redes de prueba, wallets o bases de datos para tu validador.
+{% fin de la pista %}
 
-## :desktop: Local Node vs Remote Node
+## Nodo Local vs Nodo remoto
 
-**Decision**: Do I run my Ethereum staking node locally at home or rent a VPS cloud server remotely? Here's a list of criteria to help you decide.
+**Decisión**: Correré mi nodo de prueba de participación localmente o rentaré un servidor en la nube de VPS remotamente? A continuación hay una lista de criterios que lo ayudarán a decidir
 
-|       Criteria       | Local Node                                                                                                                                         | Remote Node                                                                                                                                                                 |
+|       Criterio       | Nodo Local                                                                                                                                         | Nodo remoto                                                                                                                                                                |
 | :------------------: | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     Ongoing Costs    | Plus - No fees, besides internet bill and electricity.                                                                                             | Minus - Monthly or Annual reoccurring rental fees.                                                                                                                          |
-| Hardware Maintenance | Minus - Do it yourself if hardware issues.                                                                                                         | Plus - Included, covered by hosting provider.                                                                                                                               |
-|       Internet       | Minus - Can slow down home internet and use up data plan (if not unlimited) Budget for at least 2TB per month data plan.                           | Plus - Often plans are generous and more than sufficient for an ETH node.                                                                                                   |
-|      Reliability     | Minus - Do it yourself with UPS, redundant internet connections, computer issues                                                                   | Plus - Hosted in a data center with multiple power/internet backups.                                                                                                        |
-|   Barrier to Entry   | <p>Plus - Can re-use or re-purpose existing hardware<br><br>Minus - Initial cost to purchase new computer equipment</p>                            | Plus - Renting a VPS might require a lower initial investment as you can pay monthly.                                                                                       |
-|   Decentralization   | Plus - Home staking is the **gold standard** for Ethereum decentralization, nothing bets it!                                                       | Minus - VPS cloud hosts like [Netcup](https://www.netcup.eu/bestellen/produkt.php?produkt=3026) or AmazonWebServices are by nature more centralized.                        |
-|     Customization    | Plus - More fine control over hardware configuration                                                                                               | Minus - May be limited choices and hardware can be shared. For example, a common issue is insufficient disk storage I/O speeds (IOPS).                                      |
-|       Security       | Plus - As secure as your home and personal [OPSEC](https://en.wikipedia.org/wiki/Operations\_security)                                             | <p>Plus - Enterprise-grade, professional data centers.</p><p>Minus - Not your hardware, not your node. It's possible the hosting provide can view your node's contents.</p> |
-|        Freedom       | <p>Plus - Do whatever you want. Plan your own upgrades.<br><br>Minus - With great freedom and power, you are solely responsible for your node.</p> | <p>Plus - Professionally managed.</p><p><br>Minus - At the mercy of the host's actions, data center outages are possible.</p>                                               |
+|   Costos continuos |Bueno - Sin comisiones además de las facturas de internet y luz                                                                                             |Malo - Tarifas de alquiler mensuales o anuales recurrentes                                                                                                                         |
+| Mantenimiento de hardware | Malo - Resuelve usted mismo los problemas con el hardware.                                                                                                         | Bueno - Incluido y cubierto con el proveedor de hoasting.                                                                                                                               |
+|       Internet       | Malo - Puede alentar el internet y acabarse el plan de datos (si no es ilimitado). Presupuesto para planes de 2TB mensuales.                           | Bueno - Existen planes bastante generosos y que son más que suficiente para nodos de Ethereum                                                                                                   |
+|      Fiabilidad    | Malo - Se encarga usted mismo de UPS, conecciones de internet redundantes, problemas técnicos                                                                  | Bueno - Suelen alojarse en centros de información con multiples conecciones a energía/a internet.                                                                                                       |
+|  Barrera para entrar   | <p>Bueno - Puedes reutilizar hardware ya existente<br><br>Malo - El costo inicial de una computadora es alto</p>                            | Bueno - Rentar un VPS puede requerrir una inversion inicial menor que además se puede pagar en meses.                                                                                       |
+|   Decentralization   | Bueno - El reeplanteamiento en casa es el**Estandart dorado** para la descentralización de Ethereum!                                                       | Malo - Host en la nube de VPS como [Netcup](https://www.netcup.eu/bestellen/produkt.php?produkt=3026) o los dispositivos en la web de amazon son, por naturaleza, centralizados.                        |
+|     Customización    | Bueno - Mayor control sobre las configuraciones del hardware                                                                                               | Malo - Pueden ser opciones limitadas y el hardware podría compartirse. Por ejemplo, un error común es falta de espacio en el servidor de velocidad I/O (IOPS).                                      |
+|       Seguridad       | Bueno - Tan seguro como tu casa y tu [OSPEC](https://en.wikipedia.org/wiki/Operations\_security)                                             | <p>Bueno - Centros de datos profesionales de nivel empresarial.</p><p>Malo - No es ni tu hardware ni tu nodo. Es posible que tu proveedor de hoasting pueda acceder a tu nodo.</p> |
+|        Libertad      | <p>Bueno - Haz lo que desees. Planea tus propias mejoras.<br><br>Malo - Con una gran libertad y poder, te vuelves el único responsable de tu nodo.</p> | <p>Bueno - Manejado profesionalmente.</p><p><br>Malo - A merced de las acciones del anfitrión, es posible que se produzcan interrupciones en el centro de datos.</p>                                               |
 
-## :tools: Setup Ubuntu
+## :tools: Configurando Ubuntu
 
-With your local or remote node, now you need to install an Operating System. This guide is designed for Ubuntu 22.04.1 LTS.
+Con tu nodo local o remoto ya listo, necesitas descargar el sistema operativo. Esta guía habla de como instalar Ubuntu 22.04.1 LTS.
 
-* To install **Ubuntu Server or Desktop**, refer to this [guide](https://docs.ethstaker.cc/ethstaker-knowledge-base/tutorials/installing-linux).
+* Para instalar **el servidor o escritorio de UBUNTU**, sigue esta [guía](https://docs.ethstaker.cc/ethstaker-knowledge-base/tutorials/installing-linux).
 
-{% hint style="info" %}
-**Recommendation**: A headless (no monitor) install of **Ubuntu Server** on a **dedicated** NUC/laptop/desktop/VPS is best for ease of reliability and security. :fire: Do not use this system for email/browsing web/gaming/socials. :fire:
-{% endhint %}
+{% Tipo de pista="información" %}
+**Recommendacióbn**: A headless (no monitor) install del **Servidor de Ubuntu** en **una** NUC/laptop/pc/VPS mejora la fiabilidad y seguridad. :fire: no uses este sistema para email/navegar en linea/videojuegos/redes sociales. :fire:
+{% Fin de la pista %}
 
-{% hint style="warning" %}
-**Tip**: When installing Ubuntu Server, ensure you are selecting “**Use an entire disk**” on the **Guided storage configuration** screen. Next screen will be the **Storage configuration** screen, ensure your settings are using all available disk storage. A [common issue](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-iii-tips/using-all-available-lvm-disk-space.md) is that Ubuntu server defaults to using only 200GB.
-{% endhint %}
+{% Tipo de pista="advertencia" %}
+**Tip**: Cuando instales el servidor de Ubuntu, Asegurate de haber seleccionado “**Usar un disco entero**” en la pantalla **Configuración de almacenamiento guiada**. La siguiente pantalla será la de **Configuración de akmacenamiento** , Asegurese de que su configuración este usando todo el disco. Un [error común](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-iii-tips/using-all-available-lvm-disk-space.md) es que la configuración estandart de Ubuntu solo usa 200GB.
+{% Fin de la pista %}
 
-## :performing\_arts: Setup Rabby
+## :El arte de\_la maestría: Configurar Rabby
 
-When the time comes to make your validator's 32ETH deposit(s), you'll need a wallet to transfer funds to the beacon chain deposit contract.
+Cuando llegue el momento de validar el deposito de tus 32ETH, necesitaras una cartera digital para transferir los fondos al contrato de depósito de la cadena
 
-* To install Rabby, visit their [official site.](https://rabby.io/)
+* Para instalar rabby, visita su [sitio oficial.](https://rabby.io/)
 
-## :jigsaw: High Level Validator Node Overview
+## :jigsaw: Descripción general del nodo validador de alto nivel
 
-{% hint style="info" %}
+{% Estilo de pista="información" %}
 At the end of this guide, you will build a staking validator node that hosts three main components in two layers: consensus layer consists of a consensus client, also known as a validator client with a beacon chain client. The execution layer consists of a execution client, formerly a eth1 node.
 
-**Validator client** - Responsible for producing new blocks and attestations in the beacon chain and shard chains.
+**Cliente del validador** - Responsable de producir nuevos bloques y en los atestados de la cadena de tocino y cadena de cristales.
 
-**Consensus client** - Responsible for managing the state of the beacon chain, validator shuffling, and more.
+**Cliente de consenso** - Responsable de manejar el estado de la cadena de tocino, barajado del validador, y más.
 
-**Execution client** - Supplies incoming validator deposits from the eth mainnet chain to the beacon chain client.
-{% endhint %}
+**Cliente de ejecución** - Regula los depositos del validador de la red principal de ETH a la cadena de tocino del cliente.
+{% Fin de la pista %}
 
-![How Ethereum nodes fits together featuring Leslie the Rhino, the mascot named after American computer scientist Leslie Lamport](../../../.gitbook/assets/eth2network.png)
+![Cómo los nodos de ethereum encajan juntos con Leslie the Rhino, la mascota que lleva el nombre de la científica informática estadounidense Leslie Lamport](../../../.gitbook/assets/eth2network.png)

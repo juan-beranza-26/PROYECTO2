@@ -1,32 +1,32 @@
 ---
-description: >-
-  A global, open-source platform for decentralized applications. On Ethereum,
-  you can write code that controls digital value, runs exactly as programmed,
-  and is accessible anywhere in the world.
+descripción: >-
+  Una plataforma global de código abierto para aplicaciones descentralizadas. En Etereum,
+  puede escribir código que controle el valor digital, se ejecute exactamente según lo programado,
+  y es accesible en cualquier parte del mundo.
 ---
 
 # Ethereum: ETH
 
-## <img src="../../.gitbook/assets/eth.png" alt="" data-size="original"> General Data
+## <img src="../../.gitbook/assets/eth.png" alt="" data-size="original"> Datos Generales
 
-| Site        | Title                                                                                                  |
+| Sitio        | Titulo                                                                                                  |
 | ----------- | ------------------------------------------------------------------------------------------------------ |
-| Website     | [https://www.ethereum.org/](https://www.ethereum.org/)                                                 |
-| Source Code | [https://github.com/ethereum](https://github.com/ethereum)                                             |
+| Sitio web     | [https://www.ethereum.org/](https://www.ethereum.org/)                                                 |
+| Código fuente | [https://github.com/ethereum](https://github.com/ethereum)                                             |
 | Whitepaper  | [https://github.com/ethereum/wiki/wiki/White-Paper](https://github.com/ethereum/wiki/wiki/White-Paper) |
 
-## :person\_raising\_hand: Social Media and Community
+## :person\_raising\_hand: Redes sociales y comunidad
 
-| Community       | Link                                                                           |
+| Comunidad       | Link                                                                           |
 | --------------- | ------------------------------------------------------------------------------ |
 | :bird: Twitter  | [https://twitter.com/ethereum](https://twitter.com/ethereum)                   |
 | Reddit          | [https://reddit.com/r/ethereum](https://reddit.com/r/ethereum)                 |
 | Official Forums | [https://forum.ethereum.org/](https://forum.ethereum.org/)                     |
 | Gitter          | [https://gitter.im/orgs/ethereum/rooms](https://gitter.im/orgs/ethereum/rooms) |
 
-## :arrows\_clockwise: Block Explorers
+## :arrows\_clockwise: Exploradores de bloques
 
-| Site                                              |
+| Sitio                                              |
 | ------------------------------------------------- |
 | [Etherscan.io](https://etherscan.io/)             |
 | [Blockchair.com](https://blockchair.com/ethereum) |
@@ -34,9 +34,9 @@ description: >-
 | [Etherchain.org](https://etherchain.org/)         |
 | [beaconcha.in](https://beaconcha.in/)             |
 
-## :bar\_chart: Charts and Pricing
+## :bar\_chart: Gráficos y precios
 
-| Site          | Link                                                                                                 |
+| Sitio          | Link                                                                                                 |
 | ------------- | ---------------------------------------------------------------------------------------------------- |
 | CoinPaprika   | [https://coinpaprika.com/coin/eth-ethereum/](https://coinpaprika.com/coin/eth-ethereum/)             |
 | CoinMarketCap | [https://coinmarketcap.com/currencies/ethereum/](https://coinmarketcap.com/currencies/ethereum/)     |
