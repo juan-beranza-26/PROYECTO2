@@ -1,10 +1,10 @@
-# Guide: How to buy ETH
+# Guide: como comprar  ETH
 
-## :fire: 1. Get some money into crypto
+## :fire: 1. Consiga algo de dinero en criptomonedas
 
-## :currency\_exchange: 2. Convert on Exchange
+## :currency\_exchange: 2. Convertir en Exchange
 
-| Site                                                                   | Pairs             | Location   | KYC Required?      |
+| Sitio                                                                  | Pares             | Ubicación  | ¿Se requiere KYC?  |
 | ---------------------------------------------------------------------- | ----------------- | ---------- | ------------------ |
 | [Binance](https://www.binance.com/en/register?ref=RI4R7YI6)            | BTC-BNB-BUSD-USDT | Global     | No. 2₿/day.        |
 | [CoinEx](https://www.coinex.com/register?refer\_code=6rcz2)            | BCH-BTC-USDT      | Hong Kong  | No. 10,000USD/day. |

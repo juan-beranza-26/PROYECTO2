@@ -3,20 +3,20 @@
 ## Overview
 
 {% hint style="info" %}
-[Lodestar ](https://lodestar.chainsafe.io)is a Typescript implementation of the official Ethereum specification by the [ChainSafe.io](https://lodestar.chainsafe.io) team. In addition to the beacon chain client, the team is also working on 22 packages and libraries. A complete list can be found [here](https://hackmd.io/CcsWTnvRS\_eiLUajr3gi9g). Finally, the Lodestar team is leading in light client research and development and has received funding from the EF and Moloch DAO for this purpose.
+[Lodestar ](https://lodestar.chainsafe.io)es una implementación de Typescript de la especificación oficial de Ethereum por parte del equipo de[ChainSafe.io](https://lodestar.chainsafe.io). Además del cliente de cadena Beacon, el equipo también está trabajando en 22 paquetes y bibliotecas. Puede encontrar una lista completa [aqui](https://hackmd.io/CcsWTnvRS\_eiLUajr3gi9g). Finalmente, el equipo de Lodestar es líder en la investigación y el desarrollo de clientes ligeros y ha recibido financiación de EF y Moloch DAO para este propósito.
 {% endhint %}
 
 #### Official Links
 
-| Subject       | Links                                                                                            |
+| Sujeto        | Enlaces                                                                                            |
 | ------------- | ------------------------------------------------------------------------------------------------ |
-| Releases      | [https://github.com/ChainSafe/lodestar/releases](https://github.com/ChainSafe/lodestar/releases) |
-| Documentation | [https://chainsafe.github.io/lodestar](https://chainsafe.github.io/lodestar/)                    |
-| Website       | [https://lodestar.chainsafe.io](https://lodestar.chainsafe.io/)                                  |
+| Lanzamientos  | [https://github.com/ChainSafe/lodestar/releases](https://github.com/ChainSafe/lodestar/releases) |
+| Documentación | [https://chainsafe.github.io/lodestar](https://chainsafe.github.io/lodestar/)                    |
+| Sirio web     | [https://lodestar.chainsafe.io](https://lodestar.chainsafe.io/)                                  |
 
 ### 1. Initial configuration
 
-Create a service user for the consensus service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de consenso, cree un directorio de datos y asigne propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group consensus
@@ -24,7 +24,7 @@ sudo mkdir -p /var/lib/lodestar
 sudo chown -R consensus:consensus /var/lib/lodestar
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt-get install gcc g++ make git curl ccze -y
@@ -32,13 +32,13 @@ sudo apt-get install gcc g++ make git curl ccze -y
 
 ### 2. Install Binaries
 
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Desarrollar a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu del FOSS (software gratuito de código abierto).
 
 <details>
 
-<summary>Option 1 - Build from source code</summary>
+<summary>Opción 1 - Construir desde el código fuente</summary>
 
-Install yarn.
+Instala el hilo.
 
 ```bash
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -47,14 +47,14 @@ sudo apt update
 sudo apt install yarn -y
 ```
 
-Confirm yarn is installed properly.
+Confirme que el hilo esté instalado correctamente.
 
 ```bash
 yarn --version
 # Should output version >= 1.22.19
 ```
 
-Install nodejs.
+Instalar nodejs.
 
 ```bash
 #Download and import the Nodesource GPG key
@@ -72,7 +72,7 @@ sudo apt-get update
 sudo apt-get install nodejs -y
 ```
 
-Install and build Lodestar.
+Instalar y compilar Lodestar.
 
 ```bash
 mkdir -p ~/git
@@ -83,13 +83,13 @@ yarn install
 yarn run build
 ```
 
-Verify Lodestar was installed properly by displaying the version.
+Verifique que Lodestar se haya instalado correctamente mostrando la versión.
 
 ```bash
 ./lodestar --version
 ```
 
-Sample output of a compatible version.
+Ejemplo de salida de una versión compatible.
 
 ```
 🌟 Lodestar: TypeScript Implementation of the Ethereum Consensus Beacon Chain.
@@ -97,7 +97,7 @@ Sample output of a compatible version.
   * by ChainSafe Systems, 2018-2022
 ```
 
-Install the binaries.
+Instale los archivos binarios.
 
 ```bash
 sudo cp -a $HOME/git/lodestar /usr/local/bin/lodestar
@@ -107,13 +107,13 @@ sudo cp -a $HOME/git/lodestar /usr/local/bin/lodestar
 
 ### **3. Setup and configure systemd**
 
-Create a **systemd unit file** to define your `consensus.service` configuration.
+Cree un **archivo de unidad systemd** para definir su `consensus.service` configuración.
 
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 ```shell
 [Unit]
@@ -148,30 +148,31 @@ ExecStart=/usr/local/bin/lodestar/lodestar beacon \
 WantedBy=multi-user.target
 ```
 
-* Replace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** with your own Ethereum address that you control. Tips are sent to this address and are immediately spendable.
-* **Not staking?** If you only want a full node, delete the whole line beginning with
+* Reemplace**`<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS>`** con su propia dirección de Ethereum que usted controla. Las propinas se envían a esta dirección y se pueden gastar de inmediato.
+* **No estás haciendo staking?** Si solo quieres un nodo completo, elimina toda la línea que comienza con
+
 
 ```
 --suggestedFeeRecipient
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, y luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable consensus
 ```
 
-Finally, start your consensus layer client and check it's status.
+Por último, inicie su cliente de capa de consenso y verifique su estado.
 
 ```bash
 sudo systemctl start consensus
 sudo systemctl status consensus
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C` para salir del estado.
 
 ### 4. Helpful consensus client commands
 
@@ -181,7 +182,7 @@ Press `Ctrl` + `C` to exit the status.
 sudo journalctl -fu consensus | ccze
 ```
 
-**Example of Synced Lodestar Consensus Client Logs**
+**Ejemplo de registros de clientes de consenso de Lodestar sincronizados**
 
 ```bash
 Mar-19 04:09:49.000    info: Synced - slot: 3338 - head: 3355 0x5abb_ac30 - execution: valid(0x1a3c_2ca5) - finalized: 0xfa22_1142:3421 - peers: 25
@@ -209,11 +210,11 @@ sudo systemctl status consensus
 {% endtab %}
 
 {% tab title="Reset Database" %}
-Common reasons to reset the database can include:
+Las razones comunes para restablecer la base de datos pueden incluir:
 
-* To reduce disk space usage
-* To recover from a corrupted database due to power outage or hardware failure
-* To upgrade to a new storage format
+* Para reducir el uso del espacio en disco
+* Para recuperarse de una base de datos dañada debido a un corte de energía o una falla de hardware
+* Para actualizar a un nuevo formato de almacenamiento
 
 ```bash
 sudo systemctl stop consensus
@@ -221,14 +222,14 @@ sudo rm -rf /var/lib/lodestar/chain-db
 sudo systemctl restart consensus
 ```
 
-With checkpoint sync enabled, time to re-sync the consensus client should take only a minute or two.
+Con la sincronización de puntos de control habilitada, el tiempo necesario para volver a sincronizar el cliente de consenso debería tomar solo uno o dos minutos.
 {% endtab %}
 {% endtabs %}
 
-Now that your consensus client is configured and started, you have a full node.
+Ahora que su cliente de consenso está configurado e iniciado, tiene un nodo completo.
 
-Proceed to the next step on setting up your validator client, which turns a full node into a staking node.
+Continúe con el siguiente paso para configurar su cliente validador, que convierte un nodo completo en un nodo de staking.
 
 {% hint style="info" %}
-If you wanted to setup a full node, not a staking node, stop here! Congrats on running your own full node! :tada:
+ Si querías configurar un nodo completo, no un nodo de participación, detente aquí! Felicitaciones por ejecutar tu propio nodo completo! :tada:
 {% endhint %}

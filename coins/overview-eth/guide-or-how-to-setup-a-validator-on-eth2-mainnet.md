@@ -1,118 +1,115 @@
 ---
-description: >-
-  Become a validator and help secure eth2, a proof-of-stake blockchain. Anyone
-  with 32 ETH can join.
+descripcion: >-
+ Conviértete en validador y ayuda a proteger eth2, una cadena de bloques de prueba de participación. Cualquiera con 32 ETH puede unirse.
 ---
 
-# Guide \| How to setup a validator on ETH2 mainnet
+# Guía | Cómo configurar un validador en la red principal de ETH2
 
 {% hint style="success" %}
-As of Dec 5 2020, this guide is updated for **mainnet.** 😁
+A partir del 5 de diciembre de 2020, esta guía se actualizó para la **mainnet.** 😁
 {% endhint %}
 
-#### ✨ For the testnet guide, [please click here](guide-or-how-to-setup-a-validator-on-eth2-testnet.md).
+#### ✨ Para obtener la guía de la red de prueba, [haga clic aquí](guide-or-how-to-setup-a-validator-on-eth2-testnet.md).
 
 ![](../../.gitbook/assets/gg.jpg)
 
-\*\*\*\*🎊 **2020-12 Update**: We're on [Gitcoin](https://gitcoin.co/grants/1653/eth2-staking-guides-by-coincashew), where you can contribute via [quadratic funding](https://vitalik.ca/general/2019/12/07/quadratic.html) and make a big impact.  Your **1 DAI** contribution equals a **23 DAI** match.
-
-Please [check us out](https://gitcoin.co/grants/1653/eth2-staking-guides-by-coincashew). Thank you!🙏
+\*\*\*\*🎊 **Actualización 2020-12 : Estamos en [Gitcoin](https://gitcoin.co/grants/1653/eth2-staking-guides-by-coincashew), donde puedes contribuir a través de [quadratic funding](https://vitalik.ca/general/2019/12/07/quadratic.html) y generar un gran impacto. Tu contribución de 1 DAI equivale a una contribución equivalente de **23 DAI**
+[Visitanos](https://gitcoin.co/grants/1653/eth2-staking-guides-by-coincashew). Gracias!🙏
 
 {% embed url="https://gitcoin.co/grants/1653/eth2-staking-guides-by-coincashew" %}
 
-## 🏁 0. Prerequisites
+## 🏁 0. Requisitos previos
 
-### 👩💻Skills for operating a eth2 validator and beacon node
+### 👩💻Habilidades para operar un nodo de baliza y validador eth2
 
-As a validator for eth2, you will typically have the following abilities:
+Como validador de eth2, normalmente tendrás las siguientes capacidades:
 
-* operational knowledge of how to set up, run and maintain a eth2 beacon node and validator continuously
-* a long term commitment to maintain your validator 24/7/365
-* basic operating system skills
-* have learned the essentials by watching ['Intro to Eth2 & Staking for Beginners' by Superphiz](https://www.youtube.com/watch?v=tpkpW031RCI)
-* have passed or is actively enrolled in the [Eth2 Study Master course](https://ethereumstudymaster.com/)
-* and have read the [8 Things Every Eth2 validator should know.](https://medium.com/chainsafe-systems/8-things-every-eth2-validator-should-know-before-staking-94df41701487)
+* Conocimiento operativo de cómo configurar, ejecutar y mantener un nodo de baliza eth2 y un validador de forma continua.
+* Un compromiso a largo plazo para mantener su validador 24/7/365
+* Conocimientos básicos del sistema operativo
+* He aprendido lo esencial viendo ['Intro to Eth2 & Staking for Beginners' by Superphiz](https://www.youtube.com/watch?v=tpkpW031RCI)
+* Haber aprobado o estar inscrito activamente en el [Eth2 Study Master course](https://ethereumstudymaster.com/)
+* y he leído las [8 Things Every Eth2 validator should know.](https://medium.com/chainsafe-systems/8-things-every-eth2-validator-should-know-before-staking-94df41701487)
 
-### 🎗 **Minimum Setup Requirements**
+### 🎗 **Requisitos mínimos de configuración**
 
-* **Operating system:** 64-bit Linux \(i.e. Ubuntu 20.04 LTS Server or Desktop\)
-* **Processor:** Dual core CPU, Intel Core i5–760 or AMD FX-8100 or better
-* **Memory:** 8GB RAM
-* **Storage:** 20GB SSD
-* **Internet:** Broadband internet connection with speeds at least 1 Mbps.
-* **Power:** Reliable electrical power.
-* **ETH balance:** at least 32 ETH and some ETH for deposit transaction fees
-* **Wallet**: Metamask installed
+* **Sistema operativo:** Linux de 64 bits (es decir, Ubuntu 20.04 LTS Server o Desktop)
+* **Procesador:** CPU de doble núcleo, Intel Core i5-760 o AMD FX-8100 o superior
+* **Memoria:** 8GB RAM
+* **Almacenamiento:** 20GB SSD
+* **Internet:** Conexión a Internet de banda ancha con velocidades de al menos 1 Mbps.
+* **Energía:** Energía eléctrica confiable.
+* **Saldo de ETH:** al menos 32 ETH y algo de ETH para tarifas de transacción de depósito
+* **Monedero:** Metamask instalado
 
-### 🏋♂ Recommended Hardware Setup
+### 🏋♂ Configuración de hardware recomendada
 
-* **Operating system:** 64-bit Linux \(i.e. Ubuntu 20.04 LTS Server or Desktop\)
-* **Processor:** Quad core CPU, Intel Core i7–4770 or AMD FX-8310 or better
-* **Memory:** 16GB RAM or more
-* **Storage:** 1TB SSD or more
-* **Internet:** Broadband internet connections with speeds at least 10 Mbps without data limit.
-* **Power:** Reliable electrical power with uninterruptible power supply \(UPS\)
-* **ETH balance:** at least 32 ETH and some ETH for deposit transaction fees
-* **Wallet**: Metamask installed
+* **Sistema operativo:** Linux de 64 bits (es decir, Ubuntu 20.04 LTS Server o Desktop)
+* **Procesador:** CPU de cuatro núcleos, Intel Core i7–4770 o AMD FX-8310 o superior
+* **Memoria:** 16 GB de RAM o más
+* **Almacenamiento:** SSD de 1 TB o más
+* **Internet:** Conexiones a internet de banda ancha con velocidades mínimas de 10 Mbps sin límite de datos.
+* **Energía:** Energía eléctrica confiable con sistema de alimentación ininterrumpida (UPS)
+* **Saldo de ETH:** al menos 32 ETH y algo de ETH para tarifas de transacción de depósito
+* **Monedero:** Metamask instalado
 
 {% hint style="success" %}
-✨ **Pro Validator Tip**: Highly recommend you begin with a brand new instance of an OS, VM, and/or machine. Avoid headaches by NOT reusing testnet keys, wallets, or databases for your validator.
-{% endhint %}
+✨ **Consejo de validación profesional**: te recomiendo que comiences con una instancia completamente nueva de un sistema operativo, una máquina virtual o una máquina. Evita dolores de cabeza al NO reutilizar claves, billeteras o bases de datos de la red de prueba para tu validador. {% endhint %}
 
-### 🔓 Recommended eth2 validator Security Best Practices
+### 🔓 Prácticas recomendadas de seguridad para el validador eth2
 
-If you need ideas or a reminder on how to secure your validator, refer to
+Si necesita ideas o un recordatorio sobre cómo proteger su validador, consulte
 
 {% page-ref page="guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md" %}
 
-### 🛠 Setup Ubuntu
+### 🛠 Configurar Ubuntu
 
-If you need to install Ubuntu Server, refer to
+Si necesita instalar Ubuntu Server, consulte
 
 {% embed url="https://ubuntu.com/tutorials/install-ubuntu-server\#1-overview" %}
 
-Or Ubuntu Desktop,
+O escritorio Ubuntu,
 
 {% page-ref page="../overview-xtz/guide-how-to-setup-a-baker/install-ubuntu.md" %}
 
-### 🎭 Setup Metamask
+### 🎭 Configurar Metamask
 
-If you need to install Metamask, refer to
+Si necesita instalar Metamask, consulte
 
 {% page-ref page="../../wallets/browser-wallets/metamask-ethereum.md" %}
 
-## 🌱 1. Buy/exchange or consolidate ETH
+## 🌱 1. Comprar/cambiar o consolidar ETH
 
 {% hint style="info" %}
-Every 32 ETH you own allows you to make 1 validator. You can run thousands of validators with your beacon node.
+Cada 32 ETH que poseas te permitirán crear un validador. Puedes ejecutar miles de validadores con tu nodo de baliza.
 {% endhint %}
 
-Your ETH \(or multiples of 32 ETH\) should be consolidated into a single address accessible with Metamask.
+Su ETH (o múltiplos de 32 ETH) deben consolidarse en una única dirección accesible con Metamask.
 
-If you need to buy/exchange or top up your ETH to a multiple of 32, check out:
+Si necesita comprar/intercambiar o recargar su ETH a un múltiplo de 32, consulte:
 
 {% page-ref page="guide-how-to-buy-eth.md" %}
 
-## 👩💻 2. Signup to be a validator at the Launchpad
+## 👩💻 2. Regístrate para ser validador en Launchpad
 
-1. Install dependencies, the ethereum foundation deposit tool and generate your two sets of key pairs.
+1. Instale dependencias, la herramienta de depósito de la fundación Ethereum y genere sus dos conjuntos de pares de claves.
 
 {% hint style="info" %}
-Each validator will have two sets of key pairs. A **signing key** and a **withdrawal key.** These keys are derived from a single mnemonic phrase. [Learn more about keys.](https://blog.ethereum.org/2020/05/21/keys/)
+Cada validador tendrá dos conjuntos de pares de claves: una clave de firma y una clave de retiro. Estas claves se derivan de una sola frase mnemotécnica. [Learn more about keys.](https://blog.ethereum.org/2020/05/21/keys/)
 {% endhint %}
 
-You have the choice of downloading the pre-built [ethereum foundation deposit tool](https://github.com/ethereum/eth2.0-deposit-cli) or building it from source.
+Tienes la opción de descargar la [ethereum foundation deposit tool](https://github.com/ethereum/eth2.0-deposit-cli) previamente creada o crearla desde la fuente.
 
 {% tabs %}
-{% tab title="Build from source code" %}
-Install dependencies.
+{% tab title="Construir desde el código fuente" %} 
+Instalar dependencias.
 
 ```text
 sudo apt update
 sudo apt install python3-pip git -y
 ```
 
-Download source code and install.
+Descargue el código fuente e instálelo.
 
 ```text
 cd $HOME
@@ -121,7 +118,7 @@ cd eth2deposit-cli
 sudo ./deposit.sh install
 ```
 
-Make a new mnemonic.
+Crea un nuevo mnemónico.
 
 ```text
 ./deposit.sh new-mnemonic --chain mainnet
@@ -129,14 +126,14 @@ Make a new mnemonic.
 {% endtab %}
 
 {% tab title="Pre-built eth2deposit-cli" %}
-Download eth2deposit-cli.
+Descargar eth2deposit-cli.
 
 ```bash
 cd $HOME
 wget https://github.com/ethereum/eth2.0-deposit-cli/releases/download/v1.1.0/eth2deposit-cli-ed5a6d3-linux-amd64.tar.gz
 ```
 
-Verify the SHA256 Checksum matches the checksum on the [releases page](https://github.com/ethereum/eth2.0-deposit-cli/releases/tag/v1.0.0).
+Verifique que la suma de comprobación SHA256 coincida con la suma de comprobación en la [releases page](https://github.com/ethereum/eth2.0-deposit-cli/releases/tag/v1.0.0).
 
 ```bash
 sha256sum eth2deposit-cli-ed5a6d3-linux-amd64.tar.gz
@@ -144,7 +141,7 @@ sha256sum eth2deposit-cli-ed5a6d3-linux-amd64.tar.gz
 # 2107f26f954545f423530e3501ae616c222b6bf77774a4f2743effb8fe4bcbe7
 ```
 
-Extract the archive.
+Extraer el archivo.
 
 ```text
 tar -xvf eth2deposit-cli-ed5a6d3-linux-amd64.tar.gz
@@ -153,7 +150,7 @@ rm eth2deposit-cli-ed5a6d3-linux-amd64.tar.gz
 cd eth2deposit-cli
 ```
 
-Make a new mnemonic.
+Crea un nuevo mnemónico.
 
 ```text
 ./deposit new-mnemonic --chain mainnet
@@ -162,171 +159,171 @@ Make a new mnemonic.
 
 {% tab title="Advanced - Most Secure" %}
 {% hint style="warning" %}
-🔥**\[ Optional \] Pro Security Tip**: Run the **eth2deposit-cli tool** and generate your **mnemonic seed** for your validator keys on an **air-gapped offline machine booted from usb**.
+🔥**\[ Optional \] Consejo de seguridad profesional**: **Ejecute la herramienta eth2deposit-cli y genere su semilla mnemotécnica para sus claves de validación en una máquina fuera de línea con espacio de aire iniciada desde USB.**
 {% endhint %}
 
-You will learn how to boot up a windows PC into an airgapped [Tails operating system](https://tails.boum.org/index.en.html).
+Aprenderá cómo iniciar una PC con Windows en un [Tails operating system](https://tails.boum.org/index.en.html).
 
-The Tails OS is an *amnesic* operating system, meaning it will save nothing and *leave no tracks behind* each time you boot it.
+Tails OS es un sistema operativo *amnésico* , lo que significa que no guardará nada ni *dejará* rastros cada vez que lo inicie.
 
-### Part 0 - Prerequisites
+### Part 0 - Requisitos previos
 
-You need:
+Necesitas:
 
-- 2 storage mediums (can be USB stick, SD cards or external hard drives)
-- One of them must be > 8GB
-- Windows or Mac computer
-- 30 minutes or longer depending on your download speed
+- 2 medios de almacenamiento (pueden ser memorias USB, tarjetas SD o discos duros externos)
+- Uno de ellos debe tener > 8 GB
+- Computadora Windows o Mac
+- 30 minutos o más dependiendo de la velocidad de descarga
 
-### Part 1 - Download Tails OS
+### Part 1 - Descargar Tails OS
 
-Download the official image from the [Tails website](https://tails.boum.org/install/index.en.html). Might take a while, go grab a coffee.
+Descarga la imagen oficial del [Tails website](https://tails.boum.org/install/index.en.html). Puede que tarde un poco, ve a tomar un café.
 
-Make sure you follow the guide on the Tails website to verify your download of Tails.
+Asegúrese de seguir la guía en el sitio web de Tails para verificar su descarga de Tails.
 
-### Part 2 - Download and install the software to transfer your Tails image on your USB stick
+### Part 2 - Descargue e instale el software para transferir su imagen de Tails a su memoria USB
 
-For Windows:
+Para Windows:
 - [Etcher](https://tails.boum.org/etcher/Etcher-Portable.exe)
 - [Win32 Disk Imager](https://win32diskimager.org/#download)
 - [Rufus](https://rufus.ie/en_US/)
 
-For Mac download [Etcher](https://tails.boum.org/etcher/Etcher.dmg)
+Para Mac descargar  [Etcher](https://tails.boum.org/etcher/Etcher.dmg)
 
-### Part 3 - Making your bootable USB stick
+### Part 3 - Creando tu memoria USB de arranque
 
-Run the above software. This is an example how it looks like on Mac OS with etcher. But other software should be similar.
+Ejecute el software anterior. Este es un ejemplo de cómo se ve en Mac OS con Etcher. Pero otros programas deberían ser similares.
 
 ![](../../.gitbook/assets/etcher_in_mac.png)
 
-Select the Tails OS image that you downloaded as the image. Then select the USB stick (the larger one).
+Seleccione la imagen del sistema operativo Tails que descargó como imagen. Luego, seleccione la memoria USB (la más grande).
 
-Then flash the image to the larger USB stick.
+A continuación, grabe la imagen en la memoria USB más grande.
 
-### Part 4 - Download and verify the eth2-deposit-cli
+### Part 4 - Descargar y verificar eth2-deposit-cli
 
-You can refer to the other tab on this guide on how to download and verify the eth2-deposit-cli.
+Puede consultar la otra pestaña de esta guía sobre cómo descargar y verificar eth2-deposit-cli.
 
-Copy the file to the other USB stick.
+Copia el archivo a la otra memoria USB.
 
-### Part 5 - Reboot your computer and into Tails OS
+### Part 5 - Reinicie su computadora y acceda a Tails OS
 
-After you have done all the above, you can reboot. If you are connected by a LAN cable to the internet, you can disconnect it manually.
+Una vez que hayas hecho todo lo anterior, puedes reiniciar. Si estás conectado a Internet mediante un cable LAN, puedes desconectarlo manualmente.
 
-Plug in the USB stick that has your Tails OS.
+Conecte la memoria USB que tiene su sistema operativo Tails.
 
-On Mac, press and hold the Option key immediately upon hearing the startup chime. Release the key after Startup Manager appears.
+En Mac, mantenga presionada la tecla Opción inmediatamente después de escuchar el sonido de inicio. Suelte la tecla después de que aparezca el Administrador de inicio.
 
-On Windows, it depends on your computer manufacturer. Usually it is by pressing F1 or F12. If it doesn't work, try googling "Enter boot options menu on [Insert your PC brand]"
+En Windows, depende del fabricante de su computadora. Por lo general, se hace presionando F1 o F12. Si no funciona, intente buscar en Google "Ingresar al menú de opciones de arranque en [Ingrese la marca de su computadora]"
 
-Choose the USB stick that you loaded up with Tails OS to boot into Tails.
+Seleccione la memoria USB que cargó con Tails OS para iniciar Tails.
 
-### Part 6 - Welcome to Tails OS
+### Part 6 - Bienvenido a Tails OS
 
 ![](../../.gitbook/assets/grub.png)
 
-You can boot with all the default settings.
+Puede arrancar con todas las configuraciones predeterminadas.
 
-### Part 7 - Run the eth2-deposit-cli
+### Part 7 - Ejecutar eth2-deposit-cli
 
-Plug in your other USB stick with the `eth2-deposit-cli` file.
+Conecte su otra memoria USB con el `eth2-deposit-cli` archivo.
 
-You can then open your command line and navigate into the directory containing the file. Then you can continue the guide from the other tab.
+A continuación, puede abrir la línea de comandos y navegar hasta el directorio que contiene el archivo. Luego, puede continuar con la guía desde la otra pestaña.
 
-Make a new mnemonic.
+Crea un nuevo mnemónico.
 
 ```text
 ./deposit.sh new-mnemonic --chain mainnet
 ```
 
-If you ran this command directly from your non-Tails USB stick, the validator keys should stay on it. If it hasn't, copy the directory over to your non-Tails USB stick.
+Si ejecutaste este comando directamente desde tu memoria USB que no es de Tails, las claves del validador deberían permanecer allí. Si no es así, copia el directorio a tu memoria USB que no es de Tails.
 
 {% hint style="warning" %}
-🔥**Make sure you have saved your validator keys directory in your other USB stick (non Tails OS) before you shutdown Tails. Tails will delete everything saved on it after you shutdown.**.
+🔥**Asegúrate de haber guardado el directorio de claves de validación en tu otra memoria USB (que no sea Tails OS) antes de apagar Tails. Tails eliminará todo lo guardado en ella después de que lo apagues.**.
 {% endhint %}
 
 {% hint style="success" %}
-🎉Congrats on learning how to use Tails OS to make an airgapped system. As a bonus, you can reboot into Tails OS again and connect to internet to surf the dark web or clear net safely!
+🎉Felicitaciones por aprender a usar Tails OS para crear un sistema con espacio de aire. Como beneficio adicional, ¡puede reiniciar en Tails OS nuevamente y conectarse a Internet para navegar en la red oscura o limpiar la red de manera segura!
 {% endhint %}
 
 {% endtab %}
 
 {% tab title="Advanced - Most Secure" %}
 {% hint style="warning" %}
-🔥**\[ Optional \] Pro Security Tip**: Run the **eth2deposit-cli tool** and generate your **mnemonic seed** for your validator keys on an **air-gapped offline machine booted from usb**.
+🔥**\[ Optional \] Consejo de seguridad profesional**:Ejecute la **herramienta eth2deposit-cli** y genere su **semilla mnemotécnica** para sus claves de validación en una **máquina fuera de línea con espacio de aire iniciada desde USB.**
 {% endhint %}
 
-Follow this [ethstaker.cc](https://ethstaker.cc/) exclusive for the low down on making a bootable usb.
+Siga esta exclusiva [ethstaker.cc](https://ethstaker.cc/) para obtener información detallada sobre cómo crear un USB de arranque.
 
-### Part 1 - Create a Ubuntu 20.04 USB Bootable Drive
+### Part 1 - Crear una unidad USB de arranque de Ubuntu 20.04
 
 {% embed url="https://www.youtube.com/watch?v=DTR3PzRRtYU" %}
 
-### Part 2 - Install Ubuntu 20.04 from the USB Drive
+### Part 2 - Instalar Ubuntu 20.04 desde la unidad USB
 
 {% embed url="https://www.youtube.com/watch?v=C97\_6MrufCE" %}
 
-You can copy via USB key the pre-built eth2deposit-cli binaries from an online machine to an air-gapped offline machine booted from usb. Make sure to disconnect the ethernet cable and/or WIFI.
+Puede copiar mediante una memoria USB los binarios preconstruidos de eth2deposit-cli desde una máquina en línea a una máquina fuera de línea con espacio de aire iniciada desde una memoria USB. Asegúrese de desconectar el cable Ethernet o el WIFI.
 {% endtab %}
 {% endtabs %}
 
-2. Follow the prompts and pick a password. Write down your mnemonic and keep this safe and **offline**.
+2. Sigue las indicaciones y elige una contraseña. Anota tu mnemotécnica y guárdala en un lugar seguro y **fuera de línea**.
 
-3. Follow the steps at [https://launchpad.ethereum.org/](https://launchpad.ethereum.org/) while skipping over the steps you already just completed. Study the eth2 phase 0 overview material. Understanding eth2 is the key to success!
+3. Sigue los pasos que se indican en [https://launchpad.ethereum.org/](https://launchpad.ethereum.org/) y omite los pasos que ya has completado. Estudia el material de descripción general de la fase 0 de eth2. ¡Entender eth2 es la clave del éxito!
 
-4. Back on the launchpad website, upload your`deposit_data-#########.json` found in the `validator_keys` directory.
+4. De regreso al sitio web de Launchpad, cargue el archivo `deposit_data-#########.json` que encontró en el `validator_keys` directorio.
 
-5. Connect to the launchpad with your Metamask wallet, review and accept terms.
+5. Conéctese al launchpad con su billetera Metamask, revise y acepte los términos.
 
-6. Confirm the transaction\(s\). There's one deposit transaction of 32 ETH for each validator.
+6. Confirme la(s) transacción(es). Hay una transacción de depósito de 32 ETH para cada validador.
 
 {% hint style="info" %}
-Your transaction is sending and depositing your ETH to the [official ETH2 deposit contract address. ](https://blog.ethereum.org/2020/11/04/eth2-quick-update-no-19/)
+Su transacción está enviando y depositando su ETH a la [official ETH2 deposit contract address. ](https://blog.ethereum.org/2020/11/04/eth2-quick-update-no-19/)
 
-**Check**, _double-check_, _**triple-check**_ that the official Eth2 deposit contract address is correct.[`0x00000000219ab540356cBB839Cbe05303d7705Fa`](https://etherscan.io/address/0x00000000219ab540356cbb839cbe05303d7705fa)
+**Verifique**, _vuelva a verificar_, _**vuelva a verificar**_ que la dirección oficial del contrato de depósito de Eth2 sea correcta.[`0x00000000219ab540356cBB839Cbe05303d7705Fa`](https://etherscan.io/address/0x00000000219ab540356cbb839cbe05303d7705fa)
 {% endhint %}
 
 {% hint style="danger" %}
-\*\*\*\*🔥 **Critical Crypto Reminder:** **Keep your mnemonic, keep your ETH.** 🚀
+\*\*\*\*🔥 **Recordatorio crítico sobre criptomonedas: mantén tu mnemotecnia, mantén tu ETH.** 🚀
 
-* Write down your mnemonic seed **offline**. _Not email. Not cloud._
-* Multiple copies are better. _Best stored in a_ [_metal seed._](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
-* The withdrawal keys will be generated from this mnemonic in the future.
-* Make **offline backups**, such as to a USB key, of your **`validator_keys`** directory.
+* Anota tu semilla mnemotécnica fuera de línea . _No por correo electrónico_. _No en la nube_.
+* Es mejor tener varias copias. _Se recomienda almacenarlas en una_ [_metal seed._](https://jlopp.github.io/metal-bitcoin-storage-reviews/)
+* Las claves de retiro se generarán a partir de este mnemónico en el futuro.
+* Realice **copias de seguridad sin conexión**, por ejemplo en una memoria USB, de su **`validator_keys`** directorio.
 {% endhint %}
 
-## 🛸 3. Install a ETH1 node
+## 🛸 3. Instalar un nodo ETH1
 
 {% hint style="info" %}
-Ethereum 2.0 requires a connection to Ethereum 1.0 in order to monitor for 32 ETH validator deposits. Hosting your own Ethereum 1.0 node is the best way to maximize decentralization and minimize dependency on third parties such as Infura.
+Ethereum 2.0 requiere una conexión a Ethereum 1.0 para poder monitorear los depósitos del validador de 32 ETH. Alojar su propio nodo Ethereum 1.0 es la mejor manera de maximizar la descentralización y minimizar la dependencia de terceros como Infura. 
 {% endhint %}
 
 {% hint style="warning" %}
-The subsequent steps assume you have completed the [best practices security guide. ](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md)
+Los pasos siguientes suponen que ha completado la  [best practices security guide. ](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md)
 
-🛑 Do not run your processes as **ROOT** user. 😱
+🛑 No ejecutes tus procesos como usuario **ROOT** . 😱
 {% endhint %}
 
-Your choice of either [**OpenEthereum**](https://www.parity.io/ethereum/)**,** [**Geth**](https://geth.ethereum.org/)**,** [**Besu**](https://besu.hyperledger.org/)**,** [**Nethermind**](https://www.nethermind.io/), [**Infura**](https://infura.io/) **or** [**Chainstack**](https://chainstack.com/)**.**
+Tu elección entre [**OpenEthereum**](https://www.parity.io/ethereum/)**,** [**Geth**](https://geth.ethereum.org/)**,** [**Besu**](https://besu.hyperledger.org/)**,** [**Nethermind**](https://www.nethermind.io/), [**Infura**](https://infura.io/) **or** [**Chainstack**](https://chainstack.com/)**.**
 
 {% tabs %}
 {% tab title="OpenEthereum \(Parity\)" %}
 {% hint style="info" %}
-**OpenEthereum** - It's ****goal is to be the fastest, lightest, and most secure Ethereum client using the **Rust programming language**. OpenEthereum is licensed under the GPLv3 and can be used for all your Ethereum needs.
+**OpenEthereum** : su objetivo es ser el cliente de Ethereum más rápido, liviano y seguro que utilice el lenguaje de **programación Rust** . OpenEthereum tiene licencia GPLv3 y se puede utilizar para todas sus necesidades de Ethereum.
 {% endhint %}
 
-#### ⚙ Install dependencies
+#### ⚙ Instalar dependencias
 
 ```text
 sudo apt-get update
 sudo apt-get install curl jq unzip -y
 ```
 
-#### 🤖 Install OpenEthereum
+#### 🤖 Instalar OpenEthereum
 
-Review the latest release at [https://github.com/openethereum/openethereum/releases](https://github.com/openethereum/openethereum/releases)
+Revise la última versión en [https://github.com/openethereum/openethereum/releases](https://github.com/openethereum/openethereum/releases)
 
-Automatically download the latest linux release, un-zip, add execute permissions and cleanup.
+Descargue automáticamente la última versión de Linux, descomprima, agregue permisos de ejecución y limpie.
 
 ```bash
 mkdir $HOME/openethereum
@@ -337,11 +334,11 @@ chmod +x openethereum
 rm openethereum*.zip
 ```
 
-​ ⚙ **Setup and configure systemd**
+​ ⚙ **Configurar y configurar systemd**
 
-Run the following to create a **unit file** to define your `eth1.service` configuration.
+Ejecute lo siguiente para crear un **archivo de unidad** para definir su `eth1.service` configuración.
 
-Simply copy/paste the following.
+Simplemente copie y pegue lo siguiente.
 
 ```bash
 cat > $HOME/eth1.service << EOF
@@ -361,14 +358,14 @@ EOF
 ```
 
 {% hint style="info" %}
-**Nimbus Specific Configuration**: Add the following flag to the **ExecStart** line.
+**Configuración específica de Nimbus**: agregue el siguiente indicador a la línea **ExecStart**.
 
 ```bash
 --ws-origins=all
 ```
 {% endhint %}
 
-Move the unit file to `/etc/systemd/system` and give it permissions.
+Mueva el archivo de la unidad a `/etc/systemd/system` y dale permisos.
 
 ```bash
 sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
@@ -378,14 +375,14 @@ sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
 sudo chmod 644 /etc/systemd/system/eth1.service
 ```
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```text
 sudo systemctl daemon-reload
 sudo systemctl enable eth1
 ```
 
-#### ⛓ Start OpenEthereum
+#### ⛓ Iniciar OpenEthereum
 
 ```text
 sudo systemctl start eth1
@@ -394,12 +391,12 @@ sudo systemctl start eth1
 
 {% tab title="Geth" %}
 {% hint style="info" %}
-**Geth** - Go Ethereum is one of the three original implementations \(along with C++ and Python\) of the Ethereum protocol. It is written in **Go**, fully open source and licensed under the GNU LGPL v3.
+**Geth** - Go Ethereum es una de las tres implementaciones originales (junto con C++ y Python) del protocolo Ethereum. Está escrito en Go , es de código abierto y tiene licencia GNU LGPL v3. 
 {% endhint %}
 
-Review the latest release notes at [https://github.com/ethereum/go-ethereum/releases](https://github.com/ethereum/go-ethereum/releases)
+Revise las últimas notas de la versión en [https://github.com/ethereum/go-ethereum/releases](https://github.com/ethereum/go-ethereum/releases)
 
-#### 🧬 Install from the repository
+#### 🧬 Instalar desde el repositorio
 
 ```text
 sudo add-apt-repository -y ppa:ethereum/ethereum
@@ -407,11 +404,11 @@ sudo apt-get update -y
 sudo apt-get install ethereum -y
 ```
 
-⚙ **Setup and configure systemd**
+⚙ **Instalar y configurar systemd**
 
-Run the following to create a **unit file** to define your `eth1.service` configuration.
+Ejecute lo siguiente para crear un archivo de unidad para definir su `eth1.service` configuración.
 
-Simply copy/paste the following.
+Simplemente copie y pegue lo siguiente.
 
 ```bash
 cat > $HOME/eth1.service << EOF
@@ -431,14 +428,13 @@ EOF
 ```
 
 {% hint style="info" %}
-**Nimbus Specific Configuration**: Add the following flag to the **ExecStart** line.
-
+**Configuración específica de Nimbus**: agregue el siguiente indicador a la línea **ExecStart**.
 ```bash
 --ws
 ```
 {% endhint %}
 
-Move the unit file to `/etc/systemd/system` and give it permissions.
+Mueva el archivo de la unidad a `/etc/systemd/system` y dale permisos.
 
 ```bash
 sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
@@ -448,14 +444,14 @@ sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
 sudo chmod 644 /etc/systemd/system/eth1.service
 ```
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```text
 sudo systemctl daemon-reload
 sudo systemctl enable eth1
 ```
 
-#### ⛓ Start geth
+#### ⛓ Iniciar geth
 
 ```text
 sudo systemctl start eth1
@@ -464,21 +460,21 @@ sudo systemctl start eth1
 
 {% tab title="Besu" %}
 {% hint style="info" %}
-**Hyperledger Besu** is an open-source Ethereum client designed for demanding enterprise applications requiring secure, high-performance transaction processing in a private network. It's developed under the Apache 2.0 license and written in **Java**.
+**Hyperledger Besu** es un cliente de Ethereum de código abierto diseñado para aplicaciones empresariales exigentes que requieren un procesamiento de transacciones seguro y de alto rendimiento en una red privada. Está desarrollado bajo la licencia Apache 2.0 y escrito en **Java**. 
 {% endhint %}
 
-#### 🧬 Install java dependency
+#### 🧬 Instalar dependencia de Java
 
 ```text
 sudo apt update
 sudo apt install openjdk-18-jdk -y
 ```
 
-#### 🌜 Download and unzip Besu
+#### 🌜 Descargar y descomprimir Besu
 
-Review the latest release at [https://github.com/hyperledger/besu/releases](https://github.com/hyperledger/besu/releases)
+Revise la última versión en [https://github.com/hyperledger/besu/releases](https://github.com/hyperledger/besu/releases)
 
-File can be downloaded from [https://dl.bintray.com/hyperledger-org/besu-repo](https://dl.bintray.com/hyperledger-org/besu-repo)
+El archivo se puede descargar desde [https://dl.bintray.com/hyperledger-org/besu-repo](https://dl.bintray.com/hyperledger-org/besu-repo)
 
 ```text
 cd
@@ -488,11 +484,11 @@ rm besu.tar.gz
 mv besu* besu
 ```
 
-⚙ **Setup and configure systemd**
+⚙ **Instalar y configurar systemd**
 
-Run the following to create a **unit file** to define your `eth1.service` configuration.
+Ejecute lo siguiente para crear un archivo de unidad para definir su `eth1.service` configuración.
 
-Simply copy/paste the following.
+Simplemente copie y pegue lo siguiente.
 
 ```bash
 cat > $HOME/eth1.service << EOF
@@ -511,7 +507,7 @@ WantedBy    = multi-user.target
 EOF
 ```
 
-Move the unit file to `/etc/systemd/system` and give it permissions.
+Mueva el archivo de la unidad a `/etc/systemd/system` y dale permisos.
 
 ```bash
 sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
@@ -521,14 +517,14 @@ sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
 sudo chmod 644 /etc/systemd/system/eth1.service
 ```
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```text
 sudo systemctl daemon-reload
 sudo systemctl enable eth1
 ```
 
-#### ⛓ Start besu
+#### ⛓ Iniciar besu
 
 ```text
 sudo systemctl start eth1
@@ -537,21 +533,21 @@ sudo systemctl start eth1
 
 {% tab title="Nethermind" %}
 {% hint style="info" %}
-**Nethermind** is a flagship Ethereum client all about performance and flexibility. Built on **.NET** core, a widespread, enterprise-friendly platform, Nethermind makes integration with existing infrastructures simple, without losing sight of stability, reliability, data integrity, and security.
+**Nethermind** es un cliente insignia de Ethereum que se centra en el rendimiento y la flexibilidad. Desarrollado sobre .**NET** Core, una plataforma generalizada y apta para empresas, Nethermind simplifica la integración con infraestructuras existentes, sin perder de vista la estabilidad, la confiabilidad, la integridad de los datos y la seguridad.
 {% endhint %}
 
-#### ⚙ Install dependencies
+#### ⚙ Instalar dependencias
 
 ```text
 sudo apt-get update
 sudo apt-get install curl libsnappy-dev libc6-dev jq libc6 unzip -y
 ```
 
-#### 🌜 Download and unzip Nethermind
+#### 🌜 Descargar y descomprimir Nethermind
 
-Review the latest release at [https://github.com/NethermindEth/nethermind/releases](https://github.com/NethermindEth/nethermind/releases)
+Revise la última versión en [https://github.com/NethermindEth/nethermind/releases](https://github.com/NethermindEth/nethermind/releases)
 
-Automatically download the latest linux release, un-zip and cleanup.
+Descargue automáticamente la última versión de Linux, descomprima y limpie.
 
 ```bash
 mkdir $HOME/nethermind
@@ -561,11 +557,11 @@ unzip -o nethermind*.zip
 rm nethermind*linux*.zip
 ```
 
-⚙ **Setup and configure systemd**
+⚙ **Instalar y configurar systemd**
 
-Run the following to create a **unit file** to define your `eth1.service` configuration.
+Ejecute lo siguiente para crear un archivo de unidad para definir su `eth1.service` configuración.
 
-Simply copy/paste the following.
+Simplemente copie y pegue lo siguiente.
 
 ```bash
 cat > $HOME/eth1.service << EOF
@@ -584,7 +580,7 @@ WantedBy    = multi-user.target
 EOF
 ```
 
-Move the unit file to `/etc/systemd/system` and give it permissions.
+Mueva el archivo de la unidad a `/etc/systemd/system` y dale permisos.
 
 ```bash
 sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
@@ -594,76 +590,76 @@ sudo mv $HOME/eth1.service /etc/systemd/system/eth1.service
 sudo chmod 644 /etc/systemd/system/eth1.service
 ```
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```text
 sudo systemctl daemon-reload
 sudo systemctl enable eth1
 ```
 
-#### ⛓ Start Nethermind
+#### ⛓ Iniciar Nethermind
 
 ```text
 sudo systemctl start eth1
 ```
 {% endtab %}
 
-{% tab title="Minimum Hardware Setup \(Infura\)" %}
+{% tab title="Configuración mínima de hardware \(Infura\)" %}
 {% hint style="info" %}
-Infura is suitable for limited disk space setups. Always run your own full eth1 node when possible.
+Infura es adecuado para configuraciones con espacio de disco limitado. Siempre que sea posible, ejecute su propio nodo eth1 completo.
 {% endhint %}
 
-Sign up for an API access key at [https://infura.io/](https://infura.io/)
+Regístrese para obtener una clave de acceso API en [https://infura.io/](https://infura.io/)
 
-1. Sign up for a free account.
-2. Confirm your email address.
-3. Visit your dashboard [https://infura.io/dashboard](https://infura.io/dashboard)
-4. Create a project, give it a name.
-5. Select **Mainnet** as the ENDPOINT
-6. Follow the specific configuration for your eth2 client found below.
+1. Regístrese para obtener una cuenta gratuita.
+2. Confirme su dirección de correo electrónico.
+3. Visita tu panel de control [https://infura.io/dashboard](https://infura.io/dashboard)
+4. Crea un proyecto y dale un nombre.
+5. Seleccione **Mainnet** como ENDPOINT
+6. Siga la configuración específica para su cliente eth2 que se encuentra a continuación.
 
 {% hint style="success" %}
-Alternatively use a free Ethereum node at [https://ethereumnodes.com/](https://ethereumnodes.com/)
+Alternativamente, utilice un nodo Ethereum gratuito en [https://ethereumnodes.com/](https://ethereumnodes.com/)
 {% endhint %}
 
-## Nimbus Specific Configuration
+## Configuración específica de Nimbus
 
-1. When creating your systemd's **unit file**, update the `--web-url` parameter with this endpoint.
-2. Copy the websocket endpoint. Starts with `wss://`
-3. Save this for step 4, configuring your eth2 node.
+1. Al crear el archivo de unidad de su systemd , actualice el `--web-url` parámetro con este endpoint.
+2. Copiar el punto final del websocket. Comienza con `wss://`
+3. Guarde esto para el paso 4, configurando su nodo eth2.
 
 ```bash
 #example
 --web3-url=<your wss:// infura endpoint>
 ```
 
-## Teku Specific Configuration
+## Configuración específica de Teku
 
-1. After creating the `teku.yaml` located in `/etc/teku/teku.yaml`, update the `--eth1-endpoint` parameter with this endpoint.
-2. Copy the http endpoint. Starts with `http://`
-3. Save this for step 4, configuring your eth2 node.
+1. Después de crear el `teku.yaml` ubicado en `/etc/teku/teku.yaml`, actualice el  `--eth1-endpoint` parámetro con este endpoint.
+2. Copiar el punto final http. Comienza con `http://`
+3. Guarde esto para el paso 4, configurando su nodo eth2.
 
 ```bash
 #example
 eth1-endpoint: <your https:// infura endpoint>
 ```
 
-## Lighthouse Specific Configuration
+## Configuración específica del faro
 
-1. When creating your **beacon chain systemd** **unit file**, add the `--eth1-endpoint` parameter with this endpoint.
-2. Copy the **https** endpoint. Starts with `https://`
-3. Save this for step 4, configuring your eth2 node.
+1. Al crear el archivo de unidad systemd de su cadena de balizas , agregue el parámetro con este punto final. `--eth1-endpoint`
+2. Copia el punto final https . Comienza con `https://`
+3. Guarde esto para el paso 4, configurando su nodo eth2.
 
 ```bash
 #example
 --eth1-endpoint=<your https:// infura endpoint>
 ```
 
-## Prysm Specific Configuration
+## Configuración específica de Prysm
 
-1. When creating your **beacon chain systemd unit file**, update the `--http-web3provider` parameter with this endpoint.
-2. Copy the **https** endpoint. Starts with `https://`
-3. Save this for step 4, configuring your eth2 node.
+1. Al crear el archivo de unidad systemd de su cadena de balizas , actualice el  `--http-web3provider` parámetro con este punto final.
+2. Copia el punto final https . Comienza con `https://`
+3. Guarde esto para el paso 4, configurando su nodo eth2.
 
 ```bash
 #example
@@ -673,11 +669,11 @@ eth1-endpoint: <your https:// infura endpoint>
 {% endtabs %}
 
 {% hint style="info" %}
-Syncing an eth1 node can take up to 1 week. On high-end machines with gigabit internet, expect syncing to take less than a day.
+La sincronización de un nodo eth1 puede demorar hasta una semana. En máquinas de alta gama con Internet Gigabit, la sincronización demorará menos de un día.
 {% endhint %}
 
 {% hint style="success" %}
-Your eth1 node is fully sync'd when these events occur.
+Su nodo eth1 está completamente sincronizado cuando ocurren estos eventos.
 
 * **`OpenEthereum:`** `Imported #<block number>`
 * **`Geth:`** `Imported new chain segment`
@@ -685,53 +681,53 @@ Your eth1 node is fully sync'd when these events occur.
 * **`Nethermind:`** `No longer syncing Old Headers`
 {% endhint %}
 
-#### 🛠 Helpful eth1.service commands
+#### 🛠 Comandos útiles de eth1.service
 
-​​ 🗒 **To view and follow eth1 logs**
+​​ 🗒 **Para ver y seguir los registros de eth1**
 
 ```text
 journalctl -u eth1 -f
 ```
 
-🗒 **To stop eth1 service**
+🗒 **Para detener el servicio eth1**
 
 ```text
 sudo systemctl stop eth1
 ```
 
-## 🌜 4. Configure a ETH2 beacon chain node and validator
+## 🌜 4. Configurar un nodo y un validador de la cadena de balizas ETH2
 
-Your choice of Lighthouse, Nimbus, Teku, Prysm, or Lodestar.
+Tu elección entre Lighthouse, Nimbus, Teku, Prysm o Lodestar.
 
 {% tabs %}
 {% tab title="Lighthouse" %}
 {% hint style="info" %}
-[Lighthouse](https://github.com/sigp/lighthouse) is an Eth2.0 client with a heavy focus on speed and security. The team behind it, [Sigma Prime](https://sigmaprime.io/), is an information security and software engineering firm who have funded Lighthouse along with the Ethereum Foundation, Consensys, and private individuals. Lighthouse is built in Rust and offered under an Apache 2.0 License.
+[Lighthouse](https://github.com/sigp/lighthouse) es un cliente de Eth2.0 con un gran enfoque en la velocidad y la seguridad. El equipo detrás de él, [Sigma Prime](https://sigmaprime.io/), es una empresa de seguridad de la información e ingeniería de software que ha financiado Lighthouse junto con la Fundación Ethereum, Consensys y particulares. Lighthouse está construido en Rust y se ofrece bajo una licencia Apache 2.0.
 {% endhint %}
 
-## ⚙ 4.1. Install rust dependency
+## ⚙ 4.1. Instalar dependencia de rust
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Enter '1' to proceed with the default install.
+Introduzca '1' para continuar con la instalación predeterminada.
 
-Update your environment variables.
+Actualice sus variables de entorno.
 
 ```bash
 echo export PATH="$HOME/.cargo/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Install rust dependencies.
+Instalar dependencias de rust.
 
 ```text
 sudo apt-get update
 sudo apt install -y git gcc g++ make cmake pkg-config libssl-dev
 ```
 
-## 💡 4.2. Build Lighthouse from source
+## 💡 4.2. Construye Lighthouse desde la fuente
 
 ```bash
 mkdir ~/git
@@ -743,7 +739,7 @@ make
 ```
 
 {% hint style="info" %}
-In case of compilation errors, run the following sequence.
+En caso de errores de compilación, ejecute la siguiente secuencia.
 
 ```text
 rustup update
@@ -753,61 +749,61 @@ make
 {% endhint %}
 
 {% hint style="info" %}
-This build process may take a few minutes.
+Este proceso de compilación puede tardar unos minutos.
 {% endhint %}
 
-Verify lighthouse was installed properly by checking the version number.
+Verifique que Lighthouse se haya instalado correctamente verificando el número de versión.
 
 ```text
 lighthouse --version
 ```
 
-## 🎩 4.3. Import validator key
+## 🎩 4.3. Importar clave de validación
 
 {% hint style="info" %}
-When you import your keys into Lighthouse, your validator signing key\(s\) are stored in the `$HOME/.lighthouse/mainnet/validators` folder.
+Cuando importa sus claves a Lighthouse, sus claves de firma del validador se almacenan en la `$HOME/.lighthouse/mainnet/validators` carpeta.
 {% endhint %}
 
-Run the following command to import your validator keys from the eth2deposit-cli tool directory.
+Ejecute el siguiente comando para importar sus claves de validación desde el directorio de herramientas eth2deposit-cli.
 
-Enter your keystore's password to import accounts.
+Ingrese la contraseña de su almacén de claves para importar cuentas.
 
 ```bash
 lighthouse account validator import --network mainnet --directory=$HOME/eth2deposit-cli/validator_keys
 ```
 
-Verify the accounts were imported successfully.
+Verifique que las cuentas se importaron correctamente.
 
 ```bash
 lighthouse account_manager validator list --network mainnet
 ```
 
 {% hint style="danger" %}
-**WARNING**: DO NOT USE THE ORIGINAL KEYSTORES TO VALIDATE WITH ANOTHER CLIENT, OR YOU WILL GET SLASHED.
+**ADVERTENCIA** : NO UTILICE LOS ALMACENES DE CLAVE ORIGINALES PARA VALIDAR CON OTRO CLIENTE, O SERÁ CORTADO.
 {% endhint %}
 
-## 🔥 4.4. Configure port forwarding and/or firewall
+## 🔥 4.4. Configurar el reenvío de puertos y/o el firewall
 
-Specific to your networking setup or cloud provider settings, [ensure your validator's firewall ports are open and reachable.](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md#configure-your-firewall)
+Dependiendo de su configuración de red o de la configuración de su proveedor de nube, [ensure your validator's firewall ports are open and reachable.](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md#configure-your-firewall)
 
-* **Lighthouse beacon chain** requires port 9000 for tcp and udp
-* **eth1** node requires port 30303 for tcp and udp
+* **La cadena de balizas Lighthouse** requiere el puerto 9000 para TCP y UDP
+* **El nodo eth1** requiere el puerto 30303 para tcp y udp
 
 {% hint style="info" %}
-✨ **Port Forwarding Tip:** You'll need to forward and open ports to your validator. Verify it's working with [https://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/) or [https://canyouseeme.org/](https://canyouseeme.org/) .
+✨ **Consejo de reenvío de puertos: deberá reenviar y abrir puertos a su validador. Verifique que funcione con [https://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/) o [https://canyouseeme.org/](https://canyouseeme.org/) .
 {% endhint %}
 
-## ⛓ 4.5. Start the beacon chain
+## ⛓ 4.5. Iniciar la cadena de balizas
 
-#### 🍰 Benefits of using systemd for your beacon chain <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
+#### 🍰 Beneficios de usar systemd para tu cadena de balizas <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
 
-1. Auto-start your beacon chain when the computer reboots due to maintenance, power outage, etc.
-2. Automatically restart crashed beacon chain processes.
-3. Maximize your beacon chain up-time and performance.
+1. Inicie automáticamente su cadena de balizas cuando la computadora se reinicie debido a mantenimiento, corte de energía, etc.
+2. Reiniciar automáticamente los procesos de la cadena de balizas bloqueados.
+3. Maximice el tiempo de funcionamiento y el rendimiento de su cadena de balizas.
 
-#### 🛠 Setup Instructions for Systemd
+#### 🛠  Instrucciones de configuración para Systemd
 
-Run the following to create a **unit file** to define your`beacon-chain.service` configuration. Simply copy and paste.
+Ejecute lo siguiente para crear un archivo de unidad que defina su `beacon-chain.service` configuración. Simplemente copie y pegue.
 
 ```bash
 cat > $HOME/beacon-chain.service << EOF
@@ -830,7 +826,7 @@ EOF
 ```
 
 {% hint style="info" %}
-\*\*\*\*🔥 **Lighthouse Pro Tip:** On the **ExecStart** line, adding the `--eth1-endpoints` flag allows for redundant eth1 nodes. Separate with comma. Make sure the endpoint does not end with a trailing slash or`/` Remove it.
+\*\*\*\*🔥 **Consejo profesional de Lighthouse**: en la línea **ExecStart** `--eth1-endpoints` agregar el indicador permite nodos eth1 redundantes. Separe con una coma. Asegúrese de que el punto final no termine con una barra diagonal final o `/` elimínelo.
 
 ```bash
 # Example:
@@ -838,19 +834,19 @@ EOF
 ```
 {% endhint %}
 
-Move the unit file to `/etc/systemd/system`
+Mueva el archivo de unidad a `/etc/systemd/system`
 
 ```bash
 sudo mv $HOME/beacon-chain.service /etc/systemd/system/beacon-chain.service
 ```
 
-Update file permissions.
+Actualizar permisos de archivos.
 
 ```bash
 sudo chmod 644 /etc/systemd/system/beacon-chain.service
 ```
 
-Run the following to enable auto-start at boot time and then start your beacon node service.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque y luego inicie su servicio de nodo de baliza.
 
 ```text
 sudo systemctl daemon-reload
@@ -859,48 +855,48 @@ sudo systemctl start beacon-chain
 ```
 
 {% hint style="info" %}
-**Troubleshooting common issues**:
+**Solución de problemas comunes**:
 
-_The beacon chain couldn't connect to the :8545 service?_
+_¿La cadena de balizas no pudo conectarse al servicio :8545?_
 
-* In the beacon chain unit file under \[Service\], add, "`ExecStartPre = /bin/sleep 30`" so that it waits 30 seconds for eth1 node to startup before connecting.
+* En el archivo de unidad de cadena de balizas en [Servicio], agregue " `ExecStartPre = /bin/sleep 30`" para que espere 30 segundos hasta que el nodo eth1 se inicie antes de conectarse.
 
-_CRIT Invalid eth1 chain id. Please switch to correct chain id._
+_CRIT Id. de cadena eth1 no válida. Cambie a la Id. de cadena correcta._
 
-* Allow your eth1 node to fully sync to mainnet.
+* Permita que su nodo eth1 se sincronice completamente con la red principal.
 {% endhint %}
 
 {% hint style="success" %}
-Nice work. Your beacon chain is now managed by the reliability and robustness of systemd. Below are some commands for using systemd.
+Buen trabajo. Tu cadena de balizas ahora está administrada por la confiabilidad y solidez de systemd. A continuación, se muestran algunos comandos para usar systemd.
 {% endhint %}
 
-### 🛠 Some helpful systemd commands
+### 🛠 Algunos comandos útiles de systemd
 
-#### ✅ Check whether the beacon chain is active
+#### ✅ Comprueba si la cadena de balizas está activa
 
 ```text
 sudo systemctl is-active beacon-chain
 ```
 
-#### 🔎 View the status of the beacon chain
+#### 🔎 Ver el estado de la cadena de balizas
 
 ```text
 sudo systemctl status beacon-chain
 ```
 
-#### 🔄 Restarting the beacon chain
+#### 🔄 Reinicio de la cadena de balizas
 
 ```text
 sudo systemctl reload-or-restart beacon-chain
 ```
 
-#### 🛑 Stopping the beacon chain
+#### 🛑 Detener la cadena de balizas
 
 ```text
 sudo systemctl stop beacon-chain
 ```
 
-#### 🗄 Viewing and filtering logs
+#### 🗄 Visualización y filtrado de registros
 
 ```bash
 #view and follow the log
@@ -913,13 +909,13 @@ journalctl --unit=beacon-chain --since=today
 journalctl --unit=beacon-chain --since='2020-12-01 00:00:00' --until='2020-12-02 12:00:00'
 ```
 
-## 🧬 4.6. Start the validator
+## 🧬 4.6. Iniciar el validador
 
-#### 🚀 Setup Graffiti and POAP
+#### 🚀 Configurar Graffiti y POAP
 
-Setup your `graffiti`, a custom message included in blocks your validator successfully proposes, and earn a POAP token. [Generate your POAP string by supplying an Ethereum 1.0 address here.](https://beaconcha.in/poap)
+Configura tu `graffiti`, un mensaje personalizado incluido en los bloques que tu validador propone con éxito, y gana un token POAP. [Generate your POAP string by supplying an Ethereum 1.0 address here.](https://beaconcha.in/poap)
 
-Run the following command to set the `MY_GRAFFITI` variable. Replace `<my POAP string or message>` between the single quotes.
+Ejecute el siguiente comando para configurar la `MY_GRAFFITI` variable. Reemplace  `<my POAP string or message>` entre comillas simples.
 
 ```bash
 MY_GRAFFITI='<my POAP string or message>'
@@ -929,18 +925,18 @@ MY_GRAFFITI='<my POAP string or message>'
 ```
 
 {% hint style="info" %}
-Learn more about [POAP - The Proof of Attendance token. ](https://www.poap.xyz/)
+Obtenga más información sobre  [POAP - The Proof of Attendance token. ](https://www.poap.xyz/)
 {% endhint %}
 
-#### 🍰 Benefits of using systemd for your validator <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
+#### 🍰 Beneficios de usar systemd para tu validador <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
 
-1. Auto-start your validator when the computer reboots due to maintenance, power outage, etc.
-2. Automatically restart crashed validator processes.
-3. Maximize your validator up-time and performance.
+1.Inicie automáticamente su validador cuando la computadora se reinicie debido a mantenimiento, corte de energía, etc.
+2. Reiniciar automáticamente los procesos de validación bloqueados.
+3. Maximice el tiempo de funcionamiento y el rendimiento de su validador.
 
-#### 🛠 Setup Instructions for Systemd
+#### 🛠 Instrucciones de configuración para Systemd
 
-Run the following to create a **unit file** to define your`validator.service` configuration. Simply copy and paste.
+Ejecute lo siguiente para crear un **archivo de unidad** que defina su`validator.service` configuración. Simplemente copie y pegue.
 
 ```bash
 cat > $HOME/validator.service << EOF
@@ -962,19 +958,19 @@ WantedBy    = multi-user.target
 EOF
 ```
 
-Move the unit file to `/etc/systemd/system`
+Mueva el archivo de unidad a `/etc/systemd/system`
 
 ```bash
 sudo mv $HOME/validator.service /etc/systemd/system/validator.service
 ```
 
-Update file permissions.
+Actualizar permisos de archivos.
 
 ```bash
 sudo chmod 644 /etc/systemd/system/validator.service
 ```
 
-Run the following to enable auto-start at boot time and then start your validator.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque y luego inicie su validador.
 
 ```text
 sudo systemctl daemon-reload
@@ -983,36 +979,36 @@ sudo systemctl start validator
 ```
 
 {% hint style="success" %}
-Nice work. Your validator is now managed by the reliability and robustness of systemd. Below are some commands for using systemd.
+Buen trabajo. Ahora tu validador está gestionado por la fiabilidad y robustez de systemd. A continuación se muestran algunos comandos para utilizar systemd.
 {% endhint %}
 
-### 🛠 Some helpful systemd commands
+### 🛠 Algunos comandos útiles de systemd
 
-#### ✅ Check whether the validator is active
+#### ✅ Comprueba si el validador está activo
 
 ```text
 sudo systemctl is-active validator
 ```
 
-#### 🔎 View the status of the validator
+#### 🔎 Ver el estado del validador
 
 ```text
 sudo systemctl status validator
 ```
 
-#### 🔄 Restarting the validator
+#### 🔄Reiniciando el validador
 
 ```text
 sudo systemctl reload-or-restart validator
 ```
 
-#### 🛑 Stopping the validator
+#### 🛑 Detener el validador
 
 ```text
 sudo systemctl stop validator
 ```
 
-#### 🗄 Viewing and filtering logs
+#### 🗄 Visualización y filtrado de registros
 
 ```bash
 #view and follow the log
@@ -1028,19 +1024,19 @@ journalctl --unit=validator --since='2020-12-01 00:00:00' --until='2020-12-02 12
 
 {% tab title="Nimbus" %}
 {% hint style="info" %}
-[Nimbus](https://our.status.im/tag/nimbus/) is a research project and a client implementation for Ethereum 2.0 designed to perform well on embedded systems and personal mobile devices, including older smartphones with resource-restricted hardware. The Nimbus team are from [Status](https://status.im/about/) the company best known for [their messaging app/wallet/Web3 browser](https://status.im/) by the same name. Nimbus \(Apache 2\) is written in Nim, a language with Python-like syntax that compiles to C.
+[Nimbus](https://our.status.im/tag/nimbus/) es un proyecto de investigación y una implementación de cliente para Ethereum 2.0 diseñado para funcionar bien en sistemas integrados y dispositivos móviles personales, incluidos los teléfonos inteligentes más antiguos con hardware con recursos limitados. El equipo de Nimbus es de [Status](https://status.im/about/) la empresa más conocida por [their messaging app/wallet/Web3 browser](https://status.im/) con el mismo nombre. Nimbus (Apache 2) está escrito en Nim, un lenguaje con sintaxis similar a Python que se compila en C. 
 {% endhint %}
 
-## ⚙ 4.1. Build Nimbus from source
+## ⚙ 4.1. Construir Nimbus desde el código fuente
 
-Install dependencies.
+Instalar dependencias.
 
 ```text
 sudo apt-get update
 sudo apt-get install curl build-essential git -y
 ```
 
-Install and build Nimbus.
+Instalar y construir Nimbus.
 
 ```bash
 mkdir ~/git
@@ -1051,91 +1047,90 @@ make NIMFLAGS="-d:insecure" nimbus_beacon_node
 ```
 
 {% hint style="info" %}
-The build process may take a few minutes.
+El proceso de compilación puede tardar unos minutos.
 {% endhint %}
 
-Verify Nimbus was installed properly by displaying the help.
+Verifique que Nimbus se haya instalado correctamente mostrando la ayuda.
 
 ```bash
 cd $HOME/git/nimbus-eth2/build
 ./nimbus_beacon_node --help
 ```
 
-Copy the binary file to `/usr/bin`
+Copiar el archivo binario a `/usr/bin`
 
 ```bash
 sudo cp $HOME/git/nimbus-eth2/build/nimbus_beacon_node /usr/bin
 ```
 
-## 🎩 4.2. Import validator key <a id="6-import-validator-key"></a>
+## 🎩 4.2. Importar clave de validación <a id="6-import-validator-key"></a>
 
-Create a directory structure to store nimbus data.
+Cree una estructura de directorio para almacenar datos de Nimbus.
 
 ```bash
 sudo mkdir -p /var/lib/nimbus
 ```
 
-Take ownership of this directory and set the correct permission level.
+Toma posesión de este directorio y establece el nivel de permiso correcto.
 
 ```bash
 sudo chown $(whoami):$(whoami) /var/lib/nimbus
 sudo chmod 700 /var/lib/nimbus
 ```
 
-The following command will import your validator keys.
+El siguiente comando importará sus claves de validación.
 
-Enter your keystore's password to import accounts.
+Ingrese la contraseña de su almacén de claves para importar cuentas.
 
 ```bash
 cd $HOME/git/nimbus-eth2
 build/nimbus_beacon_node deposits import --data-dir=/var/lib/nimbus $HOME/eth2deposit-cli/validator_keys
 ```
 
-Now you can verify the accounts were imported successfully by doing a directory listing.
+Ahora puedes verificar que las cuentas se importaron correctamente haciendo un listado de directorio.
 
 ```bash
 ll /var/lib/nimbus/validators
 ```
 
-You should see a folder named for each of your validator's pubkey.
+Deberías ver una carpeta con el nombre de cada una de las claves públicas de tu validador.
 
 {% hint style="info" %}
-When you import your keys into Nimbus, your validator signing key\(s\) are stored in the `/var/lib/nimbus` folder, under `secrets` and `validators.`
+Cuando importa sus claves a Nimbus, sus claves de firma del validador se almacenan en la`/var/lib/nimbus` carpeta, bajo `secrets` y `validators.`
 
-The `secrets` folder contains the common secret that gives you access to all your validator keys.
+La `secrets` carpeta contiene el secreto común que le da acceso a todas sus claves de validación.
 
-The `validators` folder contains your signing keystore\(s\) \(encrypted keys\). Keystores are used by validators as a method for exchanging keys.
+La `validators` carpeta contiene sus almacenes de claves de firma (claves cifradas). Los validadores utilizan los almacenes de claves como método para intercambiar claves.
 
-For more on keys and keystores, see [here](https://blog.ethereum.org/2020/05/21/keys/).
+Para obtener más información sobre claves y almacenes de claves, consulte [here](https://blog.ethereum.org/2020/05/21/keys/).
 {% endhint %}
 
 {% hint style="danger" %}
-**WARNING**: DO NOT USE THE ORIGINAL KEYSTORES TO VALIDATE WITH ANOTHER CLIENT, OR YOU WILL GET SLASHED.
+**ADVERTENCIA**: NO UTILICE LOS ALMACENES DE CLAVE ORIGINALES PARA VALIDAR CON OTRO CLIENTE, O SERÁ CORTADO.
 {% endhint %}
 
-## 🔥 4.3. Configure port forwarding and/or firewall
+## 🔥 4.3. Configurar el reenvío de puertos y/o el firewall
 
-Specific to your networking setup or cloud provider settings, [ensure your validator's firewall ports are open and reachable.](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md#configure-your-firewall)
+Dependiendo de su configuración de red o de la configuración de su proveedor de nube, [ensure your validator's firewall ports are open and reachable.](guide-or-security-best-practices-for-a-eth2-validator-beaconchain-node.md#configure-your-firewall)
 
-* **Nimbus beacon chain node** will use port 9000 for tcp and udp
-* **eth1** node requires port 30303 for tcp and udp
+* **El nodo de la cadena de balizas Nimbus** utilizará el puerto 9000 para TCP y UDP
+* **El nodo eth1** requiere el puerto 30303 para tcp y udp
 
 {% hint style="info" %}
-✨ **Port Forwarding Tip:** You'll need to forward and open ports to your validator. Verify it's working with [https://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/) or [https://canyouseeme.org/](https://canyouseeme.org/) .
+✨ **Consejo de reenvío de puertos**: deberá reenviar y abrir puertos a su validador. Verifique que funcione con [https://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/) o [https://canyouseeme.org/](https://canyouseeme.org/) .
 {% endhint %}
 
-##  🏂 4.4. Start the beacon chain and validator
+##  🏂 4.4. Iniciar la cadena de balizas y el validador
 
 {% hint style="info" %}
-Nimbus combines both the beacon chain and validator into one process.
+Nimbus combina la cadena de balizas y el validador en un solo proceso.
 {% endhint %}
 
-#### 🚀 Setup Graffiti and POAP
+#### 🚀 Configurar Graffiti y POAP
 
-Setup your `graffiti`, a custom message included in blocks your validator successfully proposes, and earn a POAP token. [Generate your POAP string by supplying an Ethereum 1.0 address here.](https://beaconcha.in/poap)
+Configura tu  `graffiti`, un mensaje personalizado incluido en los bloques que tu validador propone con éxito, y gana un token POAP. [Generate your POAP string by supplying an Ethereum 1.0 address here.](https://beaconcha.in/poap)
 
-Run the following command to set the `MY_GRAFFITI` variable. Replace `<my POAP string or message>` between the single quotes.
-
+Ejecute el siguiente comando para configurar la `MY_GRAFFITI` variable. Reemplace `<my POAP string or message>` entre comillas simples.
 ```bash
 MY_GRAFFITI='<my POAP string or message>'
 # Examples
@@ -1144,18 +1139,18 @@ MY_GRAFFITI='<my POAP string or message>'
 ```
 
 {% hint style="info" %}
-Learn more about [POAP - The Proof of Attendance token. ](https://www.poap.xyz/)
+Obtenga más información sobre [POAP - The Proof of Attendance token. ](https://www.poap.xyz/)
 {% endhint %}
 
-#### 🍰 Benefits of using systemd for your beacon chain and validator <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
+#### 🍰 Beneficios de usar systemd para su cadena de balizas y validador <a id="benefits-of-using-systemd-for-your-stake-pool"></a>
 
-1. Auto-start your beacon chain when the computer reboots due to maintenance, power outage, etc.
-2. Automatically restart crashed beacon chain processes.
-3. Maximize your beacon chain up-time and performance.
+1. Inicie automáticamente su cadena de balizas cuando la computadora se reinicie debido a mantenimiento, corte de energía, etc.
+2. Reiniciar automáticamente los procesos de la cadena de balizas bloqueados.
+3. Maximice el tiempo de funcionamiento y el rendimiento de su cadena de balizas.
 
-#### 🛠 Setup Instructions
+#### 🛠 Instrucciones de configuración
 
-Run the following to create a **unit file** to define your`beacon-chain.service` configuration. Simply copy and paste.
+Ejecute lo siguiente para crear un archivo de unidad que defina su `beacon-chain.service` configuración. Simplemente copie y pegue.
 
 ```bash
 cat > $HOME/beacon-chain.service << EOF

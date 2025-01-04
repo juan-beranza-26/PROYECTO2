@@ -1,28 +1,28 @@
 # Reth
 
-## Overview
+## Descipción General
 
 {% hint style="info" %}
-**Reth** - short for Rust Ethereum, is an Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient.
+**Reth** - abreviatura de Rust Ethereum, es una implementación de nodo completo de Ethereum que se centra en ser fácil de usar, altamente modular, además de rápida y eficiente.
 {% endhint %}
 
 {% hint style="warning" %}
-:construction: Reth is the bleeding edge of Ethereum EL clients. As alpha software, expect rapid change and proceed with caution. :construction:
+:construction: Reth es la vanguardia de los clientes de Ethereum EL. Como software alfa, espere cambios rápidos y proceda con precaución. :construction:
 {% endhint %}
 
-#### Official Links
+#### Enlaces Oficiales
 
 
 
-| Subject       | Link                                                                       |
+| Tema          | Enlace                                                                       |
 | ------------- | -------------------------------------------------------------------------- |
-| Releases      | [https://github.com/paradigmxyz/reth](https://github.com/paradigmxyz/reth) |
-| Documentation | [https://paradigmxyz.github.io/reth/](https://paradigmxyz.github.io/reth/) |
-| Website       | [https://www.paradigm.xyz/oss/reth](https://www.paradigm.xyz/oss/reth)     |
+| Lanamiento    | [https://github.com/paradigmxyz/reth](https://github.com/paradigmxyz/reth) |
+| Documentación | [https://paradigmxyz.github.io/reth/](https://paradigmxyz.github.io/reth/) |
+| Sitio Web     | [https://www.paradigm.xyz/oss/reth](https://www.paradigm.xyz/oss/reth)     |
 
 ### 1. Create service account and data directory
 
-Create a service user for the execution service, create data directory and assign ownership.
+Cree un usuario de servicio para el servicio de ejecución, cree un directorio de datos y asigne propiedad.
 
 ```bash
 sudo adduser --system --no-create-home --group execution
@@ -30,18 +30,17 @@ sudo mkdir -p /var/lib/reth
 sudo chown -R execution:execution /var/lib/reth
 ```
 
-Install dependencies.
+Instalar dependencias.
 
 ```bash
 sudo apt-get update
 sudo apt install -y ccze jq curl
 ```
 
-### **2. Install binaries**
+### **2. Instalar binarios**
 
-* Downloading binaries is often faster and more convenient.
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
-
+* La descarga de archivos binarios suele ser más rápida y cómoda.
+* Construir a partir de código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu de FOSS (software gratuito de código abierto).
 <details>
 
 <summary>Option 1 - Download binaries</summary>
@@ -50,7 +49,7 @@ sudo apt install -y ccze jq curl
 RELEASE_URL="https://api.github.com/repos/paradigmxyz/reth/releases/latest"
 BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep x86_64-unknown-linux-gnu.tar.gz$)"
 
-echo Downloading URL: $BINARIES_URL
+eco Descargando URL: $BINARIES_URL
 
 cd $HOME
 wget -O reth.tar.gz $BINARIES_URL
@@ -58,7 +57,7 @@ tar -xzvf reth.tar.gz -C $HOME
 rm reth.tar.gz
 ```
 
-Install the binaries and display the version.
+Instale los binarios y muestre la versión.
 
 ```bash
 sudo mv $HOME/reth /usr/local/bin
@@ -71,29 +70,29 @@ reth --version
 
 <summary>Option 2 - Build from source code</summary>
 
-**Install rust dependency**
+**Instalar dependencia de óxido**
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-When prompted, enter '1' to proceed with the default install.
+Cuando se le solicite, ingrese '1' para continuar con la instalación predeterminada.
 
-Update your environment variables.
+Actualice sus variables de entorno.
 
 ```bash
 echo export PATH="$HOME/.cargo/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Install rust dependencies.
+Instalar dependencias de óxido.
 
 ```bash
 sudo apt-get update
 sudo apt install -y git libclang-dev pkg-config build-essential
 ```
 
-Build the binaries.
+Construye los binarios.
 
 ```bash
 mkdir -p ~/git
@@ -109,7 +108,7 @@ git checkout $latestTag
 cargo build --release
 ```
 
-In case of compilation errors, run the following sequence.
+En caso de errores de compilación, ejecute la siguiente secuencia.
 
 ```bash
 rustup update
@@ -117,13 +116,13 @@ cargo clean
 cargo build --release
 ```
 
-Verify Reth was built properly by checking the version number.
+Verifique que Reth se haya creado correctamente comprobando el número de versión.
 
 ```bash
 ~/git/reth/target/release/reth --version
 ```
 
-Install the binary.
+Instalar Binario.
 
 ```bash
 sudo cp ~/git/reth/target/release/reth /usr/local/bin
@@ -131,15 +130,15 @@ sudo cp ~/git/reth/target/release/reth /usr/local/bin
 
 </details>
 
-### **3. Setup and configure systemd**
+### **3. Instalar y configurar systemd**
 
-Create a **systemd unit file** to define your `execution.service` configuration.
+Cree un **archivo de unidad systemd** para definir su configuración `execution.service`.
 
 ```bash
 sudo nano /etc/systemd/system/execution.service
 ```
 
-Paste the following configuration into the file.
+Pegue la siguiente configuración en el archivo.
 
 <pre class="language-bash"><code class="lang-bash">[Unit]
 Description=Reth Execution Layer Client service for Mainnet
@@ -174,9 +173,9 @@ ExecStart=/usr/local/bin/reth node \
 </strong>WantedBy=multi-user.target
 </code></pre>
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then `Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Run the following to enable auto-start at boot time.
+Ejecute lo siguiente para habilitar el inicio automático en el momento del arranque.
 
 ```bash
 sudo systemctl daemon-reload
@@ -190,16 +189,16 @@ sudo systemctl start execution
 sudo systemctl status execution
 ```
 
-Press `Ctrl` + `C` to exit the status.
+Presione `Ctrl` + `C` para salir del estado.
 
-### 4. Helpful execution client commands
+### 4. Comandos útiles del cliente de ejecución
 
 {% tabs %}
 {% tab title="View Logs" %}
 <pre class="language-bash"><code class="lang-bash"><strong>sudo journalctl -fu execution | ccze
 </strong></code></pre>
 
-A properly functioning **Reth** execution client will indicate "Block added to canonical chain". For example,
+Un cliente de ejecución **Reth** que funcione correctamente indicará "Bloque agregado a la cadena canónica". Por ejemplo,
 
 ```
 INFO reth::node::events: Forkchoice updated head_block_hash=2317ae..c41107 safe_block_hash=ab173f..33a21b finalized_block_hash=ab173f..33a21b status=Valid
@@ -229,9 +228,9 @@ sudo systemctl status execution
 {% tab title="Reset Database" %}
 Common reasons to reset the database can include:
 
-* Recovering from a corrupted database due to power outage or hardware failure
-* Re-syncing to reduce disk space usage
-* Upgrading to a new storage format
+* Recuperación de una base de datos dañada debido a un corte de energía o una falla de hardware.
+* Resincronización para reducir el uso de espacio en disco.
+* Actualización a una nueva forma de almacenamiento.
 
 ```bash
 sudo systemctl stop execution
@@ -243,8 +242,8 @@ Time to re-sync the execution client can take a few hours up to a day.
 {% endtab %}
 {% endtabs %}
 
-Now that your execution client is configured and started, proceed to the next step on setting up your consensus client.
+Ahora que su cliente de ejecución está configurado e iniciado, continúe con el siguiente paso para configurar su cliente de consenso.
 
 {% hint style="warning" %}
-If you're checking the logs and see any warnings or errors, please be patient as these will normally resolve once both your execution and consensus clients are fully synced to the Ethereum network.
+Si está revisando los registros y ve alguna advertencia o error, tenga paciencia, ya que normalmente se resolverán una vez que tanto su cliente de ejecución como el de consenso estén completamente sincronizados con la red Ethereum.
 {% endhint %}
