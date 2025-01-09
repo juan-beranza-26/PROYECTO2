@@ -1,13 +1,13 @@
 ---
-description: >-
-  Altona is a multi-client ETH 2.0 testnet. It implements the Ethereum 2.0 Phase
-  0 protocol for a proof-of-stake blockchain, enabling anyone holding Goerli
-  test ETH to join.
+descripción: >-
+  Altona es una red de prueba ETH 2.0 multicliente. Implementa la Fase Ethereum 2.0
+  0 para una cadena de bloques de prueba de participación, que permite a cualquiera que tenga Goerli
+  Pruebe ETH para unirse.
 ---
 
-# Guide: How to stake on ETH 2.0 Altona Testnet with Lighthouse on Ubuntu
+# Guía: Cómo apostar en ETH 2.0 Altona Testnet con Lighthouse en Ubuntu
 
-## 📶 0.0 Altona ETH 2.0 Network Stats
+## 📶 Estadísticas de la red 0.0 Altona ETH 2.0
 
 * Genesis Time: `1593433805` \(2020-06-29 12:30:05 +0000 UTC\)
 * Genesis Block Root: `0x9e2ffe8ab9316e03e45409eaaffab10cf02e1b60e609276113e07240d4a31b7a`
@@ -17,223 +17,222 @@ description: >-
 * Implements ETH 2.0 spec v0.12.1
 * [More information](https://github.com/goerli/altona)
 
-## 🐣 0.1 Prerequisites
+## 🐣 0.1 Requisitos previos
 
-### \*\*\*\*🎗 **Minimum Setup Requirements**
+### \*\*\*\*🎗 **Requisitos mínimos de configuración**
 
-* **Operating system:** 64-bit Linux \(i.e. Ubuntu 18.04.4 LTS\)
-* **Processor:** Dual core CPU
-* **Memory:** 4GB RAM
-* **Storage:** 20GB SSD
+* **Sistema operativo:** 64-bit Linux \(i.e. Ubuntu 18.04.4 LTS\)
+* **Procesador:** Dual core CPU
+* **Memoria:** 4GB RAM
+* **Almacenamiento:** 20GB SSD
 * **Internet:** 24/7 broadband internet connection with speeds at least 1 Mbps.
-* **Power:** 24/7 electrical power
+* **Poder:** 24/7 electrical power
 * **ETH balance:** at least 32 Goerli ETH
-* **Wallet**: Metamask installed
+* **Portafolio**: Metamask installed
 
-If you need to install Ubuntu, refer to
+Si necesita instalar Ubuntu, consulte
 
 {% page-ref page="../overview-xtz/guide-how-to-setup-a-baker/install-ubuntu.md" %}
 
-If you need to install Metamask, refer to
+Si necesita instalar Metamask, consulte
 
 {% page-ref page="../../wallets/browser-wallets/metamask-ethereum.md" %}
 
-## 🤖 1. Download a ETH1 node, geth
+## 🤖 1.Descargue un nodo ETH1, geth
 
-```text
+```texto
 sudo add-apt-repository -y ppa:ethereum/ethereum
 sudo apt-get update -y
 sudo apt-get install ethereum -y
 ```
 
-or manually download at:
+o descargarlo manualmente en:
 
 {% embed url="https://geth.ethereum.org/downloads/" %}
 
-## 📄 2. Create a geth startup script
+## 📄 2. Crear un script de inicio geth
 
-```text
+```texto
 cat > startGethNode.sh << EOF 
 geth --goerli --datadir="$HOME/Goerli" --rpc
 EOF
 ```
 
-## 🐣 3. Start the geth node for ETH Goerli testnet
+## 🐣 3.Inicie el nodo geth para la red de prueba ETH Goerli
 
-```text
+```texto
 chmod +x startGethNode.sh
 ./startGethNode.sh
 ```
 
 {% hint style="info" %}
-Syncing the node could take up to 1 hour.
+La sincronización del nodo podría tardar hasta 1 hora.
 {% endhint %}
 
 {% hint style="success" %}
-You are fully sync'd when you see the message: `Imported new chain segment`
+Estás completamente sincronizado cuando ves el mensaje: `Nuevo segmento de cadena importado`
 {% endhint %}
 
-## ⚙ 4. Obtain Goerli test network ETH
+## ⚙ 4. Obtenga la red de prueba Goerli ETH
 
-Join the [Prysmatic Labs Discord](https://discord.com/invite/YMVYzv6) and send a request for ETH in the **`-request-goerli-eth channel`**
+Unete a [Prysmatic Labs Discord](https://discord.com/invite/YMVYzv6) y envíe una solicitud de ETH en el **`-request-goerli-eth channel`**
 
-```text
+```texto
 !send <your metamask goerli network ETH address>
 ```
 
-Otherwise, visit below and use metamask to request ETH on step 2, "Get GöETH — Test ether". 
+De lo contrario, visite a continuación y use metamask para solicitar ETH en el paso 2, "Obtener GöETH - Probar ether".
 
 {% embed url="https://prylabs.net/participate" %}
 
 {% hint style="warning" %}
-This method is sometimes unreliable.
+En ocasiones, este método no es fiable.
 {% endhint %}
 
-## 👩💻 5. Install rust
+## 👩💻 5.Instalar óxido
 
-```text
+```texto
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 {% hint style="info" %}
- In case of compilation errors, run`rustup update`
+En caso de errores de compilación, ejecute`rustup update`
 {% endhint %}
 
-Enter '1' to proceed with the default install.
+Ingrese '1' para continuar con la instalación predeterminada.
 
-Update your environment variables.
+Actualice sus variables de entorno.
 
-```text
+```texto
 echo export PATH="$HOME/.cargo/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Install rust dependencies.
+Instale dependencias de óxido.
 
-```text
+```texto
 sudo apt install -y git gcc g++ make cmake pkg-config libssl-dev
 ```
 
-## 💡 6. Install Lighthouse
+## 💡 6.Instalar faro
 
-```text
+```texto
 git clone https://github.com/sigp/lighthouse.git
 cd lighthouse
 make
 ```
 
 {% hint style="info" %}
-This build process may take up to an hour.
+Este proceso de construcción puede tardar hasta una hora.
 {% endhint %}
 
-Verify lighthouse was installed properly.
+Verifique que el faro esté instalado correctamente.
 
-```text
+```texto
 lighthouse --version
 ```
 
-## 🏂 7. Start the beacon chain
+## 🏂 7.Iniciar la cadena de balizas
 
-In a new terminal, start the beacon chain.
+En una nueva terminal, inicie la cadena de balizas.
 
-```text
+```texto
 lighthouse beacon --eth1 --http
 ```
 
-## 🚥 8. Create a wallet and save the mnemonic seed 
+## 🚥 8. Crea una billetera y guarda la semilla mnemotécnica
 
-This creates a wallet called `my-validators` protected by a randomly generated password stored in `my-validators.pass`
+Esto crea una portafolio llamada `my-validators`protegido por una contraseña generada aleatoriamente y almacenada en `my-validators.pass`
 
-```text
+```texto
 lighthouse account wallet create --name my-validators --passphrase-file my-validators.pass
 ```
 
 {% hint style="danger" %}
-Be sure to save your mnemonic seed.
+Asegúrate de guardar tu semilla mnemotécnica.
 {% endhint %}
 
-Create the **voting** and **withdrawal** **keystores** for a validator. Change `--count` to the \# of validators you want.
-
-```text
+Cree los **voting** y **withdrawal** **keystores** para un validador. Cambie `--count` al \# de validadores que desee.
+```texto
 lighthouse account validator create --wallet-name my-validators --wallet-passphrase my-validators.pass --count 1
 ```
 
-> Sample Output:
+> Salida de muestra:
 >
 > `1/1 0xa777c8a16638c4f3e1f5d80f1b91f8f5fca70b0c3ee56c8e71a616bb04c48d2df4f0928ef8fabde42c8ba201e0b6382a`
 
 {% hint style="info" %}
-Note the validator public key \(0xxa777...64 chars\). Use this public key in a [block explorer](https://altona.beaconcha.in/) to view your validator's activity.
+Tenga en cuenta la clave pública del validador \(0xxa777...64 chars\). [block explorer](https://altona.beaconcha.in/) para ver la actividad de su validador.
 {% endhint %}
 
 {% hint style="info" %}
-Validator public key data is saved in `~$HOME/.lighthouse/validators`
+Los datos de la clave pública del validador se guardan en `~$HOME/.lighthouse/validators`
 {% endhint %}
 
-## 🏁 9. Configure firewall and/or port forwarding
+## 🏁 9. Configurar firewall y/o reenvío de puertos
 
-By default, lighthouse p2p traffic is transmitted over port 9000. Open and/or forward this port
+De forma predeterminada, el tráfico p2p de Lighthouse se transmite a través del puerto 9000. Abra y/o reenvíe este puerto
 
-## 🧬 10. Start the validator
+## 🧬 10.Iniciar el validador
 
-```text
+```texto
 lighthouse validator --auto-register
 ```
 
 {% hint style="info" %}
-**Validator client** - Responsible for producing new blocks and attestations in the beacon chain and shard chains.
+**Validator client** -Responsable de producir nuevos bloques y certificaciones en la cadena de balizas y cadenas de fragmentos.
 
-**Beacon chain client** - Responsible for managing the state of the beacon chain, validator shuffling, and more.
+**Beacon chain client** -Responsable de gestionar el estado de la cadena de balizas, la mezcla del validador y más.
 {% endhint %}
 
-## 📄 11. Copy the validator deposit data
+## 📄 11. Copiar los datos del depósito del validador.
 
-Copy the text from your  `eth1_deposit_data.rlp`  in your validator directory located at
+Copia el texto de tu `eth1_deposit_data.rlp`  en su directorio de validadores ubicado en
 
-```text
+```texto
 cd ~/.lighthouse/validators/<your validator's public key>
 ```
 
-> For example, if your ubuntu username is `ethereum` and your validator's public key is `0xabc123...`, then your `eth1-deposit-data.rlp` is located in
+> Por ejemplo, si su nombre de usuario de ubuntu es `ethereum` y la clave pública de su validador es`0xabc123...`, entonces tu `eth1-deposit-data.rlp` se encuentra en
 >
 > `/home/ethereum/.lighthouse/validators/0xabc123.../`
 
-View the deposit data and then copy this into your clipboard.
+Vea los datos del depósito y luego cópielos en su portapapeles.
 
-```text
+```texto
 cat eth1-deposit-data.rlp
 ```
 
-Save the **deposit data** for the next step. Sample deposit data looks as follows:
+Guarde los **datos del depósito** para el siguiente paso. Los datos de depósito de muestra son los siguientes:
 
 > 0x2289511800000000000000000000000000000000000000000000000120d77ff7f6ee42ff448b239856012c2650752b664a3e17927135b0a363a78c1b550000000000000000000000000000000000000000000000000000000000000030b539868a621d45b51f66ce88bc80e35099e01f31a0aec8484e7fbd04936056483053c5f2b1d195273b651599555ef35e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000200086c2c1fb70ed4e6435d2f32a3f6a5fdd4596ad5dc82bd6254ef73959d1ec2b0000000000000000000000000000000000000000000000000000000000000060a8480dd7d6341273789afa176e00e2c105cfe76adb670a211da5604c74cb7fd1ee6ceb4753a25400227fbf01cc344e98000d0705db8f3a964692f85901e4cb4fb6211aa5091967c22f550666adfa65bbde8b33c41cdc56fb62564a73a2135c20
 
-## 📩 12. Send the validator deposit
+## 📩 12. Enviar el depósito del validador
 
 {% hint style="danger" %}
-Do not send mainnet ETH.
+No envíe ETH de la red principal.
 {% endhint %}
 
-1. Open **Metamask** wallet in your browser
-2. Ensure you have selected the **Goerli Test Network** from the dropdown menu.
-3. Click your account Identicon, the circular colorful icon.
-4. Go to **Settings then Advanced**
-5. Enable **"Show Hex Data"**
-6. Click **Send**
-7. Enter the Altona Deposit Contract Address as Recipient:  [0x16e82D77882A663454Ef92806b7DeCa1D394810f](https://goerli.etherscan.io/address/0x16e82D77882A663454Ef92806b7DeCa1D394810f)
-8. Enter **32 ETH** into the **Amount** field
-9. Paste the **Deposit Data** from step 11 into the **Hex Data** field.
-10. Click **Next** to send.
-
+1. Abrir **Metamask** billetera en tu navegador
+2. Asegúrese de haber seleccionado el **Goerli Test Network** en el menú desplegable.
+3.Haga clic en el Identicon de su cuenta, el icono circular colorido.
+4. Vaya a **Settings then Advanced**
+5.Permitir **"Show Hex Data"**
+6. Presiona **Send**
+7. Ingrese la dirección del contrato de depósito de Altona como destinatario:  [0x16e82D77882A663454Ef92806b7DeCa1D394810f](https://goerli.etherscan.io/address/0x16e82D77882A663454Ef92806b7DeCa1D394810f)
+8. Ingrese **32 ETH** en el campo **Cantidad**
+9. Pega el **Deposit Data** desde el paso 11 al **Hex Data** campo.
+10. Presiona **Next** para enviar.
+    
 ![Turning on Show Hex Data](../../.gitbook/assets/eth2-onyx-metamask.png)
 
 ![Sending the deposit data transaction](../../.gitbook/assets/altona.png)
 
 {% hint style="success" %}
-Congratulations. Once your beacon-chain is sync'd, validator up and running, you just wait for activation. This process takes up to 8 hours. When you're assigned, your validator will begin creating and voting on blocks while earning ETH staking rewards. Find your validator's status at [beaconcha.in](https://altona.beaconcha.in)
+Felicidades. Una vez que su cadena de baliza esté sincronizada y el validador esté en funcionamiento, simplemente espere la activación. Este proceso dura hasta 8 horas. Cuando se le asigne, su validador comenzará a crear y votar bloques mientras gana recompensas de apuesta ETH. Encuentre el estado de su validador en [beaconcha.in](https://altona.beaconcha.in)
 {% endhint %}
 
-## 🧩 13. Reference Material
+## 🧩 13. Material de referencia
 
 {% embed url="https://lighthouse-book.sigmaprime.io/intro.html" %}
 
