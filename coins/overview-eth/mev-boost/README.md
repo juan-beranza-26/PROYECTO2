@@ -10,11 +10,11 @@ The following steps align with our [mainnet guide](../guide-or-how-to-setup-a-va
 
 ## :question:What is mev-boost?
 
-* Enables solo and home stakers access to MEV, Maximal Extractible Value.
-* Enables validators to earn higher block rewards.
-* Optional and not required for ETH staking.
-* Open source middleware run by validators to access a competitive block-building market.
-* Built by Flashbots as an implementation of [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) for proof-of-stake (PoS) Ethereum.
+* Permite a los productores individuales y domésticos acceder al MEV, Valor Máximo Extraíble.
+* Permite a los validadores obtener mayores recompensas por bloque.
+* Opcional y no necesario para la apuesta ETH.
+* Middleware de código abierto gestionado por validadores para acceder a un mercado competitivo de construcción de bloques.
+* contruido por Flashbots como una implementacion de [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) for proof-of-stake (PoS) Ethereum.
 * `home-staker (you) >> mevboost >> relay >> builder >> searcher +/-  frontrun/sandwich += efficient markets :)`
 
 {% hint style="info" %}
@@ -31,7 +31,7 @@ The following steps align with our [mainnet guide](../guide-or-how-to-setup-a-va
 
 ### Step 1: Create mevboost service account
 
-The systemd service will run under this account, `mevboost`
+El servicio systemd se ejecutará bajo esta cuenta, `mevboost`
 
 ```bash
 sudo useradd --no-create-home --shell /bin/false mevboost
@@ -39,14 +39,14 @@ sudo useradd --no-create-home --shell /bin/false mevboost
 
 ### Step 2: Install mevboost
 
-* Downloading binaries is often faster and more convenient.&#x20;
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios suele ser más rápido y cómodo.&#x20;
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con spirit of FOSS (software libre de código abierto).
 
 <details>
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/flashbots/mev-boost/releases/latest"
@@ -90,27 +90,26 @@ echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
 </code></pre>
 
-Verify that you've installed Go 1.18+ by printing the version information.
+comprobar que se instalo 1.18+ imprimiendo la información sobre la versión.
 
 ```bash
 go version
 ```
 
-Install mev-boost with `go install`
+instalar mev-boost con `go install`
 
 ```bash
 CGO_CFLAGS="-O -D__BLST_PORTABLE__" go install github.com/flashbots/mev-boost@latest
 ```
 
-Install binaries to `/usr/local/bin` and update ownership permissions.
-
+Instalar binarios en `/usr/local/bin` y actualizar los permisos de propiedad.
 ```bash
 sudo cp $HOME/go/bin/mev-boost /usr/local/bin
 ```
 
 </details>
 
-Create the mevboost systemd unit file.
+crear mevboost systemd archivo de unidad.
 
 ```bash
 sudo nano /etc/systemd/system/mevboost.service
@@ -138,7 +137,7 @@ Important: Ensure each relay line ends with \ except the last relay line.
 ```
 {% endhint %}
 
-Paste the following into your `mevboost.service` file. To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Pegue lo siguiente en su `mevboost.service` file. despues salir y guardar `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
 
 {% tabs %}
 {% tab title="Ethereum Mainnet" %}
@@ -204,18 +203,17 @@ WantedBy=multi-user.target
 {% hint style="info" %}
 Using `-min-bid` flag, you can set a minimum bid value in ETH.&#x20;
 
-* If all relays cannot bid higher than your minimum value, then your local execution client will produce the block.&#x20;
-* By setting this value, you can capture MEV opportunities for higher value blocks and maintain a degree of control for local block production which helps strengthen censorship resistance and a neutral Ethereum network.&#x20;
+* Si todos los relés no pueden pujar por encima de su valor mínimo, su cliente de ejecución local producirá block.&#x20;
+* Al establecer este valor, puede capturar oportunidades MEV para bloques de mayor valor y mantener un cierto grado de control para la producción local de bloques, lo que ayuda a fortalecer la resistencia a la censura y una red Ethereum neutral..&#x20;
 {% endhint %}
 
-Reload systemctl to pickup the new service file.
-
+Recarga systemctl para recoger el nuevo archivo de servicio.
 ```bash
 sudo systemctl daemon-reload
 ```
 
 {% hint style="info" %}
-**Good to know**: If you add or remove relay endpoints, you'll need to re-run this systemctl`daemon-reload` command and restart the mevboost services.
+**Good to know**: Si añades o eliminas puntos finales de retransmisión, tendrás que volver a ejecutar este comando systemctl`daemon-reload` y reiniciar los servicios mevboost.
 
 ```bash
 sudo systemctl daemon-reload
@@ -223,8 +221,7 @@ sudo systemctl restart mevboost
 ```
 {% endhint %}
 
-Enable mevboost to automatically startup at system reboots and start the service.
-
+Habilite mevboost para que se inicie automáticamente al reiniciar el sistema e inicie el servicio.
 ```bash
 sudo systemctl enable mevboost
 sudo systemctl start mevboost
@@ -270,7 +267,7 @@ Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" lev
 ### Step 3: Update consensus client and validator
 
 {% hint style="info" %}
-Both the consensus layer client and validator will require additional **Builder API** flags.
+Tanto el cliente de la capa de consenso como el validador necesitarán **Builder API** flags.
 {% endhint %}
 
 **Consensus Client Layer Changes (beacon chain)**
@@ -305,7 +302,7 @@ sudo nano /etc/systemd/system/beacon-chain.service
 {% tab title="Teku" %}
 #### Option 1: Systemd service file configuration - Use for V2 Teku staking setup&#x20;
 
-If your Teku client is configured by --parameters in the **systemd service file,** add the following changes.
+Si su cliente Teku está configurado por --parameters en el **systemd service file,** añada los siguientes cambios.
 
 ```bash
 --validators-builder-registration-default-enabled=true --builder-endpoint=http://127.0.0.1:18550
@@ -313,7 +310,7 @@ If your Teku client is configured by --parameters in the **systemd service file,
 
 #### Option 2: TOML Configuration - Use for V1 Teku staking setup
 
-If your Teku client is configured by passing in a **TOML file (i.e. teku.yaml),** edit `teku.yaml` with nano.
+Si tu cliente Teku está configurado pasando un **TOML file (i.e. teku.yaml),** edit `teku.yaml` with nano.
 
 ```bash
 sudo nano /etc/teku/teku.yaml
@@ -351,11 +348,11 @@ Use one configuration or the other but not both!
 {% endtab %}
 {% endtabs %}
 
-For example, here is the expected result of an updated `ExecStart` line of a **V2 Staking Setup Prysm consensus** **client** service file.&#x20;
+Por ejemplo, éste es el resultado esperado de una actualización `ExecStart` line of a **V2 Staking Setup Prysm consensus** **client** service file.&#x20;
 
-Flag is added on the last line.
+Flag es añadido en la ultima linea
 
-When adding a new line, notice that previous lines require a backslash `\`
+Al añadir una nueva línea, observe que las líneas anteriores requieren una barra invertida `\`.
 
 ```bash
 ExecStart=/usr/local/bin/beacon-chain \
@@ -371,7 +368,7 @@ ExecStart=/usr/local/bin/beacon-chain \
 
 **Validator Client Changes**
 
-If required, add the appropriate flag to the `ExecStart` line of your **validator** **client** service file. To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Si es necesario, añada el indicador apropiado a la línea  `ExecStart` line of your **validator** **client** service file. para salir y guardar desde el  `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
 
 ```bash
 sudo nano /etc/systemd/system/validator.service
