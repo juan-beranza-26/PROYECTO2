@@ -1,12 +1,12 @@
 ---
-description: >-
-  How to recover an ethereum validator's 24 word secret recovery phrase with
-  seedrecovery.py by btcrecover.
+descripción: >-
+  Cómo recuperar la frase de recuperación secreta de 24 palabras de un validador de ethereum con
+  seedrecovery.py por btcrecover.
 ---
 
-# 🔎 Guide | Recover Ethereum Validator Mnemonic Seed
+# 🔎 Guía | Recuperar la semilla mnemotécnica del validador de Ethereum
 
-## :question:Who is the guide for, what's involved, when do I need this?
+## :pregunta:¿Para quién es la guía, qué implica y cuándo la necesito?
 
 * :people\_hugging: **WHO**: If you are an Ethereum validator experiencing errors due to a problematic secret recovery phrase or mnemonic, this guide can help you fix the majority of common errors.
 * :chains: **WHAT**: Using [btcrecover's](https://github.com/3rdIteration/btcrecover) Seedrecover.py can fix the majorty of simple "invalid mnemonic" or "invalid seed" type errors. This commonly occurs when you have a valid seed backup that simply has a typo in it or missing word(s).
@@ -14,25 +14,25 @@ description: >-
 
 ## :hammer\_pick: How to Recover?
 
-## Step 1: Setup an offline PC with Ubuntu Live USB
+## Paso 1: configurar una PC sin conexión con Ubuntu Live USB
 
-* First, you'll need to create an Ubuntu Live USB. [Download Ubuntu ISO](https://ubuntu.com/download/desktop) and flash image the ISO to USB drive with [balenaEtcher](https://etcher.balena.io/). See below video demos or [this guide](https://itsfoss.com/create-live-usb-of-ubuntu-in-windows/).
+* Primero, necesitarás crear un Ubuntu Live USB. [Download Ubuntu ISO](https://ubuntu.com/download/desktop) y flashee la imagen ISO a la unidad USB con [balenaEtcher](https://etcher.balena.io/). Vea demostraciones en vídeo a continuación o [this guide](https://itsfoss.com/create-live-usb-of-ubuntu-in-windows/).
 
 {% hint style="info" %}
 :tv: **Video Demos**
 
-**Windows**: Installing BTCRecover in Windows: [https://youtu.be/8q65eqpf4gE](https://youtu.be/8q65eqpf4gE)
+**Windows**: Instalación de BTCRecover en Windows: [https://youtu.be/8q65eqpf4gE](https://youtu.be/8q65eqpf4gE)
 
-**Linux**: Installing BTCRecover in Ubuntu Live USB: [https://youtu.be/Met3NbxcZTU](https://youtu.be/Met3NbxcZTU)
+**Linux**: Instalación de BTCRecover en Ubuntu Live USB: [https://youtu.be/Met3NbxcZTU](https://youtu.be/Met3NbxcZTU)
 {% endhint %}
 
-## Step 2: Install btcrecover
+## Step 2: Instalar btcrecover
 
-Open a terminal window from anywhere by typing `Ctrl+Alt+T`.
+Abra una ventana de terminal desde cualquier lugar escribiendo "Ctrl+Alt+T".
 
-With a terminal open inside your Ubuntu Live session, run the following.
+Con una terminal abierta dentro de su sesión de Ubuntu Live, ejecute lo siguiente.
 
-```bash
+```intento
 # Install dependencies
 sudo apt install python3-tk
 sudo add-apt-repository universe
@@ -51,76 +51,68 @@ pip3 install py_ecc
 python3 run-all-tests.py -vv
 ```
 
-## Step 3: Go offline
+## Paso 3: desconectarse
 
-* Disconnect ethernet cable and/or disable WIFI.
+* Desconecte el cable ethernet y/o desactive el WIFI.
 * Verify no internet access by attemping to ping.&#x20;
 
-```bash
+```intento
 ping 8.8.8.8
 ```
 
-Ping result should say **Network is unreachable**.
+El resultado del ping debería decir **La red es inalcanzable**.
 
-## Step 4: Run the recovery process
+## Paso 4: Ejecute el proceso de recuperación
 
 {% hint style="info" %}
-Recovery for Ethereum Validator seeds is the same as a standard seed recovery, but uses the validators public key (Also known as Signing Key) in the place of an address.
-
+La recuperación de semillas de Ethereum Validator es la misma que una recuperación de semillas estándar, pero utiliza la clave pública de los validadores (también conocida como clave de firma) en lugar de una dirección.
 
 
 Seedrecover.py will automatically run through four search phases that should take a few hours at most. The four search phases include:
 
-* Single typo
-* Two typos, including one where you might have a completely different word
-* Three typos, including one where you might have a completely different word
-* Two typos that could be completely different words
+*Error tipográfico único
+* Dos errores tipográficos, incluido uno en el que es posible que tengas una palabra completamente diferente
+* Tres errores tipográficos, incluido uno en el que es posible que tengas una palabra completamente diferente
+* Dos errores tipográficos que podrían ser palabras completamente diferentes.
 {% endhint %}
 
-Here's the command to recover your ETH validator's secret recovery phase. Update accordingly.
-
-```bash
+Aquí está el comando para recuperar la fase de recuperación secreta de su validador ETH. Actualice en consecuencia.
+```intento
 python3 seedrecover.py --mnemonic "<secret recovery phrase>" --addrs <pubkey of validator> --wallet-type ethereumvalidator --addr-limit <number of validators created> --mnemonic-length 24
 ```
 
-### :question:About the flags
+### :pregunta:Acerca de las banderas
 
 * **--mnemonic** : Enter your best guess for your seed/mnemnoic/secret recovery phrase
 * **--addrs** :  this is your validators public key without the 0x prefix. For example, if you have the keystores files the pubkey can be found inside "keystore-m\_12381\_3600\_0\_0\_0-xxxxxxx.json" Without keystore files, you can look up your validator's pubkey online at beaconcha.in or etherscan.io by following the validator's 32ETH deposit transaction.
 * **--addr-limit** : Adjust this to the number of validators you created on this mnemonic.
 
 {% hint style="warning" %}
-Not recommended: Running recovery on an online machine? Add the flag `--dsw`
+No recomendado: ¿Ejecutar la recuperación en una máquina en línea? Agrega la bandera `--dsw`
 {% endhint %}
 
-### :thumbsup: Usage Examples
-
-Best guess - Only have 23 words. Missing one word somewhere.
-
+### :thumbsup: Ejemplos de uso
+Mejor suposición: solo tiene 23 palabras. Falta una palabra en alguna parte.
 ```bash
 python3 seedrecover.py --mnemonic "cousin fury spatial aisle day write bulk empower fog fault stick broom demand valve fine able subway absent valve inform coconut oval season" --addrs 99722e2d3cdf850ef76516273273b5b2bfd062a6b706f6c395e116183fecd1ba6f9e9a479006a621168154e260f1a9d9 --wallet-type ethereumvalidator --addr-limit 1 --mnemonic-length 24
 ```
 
-Place an x where the wrong word is, position is known.
-
-```bash
+Coloque una x donde esté la palabra incorrecta, se conoce la posición.
+```intento 
 python3 seedrecover.py --mnemonic "cousin fury spatial aisle day write bulk empower fog fault stick broom demand valve fine able x absent valve inform coconut oval season master" --addrs 99722e2d3cdf850ef76516273273b5b2bfd062a6b706f6c395e116183fecd1ba6f9e9a479006a621168154e260f1a9d9 --wallet-type ethereumvalidator --addr-limit 1 --mnemonic-length 24
 ```
 
-Two wrong or missing words, position is known.
-
-```bash
+Dos palabras incorrectas o faltantes, se conoce la posición.
+```intento 
 python3 seedrecover.py --mnemonic "cousin fury spatial aisle day write bulk empower fog fault stick broom demand valve fine able x x absent valve inform coconut oval season master" --addrs 99722e2d3cdf850ef76516273273b5b2bfd062a6b706f6c395e116183fecd1ba6f9e9a479006a621168154e260f1a9d9 --wallet-type ethereumvalidator --addr-limit 1 --mnemonic-length 24
 ```
 
-Created 3 validators. Addr-limit is 3. One missing word somewhere.
-
-```bash
+Creé 3 validadores. El límite de dirección es 3. Falta una palabra en alguna parte.
+```intento
 python3 seedrecover.py --mnemonic "cousin fury spatial aisle day write bulk empower fog fault stick broom demand valve fine able absent valve inform coconut oval season master" --addrs b9bf3e3781f288547a10a65f3ec18d38668be0af5b498b446b95530e2adee6eb30fa4c0a47abe93b198d8fed7d68385a --wallet-type ethereumvalidator --addr-limit 3 --mnemonic-length 24
 ```
 
-### :tada: Sample of logs when successfully recovering mnemonic.
-
+### :tada: Muestra de registros al recuperar exitosamente el mnemónico.
 ```
 Starting seedrecover 1.13.0-CryptoGuide, btcrecover 1.13.0-Cryptoguide on Python 3.10.12 64-bit, 21-bit unicodes, 64-bit ints
 
@@ -148,23 +140,19 @@ You may also consider donating to Gurnec, who created and maintained this tool u
 Seed found: cousin fury spatial aisle day write bulk empower fog fault stick broom demand valve fine able subway absent valve inform coconut oval season master
 ```
 
-## Step 5: Shutdown offline PC
-
-By shutting down Ubuntu Live ISO session, all data used during this task is forgotten.
-
+## Paso 5: Apagar la PC sin conexión
+Al cerrar la sesión ISO de Ubuntu Live, se olvidan todos los datos utilizados durante esta tarea.
 {% hint style="success" %}
-Congrats on recovering your ETH Validator!!! Consider donating to the tool makers, btcrecover.
-{% endhint %}
+¡¡¡Felicitaciones por recuperar su validador ETH !!! Considere hacer una donación a los fabricantes de herramientas, btcrecover.{% endhint %}
 
-## :track\_next: Next Steps
+## :track\_next: Próximos pasos
 
-* :brain: **Backup your secret recovery phrase!** [Review Backups Checklist](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/backups-checklist-critical-staking-node-data)
-* :moneybag: **Update** [**Withdrawal Credentials**](https://www.coincashew.com/coins/overview-eth/update-withdrawal-keys-for-ethereum-validator-bls-to-execution-change-or-0x00-to-0x01-with-ethdo)
-* :new: **Re-generate** [**Keystore Files**](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-iii-tips/adding-a-new-validator-to-an-existing-setup)
-* :computer: **Manage your node with** [**EthPillar**](https://www.coincashew.com/coins/overview-eth/ethpillar)
-* ​:confetti\_ball: **Support us on Gitcoin Grants:** We build this guide exclusively by community support!🙏
-
+* :brain:**¡Haz una copia de seguridad de tu frase secreta de recuperación!** [Review Backups Checklist](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-ii-maintenance/backups-checklist-critical-staking-node-data)
+* :moneybag: **Actualizar** [**Withdrawal Credentials**](https://www.coincashew.com/coins/overview-eth/update-withdrawal-keys-for-ethereum-validator-bls-to-execution-change-or-0x00-to-0x01-with-ethdo)
+* :new: *Regenerado** [**Keystore Files**](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-iii-tips/adding-a-new-validator-to-an-existing-setup)
+* :computer: **Gestiona tu nodo con** [**EthPillar**](https://www.coincashew.com/coins/overview-eth/ethpillar)
+* ​:confetti\_ball: **Apóyanos con Gitcoin Grants:** ¡Construimos esta guía exclusivamente con el apoyo de la comunidad!🙏
 ## :books: References
 
-* btcrecover github: [https://github.com/3rdIteration/btcrecover](https://github.com/3rdIteration/btcrecover)
-* official docs: [https://btcrecover.readthedocs.io/en/latest/Usage\_Examples/basic\_seed\_recoveries/#basic-ethereum-validator-recoveries](https://btcrecover.readthedocs.io/en/latest/Usage\_Examples/basic\_seed\_recoveries/#basic-ethereum-validator-recoveries)
+*btcrecover github: [https://github.com/3rdIteration/btcrecover](https://github.com/3rdIteration/btcrecover)
+* documentos oficiales: [https://btcrecover.readthedocs.io/en/latest/Usage\_Examples/basic\_seed\_recoveries/#basic-ethereum-validator-recoveries](https://btcrecover.readthedocs.io/en/latest/Usage\_Examples/basic\_seed\_recoveries/#basic-ethereum-validator-recoveries)
