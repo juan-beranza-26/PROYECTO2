@@ -12,8 +12,7 @@ description: >-
 
 ## :new: What is EthPillar?
 
-:smile: **Friendly Node Installer**: No node yet? Helps you installs a Ethereum node (Nimbus+Nethermind) stack in just minutes. MEVboost included.
-
+:smile: **Friendly Node Installer**: ¿Aún no hay nodo? Le ayuda a instalar una pila de nodos Ethereum (Nimbus+Nethermind) en solo unos minutos. MEVboost incluido.
 :floppy\_disk: **Ease of use**: No more remembering CLI commands required. Access common node operations via a simple text user interface (TUI).
 
 :owl: **Fast Updates**: Quickly find and download the latest consensus/execution release. Less downtime!
