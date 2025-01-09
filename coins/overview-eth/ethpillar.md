@@ -14,7 +14,7 @@ description: >-
 
 :smile: **Friendly Node Installer**: No node yet? Helps you installs a Ethereum node (Nimbus+Nethermind) stack in just minutes. MEVboost included.
 
-:floppy\_disk: **Ease of use**: No more remembering CLI commands required. Access common node operations via a simple text user interface (TUI).
+:floppy\_disk: **Ease of use**: Ya no es necesario recordar los comandos CLI. Acceda a operaciones de nodos comunes a través de una interfaz de usuario de texto simple (TUI).
 
 :owl: **Fast Updates**: Quickly find and download the latest consensus/execution release. Less downtime!
 
