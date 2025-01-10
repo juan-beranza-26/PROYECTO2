@@ -4,17 +4,17 @@
 
 ### Logging to the node
 
-**Using Ubuntu Server**: Begin by connecting with your SSH client.
+**Using Ubuntu Server**: Comience por conectarse con su cliente SSH.
 
 ```bash
 ssh username@staking.node.ip.address
 ```
 
-**Using Ubuntu Desktop**: You're likely in-front of your **local** node. Simply open a terminal window from anywhere by typing Ctrl+Alt+T.
+**Using Ubuntu Desktop**: Es probable que estés frente a tu **local** nodo. Basta con abrir una ventana de terminal desde cualquier lugar escribiendo Ctrl+Alt+T.
 
 ### Updating the node
 
-Ensure all the latest packages, tools and patches are installed first, then reboot.
+Asegúrese de que todos los paquetes, herramientas y parches más recientes están instalados y, a continuación, reinicie el sistema.
 
 ```bash
 sudo apt-get update -y && sudo apt dist-upgrade -y
@@ -32,25 +32,27 @@ sudo reboot
 
 <summary>Creating a user called ethereum</summary>
 
-Create a new user called `ethereum`
+crear un nuevo usario llamado `ethereum`
 
 ```bash
 sudo useradd -m -s /bin/bash ethereum
 ```
 
-Set the password for ethereum user
+Establecer la contraseña para el usuario ethereum
+
 
 ```bash
 sudo passwd ethereum
 ```
 
-Add ethereum to the sudo group
+Añadir ethereum al grupo sudo
 
 ```bash
 sudo usermod -aG sudo ethereum
 ```
 
-Log out and log back in as this new user.
+Cierre la sesión y vuelva a iniciarla como este nuevo usuario.
+
 
 **Using Ubuntu Server**: Use the following commands.
 
@@ -59,50 +61,48 @@ exit
 ssh ethereum@staking.node.ip.address
 ```
 
-**Using Ubuntu Desktop**: Log out can be found in the top right corner under the Power Icon. Click the `ethereum` user account and enter password.
+**Using Ubuntu Desktop**: Puede cerrar la sesión en la esquina superior derecha, debajo del icono de encendido. Haga clic en la cuenta de usuario `ethereum` e introduzca la contraseña.
 
 </details>
 
 {% hint style="warning" %}
-:fire:**Important reminder**: Ensure you are logged in and execute all steps in this guide as this non-root user, `ethereum`.
+:fire:**Important reminder**: Asegúrese de que ha iniciado sesión y ejecute todos los pasos de esta guía como este usuario no root, `ethereum`.
 {% endhint %}
 
 ### Hardening SSH Access
 
 {% hint style="info" %}
-**Local node**? You can skip this section on Hardening SSH Access.
+**Local node**? Puede omitir esta sección sobre el Refuerzo del acceso SSH.
 {% endhint %}
 
 <details>
 
 <summary>Creating a new SSH Key</summary>
 
-Create a new SSH key pair on **your client machine (i.e. local laptop)**. Run this on **your client machine,** not remote node. Update the comment with your email or a comment.
+Create a new SSH key pair on **your client machine (i.e. local laptop)**. Run this on **your client machine,** no remover el nodo. actualizar el comentario con tu correo o un comentario.
 
 ```
 ssh-keygen -t ed25519 -C "name@email.com"
 ```
 
-You'll see this next:
+Verás esto a continuación:
 
 ```
 Generating public/private ed25519 key pair.
-Enter file in which to save the key (/home/<myUserName>/.ssh/id_ed25519):
+Introduzca el archivo en el que desea guardar la clave (/home/<myUserName>/.ssh/id_ed25519):
 ```
 
-Here you're asked to type a file name in which to save the SSH private key. If you press enter, you can use the default file name `id_ed25519`
+Aquí se le pide que escriba un nombre de archivo en el que guardar la clave privada SSH. Si pulsa Intro, puede utilizar el nombre de archivo predeterminado `id_ed25519`
 
-Next, you're prompted to enter a passphrase.
-
+A continuación, se te pedirá que introduzcas una frase de contraseña.
 ```
-Enter passphrase (empty for no passphrase):
+Introduzca la frase de contraseña (vacía si no hay frase de contraseña):
 ```
 
-:information\_source: A **passphrase** adds an extra layer of protection to your SSH private key. Everytime you connect via SSH to your remote node, enter this passphrase to unlock your SSH private key.
+:information\_source: A **passphrase** aañade una capa extra de protección a tu clave privada SSH. Cada vez que se conecte a través de SSH a su nodo remoto, introduzca esta frase de contraseña para desbloquear su clave privada SSH.
 
-:fire: Passphrase is highly recommended! Do not leave this empty for no passphrase.
-
-:bulb:Do not forget or lose your passphrase. Save this to a password manager.
+:fire: Passphrase is highly recommended! No deje esta opción vacía si no desea una frase de contraseña.
+:bulb:No olvide ni pierda su frase de contraseña. Guárdela en un gestor de contraseñas.
 
 **Location**: Your SSH key pair is stored in your home directory under `~/.ssh`
 
