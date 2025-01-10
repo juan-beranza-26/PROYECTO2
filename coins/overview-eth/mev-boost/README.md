@@ -10,11 +10,11 @@ The following steps align with our [mainnet guide](../guide-or-how-to-setup-a-va
 
 ## :question:What is mev-boost?
 
-* Enables solo and home stakers access to MEV, Maximal Extractible Value.
-* Enables validators to earn higher block rewards.
-* Optional and not required for ETH staking.
-* Open source middleware run by validators to access a competitive block-building market.
-* Built by Flashbots as an implementation of [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) for proof-of-stake (PoS) Ethereum.
+* Permite a los productores individuales y domésticos acceder al MEV, Valor Máximo Extraíble.
+* Permite a los validadores obtener mayores recompensas por bloque.
+* Opcional y no necesario para las apuestas ETH.
+* Middleware de código abierto gestionado por validadores para acceder a un mercado competitivo de construcción de bloques.
+* Construido por Flashbots como una implementación de [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) for proof-of-stake (PoS) Ethereum.
 * `home-staker (you) >> mevboost >> relay >> builder >> searcher +/-  frontrun/sandwich += efficient markets :)`
 
 {% hint style="info" %}
@@ -31,7 +31,7 @@ The following steps align with our [mainnet guide](../guide-or-how-to-setup-a-va
 
 ### Step 1: Create mevboost service account
 
-The systemd service will run under this account, `mevboost`
+El servicio systemd se ejecutará bajo esta cuenta, `mevboost`
 
 ```bash
 sudo useradd --no-create-home --shell /bin/false mevboost
@@ -39,14 +39,14 @@ sudo useradd --no-create-home --shell /bin/false mevboost
 
 ### Step 2: Install mevboost
 
-* Downloading binaries is often faster and more convenient.&#x20;
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios suele ser más rápido y cómodo.&#x20;
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con la spirit of FOSS (software libre de código abierto).
 
 <details>
 
 <summary>Option 1 - Download binaries</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/flashbots/mev-boost/releases/latest"
@@ -80,7 +80,7 @@ Install build dependencies.
 sudo apt -y install build-essential
 ```
 
-Install Go and removing any previous Go installations.
+Instalar Go y eliminar cualquier instalación anterior de Go.
 
 <pre class="language-bash"><code class="lang-bash"><strong>cd $HOME
 </strong>wget -O go.tar.gz https://go.dev/dl/go1.19.6.linux-amd64.tar.gz
@@ -90,19 +90,19 @@ echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
 </code></pre>
 
-Verify that you've installed Go 1.18+ by printing the version information.
+verificar que instalo Go 1.18+ by printing the version information.
 
 ```bash
 go version
 ```
 
-Install mev-boost with `go install`
+instalar mev-boost con `go install`
 
 ```bash
 CGO_CFLAGS="-O -D__BLST_PORTABLE__" go install github.com/flashbots/mev-boost@latest
 ```
 
-Install binaries to `/usr/local/bin` and update ownership permissions.
+instalar binarios a `/usr/local/bin` and update ownership permissions.
 
 ```bash
 sudo cp $HOME/go/bin/mev-boost /usr/local/bin
@@ -110,22 +110,20 @@ sudo cp $HOME/go/bin/mev-boost /usr/local/bin
 
 </details>
 
-Create the mevboost systemd unit file.
-
+crear el mevboost archivo de unidad systemd.
 ```bash
 sudo nano /etc/systemd/system/mevboost.service
 ```
 
-The `ExecStart` line lists relays: **Flashbots, UltraSound, Aestus, bloXroute Max Profit, WenMerge**. Remove or add other relays according to your preferences. Add as many or as few relays as you wish.
-
+The `ExecStart` line lists relays: **Flashbots, UltraSound, Aestus, bloXroute Max Profit, WenMerge**. quite o añada otros relés según sus preferencias. Añade tantos o tan pocos relés como desees.
 {% hint style="info" %}
-Find relay endpoints at:
+Encontrar puntos finales de retransmisión en:
 
 * [MEV Relay List](mev-relay-list.md)
 * [https://boost.flashbots.net](https://boost.flashbots.net/)
 * [https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md](https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md)
 
-Multiple relays can be specified by `-relay`
+Se pueden especificar varios relés mediante `-relay`.
 
 Example:
 
@@ -138,7 +136,7 @@ Important: Ensure each relay line ends with \ except the last relay line.
 ```
 {% endhint %}
 
-Paste the following into your `mevboost.service` file. To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Pegue lo siguiente en su `mevboost.service` file. Para salir y guardar desde `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
 
 {% tabs %}
 {% tab title="Ethereum Mainnet" %}
@@ -204,11 +202,11 @@ WantedBy=multi-user.target
 {% hint style="info" %}
 Using `-min-bid` flag, you can set a minimum bid value in ETH.&#x20;
 
-* If all relays cannot bid higher than your minimum value, then your local execution client will produce the block.&#x20;
-* By setting this value, you can capture MEV opportunities for higher value blocks and maintain a degree of control for local block production which helps strengthen censorship resistance and a neutral Ethereum network.&#x20;
+* Si todos los relés no pueden pujar por encima de su valor mínimo, su cliente de ejecución local producirá el bloque.&#x20;
+* Bal establecer este valor, puede capturar oportunidades MEV para bloques de mayor valor y mantener un grado de control para la producción local de bloques que ayuda a fortalecer la resistencia a la censura y una red Ethereum neutral..&#x20;
 {% endhint %}
 
-Reload systemctl to pickup the new service file.
+Recarga systemctl para recoger el nuevo archivo de servicio.
 
 ```bash
 sudo systemctl daemon-reload
