@@ -12,13 +12,13 @@ description: >-
 
 ## :new: What is EthPillar?
 
-:smile: **Friendly Node Installer**: No node yet? Helps you installs a Ethereum node (Nimbus+Nethermind) stack in just minutes. MEVboost included.
+:smile: **Friendly Node Installer**: ¿Aún no hay nodo? Te ayuda a instalar un nodo Ethereum (Nimbus+Nethermind) apilar en unos minutos. MEVboost incluido.
 
-:floppy\_disk: **Ease of use**: No more remembering CLI commands required. Access common node operations via a simple text user interface (TUI).
+:floppy\_disk: **Ease of use**: Ya no es necesario recordar comandos CLI. Acceda a las operaciones habituales de los nodos a través de una sencilla interfaz de usuario de texto (TUI).
 
-:owl: **Fast Updates**: Quickly find and download the latest consensus/execution release. Less downtime!
+:owl: **Fast Updates**: Encuentre y descargue rápidamente la última versión de consenso/ejecución. ¡Menos tiempo de inactividad!
 
-:tada:**Compatibility**: Behind the scenes, node commands and file structure are identical to V2 staking setups.&#x20;
+:tada:**Compatibility**: Entre bastidores, los comandos de nodo y la estructura de archivos son idénticos a los de las configuraciones de replanteo V2.&#x20;
 
 {% hint style="warning" %}
 Already a running a Validator? EthPillar is compatible with [a Coincashew V2 Staking Setup.](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet)&#x20;
@@ -65,10 +65,9 @@ Already a running a Validator? EthPillar is compatible with [a Coincashew V2 Sta
 
 ## :triangular\_ruler: Option 1: Automated One-Liner Install
 
-Open a terminal window from anywhere by typing `Ctrl+Alt+T`.&#x20;
+Abra la terminal de windows desde cualquier lugar escribiendo `Ctrl+Alt+T`.&#x20;
 
-To install, paste the following:
-
+Para instalarlo, pega lo siguiente:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/coincashew/EthPillar/main/install.sh)"
 ```
@@ -107,25 +106,25 @@ Congrats on installing a EthPillar, making nodes and home staking easier!
 
 **Step 1: Configure your network, port forwarding and firewall.**&#x20;
 
-* With EthPillar, configuration can be changed at:
+* With EthPillar, puede modificarse en:
   * **Tools > UFW Firewall > Enable firewall with default settings**
-  * Port forwarding is [manually configured](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-2-configuring-node.md#configure-port-forwarding), depending on your router.
-  * Confirm port forwarding is working with **Tools** > **Port Checker**
-* Alternatively configure manually per the manual guide. [Click here for detailed network configuration.](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-2-configuring-node.md#network-configuration)
+  * El reenvío de puertos es [manually configured](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-2-configuring-node.md#configure-port-forwarding), depending on your router.
+  * Confirme que el reenvío de puertos funciona con **Tools** > **Port Checker**
+* Alternativamente, configure manualmente según la guía del manual. [Click here for detailed network configuration.](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-2-configuring-node.md#network-configuration)
 
 **Step 2: Configure your BIOS to auto power on after power loss**
 
-Actual steps vary depending on your computer's BIOS. General idea here: [https://www.wintips.org/setup-computer-to-auto-power-on-after-power-outage/](https://www.wintips.org/setup-computer-to-auto-power-on-after-power-outage/)
+Los pasos reales varían en función de la BIOS de su ordenador. Idea general: [https://www.wintips.org/setup-computer-to-auto-power-on-after-power-outage/](https://www.wintips.org/setup-computer-to-auto-power-on-after-power-outage/)
 
 **Step 3: Enable Monitoring and Alerts (Optional)**
 
-Found under:
+Encontrar bajo:
 
 * **Tools** > **Monitoring**
 
 **Step 4: Benchmark your node (Optional)**
 
-Ensure your node has sufficient CPU/disk/network performance.
+Asegúrese de que su nodo tiene suficiente CPU/disk/network performance.
 
 * **Tools** > **Yet-Another-Bench-Script**
 
@@ -137,26 +136,26 @@ Ensure your node has sufficient CPU/disk/network performance.
 
 **Step 1: Setup Validator Keys**
 
-* Familarize yourself with the main guide's section on [setting up your validator keys.](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-5-installing-validator/setting-up-validator-keys.md)
-* When ready to generate your keys, go to **EthPillar > Validator Client > Generate / Import Validator Keys**
+* Familiarícese con la sección de la guía principal sobre [setting up your validator keys.](guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-5-installing-validator/setting-up-validator-keys.md)
+* Cuando esté listo para generar sus claves, vaya a **EthPillar > Validator Client > Generate / Import Validator Keys**
 
 **Step 2: Upload deposit\_data.json to Launchpad**
 
-* To begin staking on Ethereum as a validator, you need to submit to the Launchpad your  deposit\_data.json file, which includes crucial withdrawal address details, and pay the required deposit of 32ETH per validator.
+* Para empezar a apostar en Ethereum como validador, debe enviar al Launchpad su a  deposit\_data.json file, wque incluye los datos esenciales de la dirección de retirada, y abonar el depósito exigido de 32ETH por validador.
 
 **Step 3: Congrats!**&#x20;
 
-* Now you're waiting in the Entry Queue [https://www.validatorqueue.com](https://www.validatorqueue.com/)
+* Ahora estás esperando en la cola de entrada [https://www.validatorqueue.com](https://www.validatorqueue.com/)
 
 <!---->
 
-* Check out the [next steps from the main guide](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-5-installing-validator/next-steps) for further knowledge. Especially the FAQ's "Wen staking rewards?"
+* Comprobar la [next steps from the main guide](https://www.coincashew.com/coins/overview-eth/guide-or-how-to-setup-a-validator-on-eth2-mainnet/part-i-installation/step-5-installing-validator/next-steps) para ampliar conocimientos. Especialmente las FAQ's «Wen staking rewards?"
 
 </details>
 
 ## :joy: POAP
 
-Are you a EthPillar Enjooyer? [Support this public good by purchasing a limited edition POAP!](https://checkout.poap.xyz/169495)
+¿Te gusta EthPillar? [Support this public good by purchasing a limited edition POAP!](https://checkout.poap.xyz/169495)
 
 <figure><img src="../../.gitbook/assets/3adf69e9-fb1b-4665-8645-60d71dd01a7b.png" alt=""><figcaption><p>Your EthPillar Enjoyoor's POAP</p></figcaption></figure>
 
@@ -166,15 +165,15 @@ ETH accepted on Mainnet, Arbitrum, Base, Optimism. :pray:
 
 ## :telephone: Get in touch
 
-Have questions? Chat with other home stakers on [Discord](https://discord.gg/dEpAVWgFNB) or open PRs/issues on [Github](https://github.com/coincashew/ethpillar).&#x20;
+¿Tiene preguntas? Chatea con otros home stakers en [Discord](https://discord.gg/dEpAVWgFNB) o abrir PRs/issues en [Github](https://github.com/coincashew/ethpillar).&#x20;
 
-Open source source code available here: [https://github.com/coincashew/EthPillar](https://github.com/coincashew/EthPillar)
+Código fuente abierto disponible aquí: [https://github.com/coincashew/EthPillar](https://github.com/coincashew/EthPillar)
 
 ## :heart: Donations
 
-If you'd like to support this public goods project, find us on the next Gitcoin Grants.
+Si desea apoyar este proyecto de bien público, encuéntrenos en la próxima Gitcoin Grants.
 
-Our donation address is [0xCF83d0c22dd54475cC0C52721B0ef07d9756E8C0](https://etherscan.io/address/0xCF83d0c22dd54475cC0C52721B0ef07d9756E8C0) or coincashew.eth
+nuestra direccion de donacion es [0xCF83d0c22dd54475cC0C52721B0ef07d9756E8C0](https://etherscan.io/address/0xCF83d0c22dd54475cC0C52721B0ef07d9756E8C0) or coincashew.eth
 
 ## :ballot\_box\_with\_check: How to Update
 
