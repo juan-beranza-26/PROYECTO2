@@ -1,20 +1,20 @@
-# Step 2: Configuring Node
+# Paso 2: Configurar el nodo
 
-## :hammer\_pick: Node Configuration
+## :hammer\_pick: Configuración del nodo
 
-### Logging to the node
+### Iniciar sesión en el nodo
 
-**Using Ubuntu Server**: Comience por conectarse con su cliente SSH.
+**Usando Ubuntu Server**: Comience a conectarse con su cliente SSH.
 
-```bash
-ssh username@staking.node.ip.address
+```golpecito
+ssh nombre de usuario@stake.node.ip.address
 ```
 
-**Using Ubuntu Desktop**: Es probable que estés frente a tu **local** nodo. Basta con abrir una ventana de terminal desde cualquier lugar escribiendo Ctrl+Alt+T.
+**Usando Ubuntu Desktop**: Es probable que estés frente a tu nodo **local**. Basta con abrir una ventana de terminal desde cualquier lugar escribiendo Ctrl+Alt+T.
 
-### Updating the node
+### Actualizando el nodo
 
-Asegúrese de que todos los paquetes, herramientas y parches más recientes están instalados y, a continuación, reinicie el sistema.
+Asegúrese de que todos los paquetes, herramientas y parches más recientes estén instalados y, a continuación, reinicie el sistema.
 
 ```bash
 sudo apt-get update -y && sudo apt dist-upgrade -y
@@ -24,22 +24,21 @@ sudo apt-get autoclean
 sudo reboot
 ```
 
-## :key: Security Configuration
+## :key : Configuración de seguridad
 
-### Create a non-root user with sudo privileges
+### Crear un usuario no root con privilegios sudo
 
 <details>
 
-<summary>Creating a user called ethereum</summary>
+<summary>Crear un usuario llamado ethereum</summary>
 
-crear un nuevo usario llamado `ethereum`
+crear un nuevo usuario llamado `ethereum`
 
 ```bash
-sudo useradd -m -s /bin/bash ethereum
+sudo useradd -m -s /bin /bash ethereum
 ```
 
 Establecer la contraseña para el usuario ethereum
-
 
 ```bash
 sudo passwd ethereum
@@ -48,84 +47,84 @@ sudo passwd ethereum
 Añadir ethereum al grupo sudo
 
 ```bash
-sudo usermod -aG sudo ethereum
+sudo usermod -aG sudo etéreo
 ```
 
-Cierre la sesión y vuelva a iniciarla como este nuevo usuario.
+Cierra la sesión y vuelve a iniciarla como este nuevo usuario.
 
 
-**Using Ubuntu Server**: Use the following commands.
+**Usando Ubuntu Server**: Utilice los siguientes comandos.
 
-```bash
-exit
-ssh ethereum@staking.node.ip.address
+```golpecito
+salida
+ssh ethereum@s Taking.node.ip.address
 ```
 
-**Using Ubuntu Desktop**: Puede cerrar la sesión en la esquina superior derecha, debajo del icono de encendido. Haga clic en la cuenta de usuario `ethereum` e introduzca la contraseña.
+**Usando Ubuntu Desktop**: Puede cerrar la sesión en la esquina superior derecha, debajo del icono de encendido. Haga clic en la cuenta de usuario `ethereum` e introduzca la contraseña.
 
-</details>
+</detalles>
 
-{% hint style="warning" %}
-:fire:**Important reminder**: Asegúrese de que ha iniciado sesión y ejecute todos los pasos de esta guía como este usuario no root, `ethereum`.
-{% endhint %}
+{% estilo sugerencia="advertencia" %}
+:fire:**Recordatorio importante**: Asegúrese de que ha iniciado sesión y ejecute todos los pasos de esta guía como este usuario no root, `ethereum`.
+{% final %}
 
-### Hardening SSH Access
+### Refuerzo del acceso SSH
 
-{% hint style="info" %}
-**Local node**? Puede omitir esta sección sobre el Refuerzo del acceso SSH.
-{% endhint %}
+{% sugerencia estilo="info" %}
+**¿Nodo local**? Puede omitir esta sección sobre el Refuerzo del acceso SSH.
+{% final %}
 
-<details>
+<detalles>
 
-<summary>Creating a new SSH Key</summary>
+<summary>Crear una nueva clave SSH</summary>
 
-Create a new SSH key pair on **your client machine (i.e. local laptop)**. Run this on **your client machine,** no remover el nodo. actualizar el comentario con tu correo o un comentario.
+Cree un nuevo par de claves SSH en **su máquina cliente (es decir, su computadora portátil local)**. Ejecute esto en **su máquina cliente,** sin remover el nodo. Actualiza el comentario con tu correo o un comentario.
 
 ```
-ssh-keygen -t ed25519 -C "name@email.com"
+ssh-keygen -t ed25519 -C "nombre@correo electrónico.com"
 ```
 
 Verás esto a continuación:
 
 ```
-Generating public/private ed25519 key pair.
+Generando par de claves públicas/privadas ed25519.
 Introduzca el archivo en el que desea guardar la clave (/home/<myUserName>/.ssh/id_ed25519):
 ```
 
-Aquí se le pide que escriba un nombre de archivo en el que guardar la clave privada SSH. Si pulsa Intro, puede utilizar el nombre de archivo predeterminado `id_ed25519`
+Aquí se le pide que escriba un nombre de archivo en el que guardar la clave privada SSH. Si pulsa Introducción, puede utilizar el nombre de archivo predeterminado `id_ed25519`
 
 A continuación, se te pedirá que introduzcas una frase de contraseña.
 ```
 Introduzca la frase de contraseña (vacía si no hay frase de contraseña):
 ```
 
-:information\_source: A **passphrase** aañade una capa extra de protección a tu clave privada SSH. Cada vez que se conecte a través de SSH a su nodo remoto, introduzca esta frase de contraseña para desbloquear su clave privada SSH.
+:information\_source: A **passphrase** añade una capa extra de protección a tu clave privada SSH. Cada vez que se conecte a través de SSH a su nodo remoto, introduzca esta frase de contraseña para desbloquear su clave privada SSH.
 
-:fire: Passphrase is highly recommended! No deje esta opción vacía si no desea una frase de contraseña.
-:bulb:No olvide ni pierda su frase de contraseña. Guárdela en un gestor de contraseñas.
+:fire: ¡La frase de contraseña es muy recomendable! No deje esta opción vacía si no desea una frase de contraseña.
+:bulb:No olvide ni perder su frase de contraseña. Guárdela en un gestor de contraseñas.
 
-**Location**: Your SSH key pair is stored in your home directory under `~/.ssh`
+**Ubicación**: Su par de claves SSH se almacena en su directorio de inicio en `~/.ssh`
 
-**File name:** If your default keyname is`id_ed25519`, then
+**Nombre de archivo:** Si su nombre de clave predeterminado es `id_ed25519`, entonces
 
-* your **private SSH key** is `id_ed25519`
-* your **public SSH key** is `id_ed25519.pub`
+* su **clave SSH privada** es `id_ed25519`
+* su **clave SSH pública** es `id_ed25519.pub`
 
-:fire: **IMPORTANT:** Make multiple backup copies of your **private SSH key file** to external storage, such as a USB backup key, for recovery purposes. Also backup your **passphrase**!
+:fire: **IMPORTANTE:** Realice varias copias de seguridad de su **archivo de clave SSH privada** en un almacenamiento externo, como una copia de seguridad USB clave, para fines de recuperación. ¡También haga una copia de seguridad de su **contraseña**!
 
-Verify the contents of your private SSH key file before moving on.
+Verifique el contenido de su archivo de clave SSH privada antes de continuar.
 
 ```
 cat ~/.ssh/id_ed25519
 ```
 
-It should look similar to this example.
+Debería verse similar a este ejemplo.
 
-```
------BEGIN OPENSSH PRIVATE KEY-----
+` ``
+-----INICIO OPENSSH PRIVADO CLAVE-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACBAblzWLb7/0o62FZf9YjLPCV4qFhbqiSH3TBvZXBiYNgAAAJCWunkulrp5
-LgAAAAtzc2gtZWQyNTUxOQAAACBAblzWLb7/0o62FZf9YjLPCV4qFhbqiSH3TBvZXBiYNg
+LgAAAAtzc2gtZWQyNTUxOQ AAACBAblzWLb7/0o62FZf9YjLPCV4qFhbqiSH3TBvZXBiYNg
 AAAEAxT+yCmifGWgbFnkauf0HyOAJANhYY5EElEX8fI+M4B0BuXNYtvv/SjrYVl/1iMs8J
 XioWFuqJIfdMG9lcGJg2AAAACWV0aDJAZXRoMgECAwQ=
 -----END OPENSSH PRIVATE KEY-----
@@ -133,13 +132,11 @@ XioWFuqJIfdMG9lcGJg2AAAACWV0aDJAZXRoMgECAwQ=
 
 </details>
 
-#### Transferring the SSH Public Key to Remote node
+#### Transferencia de la clave pública SSH al nodo remoto
 
-<details>
+<details> <summary>Opción 1: Transferencia con ssh-copy-id</summary>
 
-<summary>Option 1: Transferring with ssh-copy-id</summary>
-
-Works with Linux or MacOS. Use option 2 for Windows.
+Funciona con Linux o MacOS. Utilice la opción 2 para Windows.
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519 ethereum@staking.node.ip.address
@@ -149,31 +146,29 @@ ssh-copy-id -i ~/.ssh/id_ed25519 ethereum@staking.node.ip.address
 
 <details>
 
-<summary>Option 2: Copying the key manually</summary>
+<summary>Opción 2: Copiar la clave manualmente</summary> Primero, comience por obtener su clave pública SSH.
 
-First, begin by obtaining your SSH Public key.
-
-For Linux/Mac,
+Para Linux/Mac,
 
 ```
 cat ~/.ssh/id_ed25519.pub
 ```
 
-For Windows,
+Para Windows,
 
-Open a command prompt (Windows Key + R, then `cmd`, finally press enter).
+Abra un símbolo del sistema (tecla Windows + R, luego `cmd`, finalmente presione ingresar).
 
 ```
 type %USERPROFILE%\.ssh\id_ed25519.pub
 ```
 
-The output will look similar to the following:
+El resultado será similar al siguiente:
 
 ```
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAoc78lv+XDh2znunKXUF/9zBNJrM4Nh67yut9RN14SX name@email.com
 ```
 
-Copy into your clipboard this output, also known as your public SSH key.
+Copia en tu portapapeles esto salida, también conocida como su clave SSH pública.
 
 On your **remote node**, run the following:
 
@@ -182,13 +177,13 @@ mkdir -p ~/.ssh
 nano ~/.ssh/authorized_keys
 ```
 
-First, a directory called **.ssh** is created, then `Nano` is a text editor for editing a special file called **authorized\_keys**
+Primero, se crea un directorio llamado **.ssh**, luego `Nano` es un editor de texto para editar un archivo especial llamado **authorized\_keys**
 
-With nano opening the authorized\_keys file, right-click your mouse to paste your public SSH key into this file.
+Con nano abriendo el archivo authorized\_keys, haga clic derecho con el mouse para pegar su clave SSH pública en este archivo.
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Verify your public SSH key was properly pasted into the file.
+Verifique que su clave SSH pública se haya pegado correctamente en el archivo.
 
 ```
 cat ~/.ssh/authorized_keys
@@ -196,184 +191,184 @@ cat ~/.ssh/authorized_keys
 
 </details>
 
-#### Disabling Password Authentication
+#### Deshabilitar la autenticación de contraseña
 
 <details>
 
-<summary>Disabling root login and password based login</summary>
+<summary>Deshabilitar el inicio de sesión raíz y el inicio de sesión basado en contraseña</summary>
 
-:information\_source: With SSH key authentication enabled, there's still the possibility to connect to your remote node with login and password, a much less secure and brute force-able attack vector.
+:information\_source: Con la autenticación de clave SSH habilitada, aún existe la posibilidad de conectarse a su nodo remoto con nombre de usuario y contraseña, un vector de ataque mucho menos seguro y susceptible de ser atacado por fuerza bruta.
 
-Login via ssh with your new ethereum user
+Inicia sesión a través de ssh con tu nuevo usuario de Ethereum
 
 ```
 ssh ethereum@staking.node.ip.address
 ```
 
-Edit the ssh configuration file
+Edita el archivo de configuración de ssh
 
 ```
 sudo nano /etc/ssh/sshd_config
 ```
 
-Locate **PubkeyAuthentication** and update to yes. Delete the # in front.
+Ubica **PubkeyAuthentication** y actualiza a yes. Elimina el # que está al frente.
 
 ```
 PubkeyAuthentication yes
 ```
 
-Locate **PasswordAuthentication** and update to no. Delete the # in front.
+Ubica **PasswordAuthentication** y actualiza a no. Elimina el # que está al frente.
 
 ```
 PasswordAuthentication no
 ```
 
-Locate **PermitRootLogin** and update to prohibit-password. Delete the # in front.
+Ubica **PermitRootLogin** y actualiza a prohibit-password. Elimina el # que está al frente.
 
 ```
 PermitRootLogin prohibit-password
 ```
 
-Locate **PermitEmptyPasswords** and update to no. Delete the # in front.
+Ubica **PermitEmptyPasswords** y actualiza a no. Elimina el # que está al frente.
 
 ```
 PermitEmptyPassword no
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Validate the syntax of your new SSH configuration.
+Valide la sintaxis de su nueva configuración SSH.
 
 ```
 sudo sshd -t
 ```
 
-If no errors with the syntax validation, restart the SSH process.
+Si no hay errores con la validación de sintaxis, reinicie el proceso SSH.
 
 ```
 sudo systemctl restart sshd
 ```
 
-Verify the login still works.
+Verifique que el inicio de sesión aún funciona.
 
 ```
 ssh ethereum@staking.node.ip.address
 ```
 
-**Optional**: Make logging in easier by updating your local ssh config.
+**Opcional**: facilite el inicio de sesión actualizando su configuración SSH local.
 
-To simplify the ssh command needed to log in to your server, consider updating on your local client machine the `$HOME/myUserName/.ssh/config` file:
+Para simplificar el comando ssh necesario para iniciar sesión en su servidor, considere actualizar en su máquina cliente local el archivo `$HOME/myUserName/.ssh/config`:
 
 ```bash
 Host ethereum-server
-  User ethereum
-  HostName <staking.node.ip.address>
-  Port 22
+User ethereum
+HostName <staking.node.ip.address>
+Port 22
 ```
 
-This will allow you to log in with `ssh ethereum-server` rather than needing to pass through all ssh parameters explicitly.
+Esto le permitirá iniciar sesión con `ssh ethereum-server` en lugar de tener que pasar todos los parámetros ssh explícitamente.
 
 </details>
 
-### Synchronizing time with Chrony
+### Sincronización de la hora con Chrony
 
-chrony is an implementation of the Network Time Protocol and helps to keep your computer's time synchronized with NTP.
+chrony es una implementación del Protocolo de tiempo de red y ayuda a mantener la hora de su computadora sincronizada con NTP.
 
 {% hint style="info" %}
-Because the consensus client relies on accurate times to perform attestations and produce blocks, your node's time must be accurate to real NTP time within 0.5 seconds.
+Dado que el cliente de consenso depende de horas precisas para realizar atestaciones y producir bloques, la hora de su nodo debe ser precisa con respecto a la hora NTP real dentro de los 0,5 segundos.
 {% endhint %}
 
-To install chrony:
+Para instalar chrony:
 
 ```bash
 sudo apt-get install chrony -y
 ```
 
-To see the source of synchronization data.
+Para ver la fuente de los datos de sincronización.
 
 ```
-chronyc sources
+chronyc source
 ```
 
-To view the current status of chrony.
+Para ver el estado actual de chrony.
 
 ```
 chronyc tracking
 ```
 
-### Setting Timezone
+### Configuración de la zona horaria
 
-To pick your timezone run the following command:
+Para elegir su zona horaria, ejecute el siguiente comando:
 
 ```bash
 sudo dpkg-reconfigure tzdata
 ```
 
-Find your region using the simple text-based GUI.
+Busque su región utilizando la sencilla interfaz gráfica de usuario basada en texto.
 
-In the event that you are using national system like India's `IST` select:
+En caso de que esté utilizando un sistema nacional como el `IST` de la India, seleccione:
 
 ```
 Asia/Kolkata
 ```
 
-This will be appropriate for all locales in the country (`IST`, `GMT+0530`).
+Esto será apropiado para todas las configuraciones regionales del país (`IST`, `GMT+0530`).
 
-### Creating the jwtsecret file
+### Creación del archivo jwtsecret
 
-A jwtsecret file contains a hexadecimal string that is passed to both Execution Layer client and Consensus Layer clients, and is used to ensure authenticated communications between both clients.
+Un archivo jwtsecret contiene una cadena hexadecimal que se pasa tanto al cliente de la capa de ejecución como a los clientes de la capa de consenso, y se utiliza para garantizar las comunicaciones autenticadas entre ambos clientes.
 
 ```bash
-#store the jwtsecret file at /secrets
+#Almacene el archivo jwtsecret en /secrets
 sudo mkdir -p /secrets
 
-#create the jwtsecret file
+#Cree el archivo jwtsecret
 openssl rand -hex 32 | tr -d "\n" | sudo tee /secrets/jwtsecret
 
-#enable read access
+#Habilite el acceso de lectura
 sudo chmod 644 /secrets/jwtsecret
 ```
 
-## :link: Network Configuration
+## :link: Configuración de red
 
-The standard UFW - Uncomplicated firewall can be used to control network access to your node and protect against unwelcome intruders.
+El firewall estándar UFW - Uncomplicated se puede utilizar para controlar el acceso de red a su nodo y protegerse contra intrusos no deseados.
 
-### Configure UFW Defaults
+### Configurar los valores predeterminados de UFW
 
-By default, deny all incoming traffic and allow outgoing traffic.
+De manera predeterminada, deniega todo el tráfico entrante y permite el tráfico saliente.
 
 ```bash
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-### Configure SSH Port 22
+### Configurar el puerto SSH 22
 
-If your node is remote in the cloud, or at home but on a different headless server, you will need to enable SSH port 22 in order to connect.
-
-```bash
-# Allow ssh access for remote node
-sudo ufw allow 22/tcp comment 'Allow SSH port'
-```
-
-If your node is local at home and you have **keyboard access** to it, it's good practice to deny SSH port 22.
+Si su nodo está remoto en la nube, o en su hogar pero en un servidor sin interfaz gráfica diferente, deberá habilitar el puerto SSH 22 para poder conectarse.
 
 ```bash
-# Deny ssh access for local node
-sudo ufw deny 22/tcp comment 'Deny SSH port'
+# Permitir acceso ssh para nodos remotos
+sudo ufw allow 22/tcp comment 'Permitir puerto SSH'
 ```
 
-### Allow Execution Client Port 30303
-
-Peering on port 30303, execution clients use this port for communication with other network peers.
+Si su nodo es local en su hogar y tiene **acceso mediante teclado**, es una buena práctica denegar el puerto SSH 22.
 
 ```bash
-sudo ufw allow 30303 comment 'Allow execution client port'
+# Denegar acceso ssh para nodos locales
+sudo ufw deny 22/tcp comment 'Denegar puerto SSH'
 ```
 
-### Allow Consensus Client port
+### Permitir puerto de cliente de ejecución 30303
 
-Consensus clients generally use port 9000 for communication with other network peers. Using tcp port 13000 and udp port 12000, Prysm uses a slightly different configuration.
+Al conectarse en el puerto 30303, los clientes de ejecución usan este puerto para comunicarse con otros pares de la red.
+
+```bash
+sudo ufw allow 30303 comment 'Permitir puerto de cliente de ejecución'
+```
+
+### Permitir puerto de cliente de consenso
+
+Los clientes de consenso generalmente usan el puerto 9000 para comunicarse con otros pares de la red. Al utilizar el puerto TCP 13000 y el puerto UDP 12000, Prysm utiliza una configuración ligeramente diferente.
 
 ```bash
 # Lighthouse, Lodestar, Nimbus, Teku
@@ -387,37 +382,37 @@ sudo ufw allow 13000/tcp comment 'Allow consensus client port'
 sudo ufw allow 12000/udp comment 'Allow consensus client port'
 ```
 
-### Enable firewall
+### Habilitar el firewall
 
-Finally, enable the firewall and review the configuration.
+Por último, habilite el firewall y revise la configuración.
 
 ```bash
 sudo ufw enable
-sudo ufw status numbered 
+sudo ufw status numbered
 ```
 
-Example of ufw status for a remote staking node configured for Prysm consensus client.
+Ejemplo de estado de ufw para un nodo de participación remoto configurado para el cliente de consenso Prysm.
 
 > ```csharp
->      To                         Action      From
->      --                         ------      ----
-> [ 1] 22/tcp                     ALLOW IN    Anywhere
-> [ 2] 9000                       ALLOW IN    Anywhere
-> [ 3] 30303                      ALLOW IN    Anywhere
-> [ 4] 22/tcp (v6)                ALLOW IN    Anywhere (v6)
-> [ 5] 9000 (v6)                  ALLOW IN    Anywhere (v6)
-> [ 6] 30303 (v6)                 ALLOW IN    Anywhere (v6)
+> A la acción desde
+> -- ------ ----
+> [ 1] 22/tcp PERMITIR EN CUALQUIER LUGAR
+> [ 2] 9000 PERMITIR EN CUALQUIER LUGAR
+> [ 3] 30303 PERMITIR EN CUALQUIER LUGAR
+> [ 4] 22/tcp (v6) PERMITIR EN CUALQUIER LUGAR (v6)
+> [ 5] 9000 (v6) PERMITIR EN CUALQUIER LUGAR (v6)
+> [ 6] 30303 (v6) PERMITIR EN CUALQUIER LUGAR (v6)
 > ```
 
-### Configure Port Forwarding
+### Configurar el reenvío de puertos
 
-**Port Forwarding Tip for Local Stakers at Home:** You'll need to forward ports to your validator.
+**Sugerencia de reenvío de puertos para participantes locales en casa:** Deberá reenviar puertos a su validador.
 
-For optimal connectivity, ensure Port Forwarding is setup for your router. Learn to port forward with guides found at [https://portforward.com/how-to-port-forward](https://portforward.com/how-to-port-forward/)
+Para una conectividad óptima, asegúrese de que el reenvío de puertos esté configurado para su enrutador. Aprenda a reenviar puertos con las guías que se encuentran en [https://portforward.com/how-to-port-forward](https://portforward.com/how-to-port-forward/)
 
-Verify port forwarding is working with the following.
+Verifique que el reenvío de puertos esté funcionando con lo siguiente.
 
-**Option 1:** From the terminal on staking machine. Choose accordingly to your clients.
+**Opción 1:** Desde la terminal en la máquina de staking. Elija según sus clientes.
 
 ```bash
 # Lighthouse, Lodestar, Nimbus, Teku
@@ -427,45 +422,45 @@ curl https://eth2-client-port-checker.vercel.app/api/checker?ports=30303,9000
 curl https://eth2-client-port-checker.vercel.app/api/checker?ports=30303,12000,13000
 ```
 
-**Result:** Open ports will be shown if reachable from public.
+**Resultado:** Se mostrarán los puertos abiertos si se puede acceder a ellos desde el público.
 
 \
-**Option 2:** Using the browser
+**Opción 2:** Usar el navegador
 
 * [https://www.yougetsignal.com/tools/open-ports/](https://www.yougetsignal.com/tools/open-ports/)
-* or [https://canyouseeme.org](https://canyouseeme.org)
+* o [https://canyouseeme.org](https://canyouseeme.org)
 
-As an example, for Lighthouse, you would verify ports 9000 and 30303 are reachable.
+Por ejemplo, para Lighthouse, deberá verificar que los puertos 9000 y 30303 sean accesibles.
 
-### Optional: Whitelisting Connections
+### Opcional: incluir conexiones en la lista blanca
 
-Whitelisting, which means permitting connections from a specific IP, can be setup via the following command.
+La inclusión en la lista blanca, que significa permitir conexiones desde una IP específica, se puede configurar mediante el siguiente comando.
 
 ```bash
 sudo ufw allow from <your client machine>
-# Example
+# Ejemplo
 # sudo ufw allow from 192.168.50.22
 ```
 
-### :chains: **Install Fail2ban**
+### :chains: **Instalar Fail2ban**
 
 {% hint style="info" %}
-Fail2ban is an intrusion-prevention system that monitors log files and searches for particular patterns that correspond to a failed login attempt. If a certain number of failed logins are detected from a specific IP address (within a specified amount of time), fail2ban blocks access from that IP address.
+Fail2ban es un sistema de prevención de intrusiones que monitorea los archivos de registro y busca patrones particulares que corresponden a un intento de inicio de sesión fallido. Si se detecta una cierta cantidad de inicios de sesión fallidos desde una dirección IP específica (dentro de un período de tiempo especificado), fail2ban bloquea el acceso desde esa dirección IP.
 {% endhint %}
 
-To install fail2ban:
+Para instalar fail2ban:
 
 ```bash
 sudo apt-get install fail2ban -y
 ```
 
-Edit a config file that monitors SSH logins.
+Edite un archivo de configuración que monitoree los inicios de sesión SSH.
 
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
 
-Add the following lines to the bottom of the file.
+Agregue las siguientes líneas al final del archivo.
 
 ```bash
 [sshd]
@@ -476,9 +471,9 @@ logpath = /var/log/auth.log
 maxretry = 3
 ```
 
-To exit and save, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Para salir y guardar, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
-Restart fail2ban for settings to take effect.
+Reinicie fail2ban para que la configuración surta efecto.
 
 ```bash
 sudo systemctl restart fail2ban
