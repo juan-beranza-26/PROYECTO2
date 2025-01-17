@@ -1,132 +1,129 @@
 ---
-description: Quickstart guide to setting up MEV-boost for your ETH validator.
+descripción: Guía rápida para configurar MEV-boost para su validador ETH.
 ---
 
 # 💰 Guide | MEV-boost for Ethereum Staking
 
-{% hint style="info" %}
-The following steps align with our [mainnet guide](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/). You may need to adjust file names and directory locations where appropriate. The core concepts remain the same.
+{% hint style=«info» %}
+Los siguientes pasos se alinean con nuestra [guía mainnet](../guide-or-how-to-setup-a-validator-on-eth2-mainnet/). Es posible que tenga que ajustar los nombres de los archivos y las ubicaciones de los directorios donde corresponda. Los conceptos básicos siguen siendo los mismos.
 {% endhint %}
 
-## :question:What is mev-boost?
+## :question:¿Qué es mev-boost?
 
-* Enables solo and home stakers access to MEV, Maximal Extractible Value.
-* Enables validators to earn higher block rewards.
-* Optional and not required for ETH staking.
-* Open source middleware run by validators to access a competitive block-building market.
-* Built by Flashbots as an implementation of [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) for proof-of-stake (PoS) Ethereum.
-* `home-staker (you) >> mevboost >> relay >> builder >> searcher +/-  frontrun/sandwich += efficient markets :)`
+* Permite a los productores individuales y domésticos acceder al MEV, Valor Máximo Extraíble.
+* Permite a los validadores obtener mayores recompensas por bloque.
+* Opcional y no necesario para las apuestas ETH.
+* Middleware de código abierto gestionado por validadores para acceder a un mercado competitivo de construcción de bloques.
+* Construido por Flashbots como una implementación de [proposer-builder separation (PBS)](https://ethresear.ch/t/proposer-block-builder-separation-friendly-fee-market-designs/9725) para Ethereum de prueba de participación (PoS).
+* `home-staker (you) >> mevboost >> relay >> builder >> searcher +/- frontrun/sandwich += efficient markets :)`
 
 {% hint style="info" %}
-**tldr**: As of August 2023, MEV is estimated be 24% of a validator rewards. Other estimates suggest it can [boost staking rewards by over 60%.](https://hackmd.io/@flashbots/mev-in-eth2)
+**tldr**: A partir de agosto de 2023, se estima que MEV representa el 24 % de las recompensas de un validador. Otras estimaciones sugieren que puede [aumentar las recompensas de participación en más del 60 %].(https://hackmd.io/@flashbots/mev-in-eth2)
 {% endhint %}
 
-<figure><img src="../../../.gitbook/assets/mev24.png" alt=""><figcaption><p>Estimated earnings per validator. Source: <a href="https://ultrasound.money/">https://ultrasound.money</a></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/mev24.png" alt=""><figcaption><p>Ganancias estimadas por validador. Fuente: <a href="https://ultrasound.money/">https://ultrasound.money</a></p></figcaption></figure>
 
-## :hammer\_pick: How to MEV?
+## :hammer\_pick: ¿Cómo usar MEV?
 
 {% hint style="warning" %}
-**Prerequisite:** You run a full Ethereum node (Execution Layer client \[e.g. geth/besu/nethermind/erigon] + Consensus Layer client \[e.g. prysm/lighthouse/teku/lodestar/nimbus]) and a validator.
+**Requisito previo:** Ejecuta un nodo Ethereum completo (cliente de capa de ejecución [p. ej., geth/besu/nethermind/erigon] + cliente de capa de consenso [p. ej., prysm/lighthouse/teku/lodestar/nimbus]) y un validador.
 {% endhint %}
 
-### Step 1: Create mevboost service account
+### Paso 1: Crea una cuenta de servicio de mevboost
 
-The systemd service will run under this account, `mevboost`
+El servicio systemd se ejecutará bajo esta cuenta, `mevboost`
 
-```bash
+```golpecito
 sudo useradd --no-create-home --shell /bin/false mevboost
 ```
 
-### Step 2: Install mevboost
+### Paso 2: Instalar mevboost
 
-* Downloading binaries is often faster and more convenient.&#x20;
-* Building from source code can offer better compatibility and is more aligned with the spirit of FOSS (free open source software).
+* Descargar binarios suele ser más rápido y cómodo.&#x20;
+* Construir a partir del código fuente puede ofrecer una mejor compatibilidad y está más alineado con el espíritu de FOSS (software libre de código abierto).
 
-<details>
+<detalles>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Opción 1: descargar archivos binarios</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
-RELEASE_URL="https://api.github.com/repos/flashbots/mev-boost/releases/latest"
-BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep linux_amd64.tar.gz$)"
+URL_DE_RELEASE="https://api.github.com/repos/flashbots/mev-boost/releases/latest"
+URL_DE_BINARIOS="$(curl -s $URL_DE_RELEASE | jq -r ".assets[] | select (.name) | .browser_download_url" | grep linux_amd64.tar.gz$)"
 
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
-# Download
-wget -O  mev-boost.tar.gz $BINARIES_URL
-# Untar
-tar -xzvf mev-boost.tar.gz -C $HOME
-# Cleanup
+# Descargar
+wget -O mev-boost.tar.gz $BINARIES_URL
+# Descomprimir
+tar -xzvf mev-boost. tar.gz -C $HOME
+# Limpieza
 rm mev-boost.tar.gz LICENSE README.md
 ```
 
-Install the binaries.
+Instala los binarios.
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo mv $HOME/mev-boost /usr/local/bin
 </strong></code></pre>
 
-</details>
+< /details>
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2: compilar desde el código fuente</summary>
 
-Install build dependencies.
+Instalar dependencias de compilación.
 
 ```bash
 sudo apt -y install build-essential
 ```
 
-Install Go and removing any previous Go installations.
+Instalar Go y eliminar cualquier instalación anterior de Go.
 
-<pre class="language-bash"><code class="lang-bash"><strong>cd $HOME
-</strong>wget -O go.tar.gz https://go.dev/dl/go1.19.6.linux-amd64.tar.gz
+< pre clase="idioma-bash"><código clase="idioma-bash"><strong>cd $HOME
+</strong>wget -O go.tar.gz https://go.dev/dl/go1.19.6 .linux-amd64.tar.gz
 sudo rm -rf /usr/local/go &#x26;&#x26; sudo tar -C /usr/local -xzf go.tar.gz
 rm go.tar.gz
 echo export PATH=$PATH:/usr/local/go/bin >> $HOME/.bashrc
 source $HOME/.bashrc
-</code></pre>
+< /code></pre>
 
-Verify that you've installed Go 1.18+ by printing the version information.
+Verifique que está instalada la versión Go 1.18+ imprimiendo la información de la versión.
 
 ```bash
 go version
 ```
 
-Install mev-boost with `go install`
+instale mev-boost con `go install`
 
 ```bash
-CGO_CFLAGS="-O -D__BLST_PORTABLE__" go install github.com/flashbots/mev-boost@latest
+CGO_CFLAGS="-O -D__BLST_PORTABLE__" go instalar github.com/flashbots/mev-boost@latest
 ```
 
-Install binaries to `/usr/local/bin` and update ownership permissions.
+instalar binarios en `/usr/local/bin` y actualizar permisos de propiedad.
 
-```bash
+```golpecito
 sudo cp $HOME/go/bin/mev-boost /usr/local/bin
 ```
 
-</details>
+</detalles>
 
-Create the mevboost systemd unit file.
-
-```bash
+crear el archivo mevboost de la unidad systemd.
+```golpecito
 sudo nano /etc/systemd/system/mevboost.service
 ```
 
-The `ExecStart` line lists relays: **Flashbots, UltraSound, Aestus, bloXroute Max Profit, WenMerge**. Remove or add other relays according to your preferences. Add as many or as few relays as you wish.
+La línea `ExecStart` enumera los relés: **Flashbots, UltraSound, Aestus, bloXroute Max Profit, WenMerge**. bastante o añada otros relés según sus preferencias. Agregue tantos o tan pocos relés como desee.
+{% sugerencia estilo="info" %}
+Encontrar puntos finales de retransmisión en:
 
-{% hint style="info" %}
-Find relay endpoints at:
-
-* [MEV Relay List](mev-relay-list.md)
+* [Lista de retransmisiones MEV](mev-relay-list.md)
 * [https://boost.flashbots.net](https://boost.flashbots.net/)
-* [https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md](https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md)
+* [https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md](https://github.com/remyroy/ethstaker/blob/main/MEV-relay-list.md )
 
-Multiple relays can be specified by `-relay`
-
+Se pueden especificar varios relés mediante `-relay`.
 Example:
 
 ```
@@ -134,88 +131,87 @@ Example:
 -relay https://RELAY2.COM \
 -relay https://RELAY3.COM
 
-Important: Ensure each relay line ends with \ except the last relay line.
+Importante: Asegúrese de que cada línea de relé termine en \, excepto la última línea de relé.
 ```
-{% endhint %}
+{% final %}
 
-Paste the following into your `mevboost.service` file. To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Pegue lo siguiente en su archivo `mevboost.service`. Para salir y guardar desde el editor `nano`, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
 {% tabs %}
-{% tab title="Ethereum Mainnet" %}
+{% tab title="Red principal de Ethereum" %}
 ```bash
-[Unit]
-Description=MEV-Boost Service for Ethereum Mainnet
-Wants=network-online.target
-After=network-online.target
-Documentation=https://www.coincashew.com
+[Unidad]
+Descripción=Servicio MEV-Boost para la red principal de Ethereum
+Deseos=network-online.target
+Después=network-online.target
+Documentación=https: //www.coincashew.com
 
-[Service]
-User=mevboost
-Group=mevboost
-Type=simple
-Restart=always
+[Servicio]
+Usuario=mevboost
+Grupo=mevboost
+Tipo=simple
+Reiniciar=siempre
 RestartSec=5
 ExecStart=/usr/local/bin/mev-boost \
-  -mainnet \
-  -min-bid 0.03 \
-  -relay-check \
-  -relay https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net \
-  -relay https://0xa1559ace749633b997cb3fdacffb890aeebdb0f5a3b6aaa7eeeaf1a38af0a8fe88b9e4b1f61f236d2e64d95733327a62@relay.ultrasound.money \
-  -relay https://0xa15b52576bcbf1072f4a011c0f99f9fb6c66f3e1ff321f11f461d15e31b1cb359caa092c71bbded0bae5b5ea401aab7e@aestus.live \
-  -relay https://0x8b5d2e73e2a3a55c6c87b8b6eb92e0149a125c852751db1422fa951e42a09b82c142c3ea98d0d9930b056a3bc9896b8f@bloxroute.max-profit.blxrbdn.com \
-  -relay https://0x8c7d33605ecef85403f8b7289c8058f440cbb6bf72b055dfe2f3e2c6695b6a1ea5a9cd0eb3a7982927a463feb4c3dae2@relay.wenmerge.com
+-mainnet \
+-min-bid 0.03 \
+-relay- comprobar \
+-relé https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net \
+-relay https://0xa1559ace749633b997cb3fdacffb890aeebdb0f5a3b6aaa7eeeaf1a38af0a8fe88b9e4b1f61f236d2e64d95733327a62@relay.ultrasonido.dinero \
+-relay https://0xa15b52576bcbf1072f4a011c0f99f9fb6c66f3e1ff321f11f461d15e31b1cb359caa092c71bbded0bae5b5ea401aab7e@aestus.live \
+-relé https://0x8b5d2e73e2a3a55c6c87b8b6eb92e0149a125c852751db1422fa951e42a09b82c142c3ea98d0d9930b056a3bc9896b8f@bloxroute.max-profit.blxrbdn.com \
+-relé https://0x8c7d33605ecef85403f8b7289c8058f440cbb6bf72b055dfe2f3e2c6695b6a1ea5a9cd0eb3a7982927a463feb4c3dae2@relay.wenmerge.com
 
-[Install]
+[Instalar]
 WantedBy=multi-user.target
 ```
 {% endtab %}
 
-{% tab title="Holesky Testnet" %}
+{% tab title="Red de prueba Holesky" %}
 ```bash
-[Unit]
-Description=MEV-Boost Service for Holesky
+[Unidad]
+Descripción=MEV -Servicio de refuerzo para Holesky
 Wants=network-online.target
 After=network-online.target
-Documentation=https://www.coincashew.com
+Documentación=https://www.coincashew.com
 
-[Service]
-User=mevboost
-Group=mevboost
-Type=simple
-Restart=always
+[Servicio]
+Usuario=mevboost
+Grupo=mevboost
+Tipo=simple
+Reiniciar=siempre
 RestartSec=5
-ExecStart=/usr/local/bin/mev-boost \
-  -holesky \
-  -min-bid 0.03 \
-  -relay-check \
-  -relay https://0x821f2a65afb70e7f2e820a925a9b4c80a159620582c1766b1b09729fec178b11ea22abb3a51f07b288be815a1a2ff516@bloxroute.holesky.blxrbdn.com \
-  -relay https://0xb1d229d9c21298a87846c7022ebeef277dfc321fe674fa45312e20b5b6c400bfde9383f801848d7837ed5fc449083a12@relay-holesky.edennetwork.io \
-  -relay https://0xafa4c6985aa049fb79dd37010438cfebeb0f2bd42b115b89dd678dab0670c1de38da0c4e9138c9290a398ecd9a0b3110@boost-relay-holesky.flashbots.net \
-  -relay https://0xaa58208899c6105603b74396734a6263cc7d947f444f396a90f7b7d3e65d102aec7e5e5291b27e08d02c50a050825c2f@holesky.titanrelay.xyz \
-  -relay https://0xab78bf8c781c58078c3beb5710c57940874dd96aef2835e7742c866b4c7c0406754376c2c8285a36c630346aa5c5f833@holesky.aestus.live \
-  -relay https://0xb1559beef7b5ba3127485bbbb090362d9f497ba64e177ee2c8e7db74746306efad687f2cf8574e38d70067d40ef136dc@relay-stag.ultrasound.money
+ExecStart=/usr/local /bin/mev-boost \
+-holesky \
+-min-bid 0.03 \
+-relay-check \
+-relay https://0x821f2a65afb70e7f2e820a925a9b4c80a159620582c1766b1b09729fec178b11ea22abb3a51f07b288be815a1a2ff516@bloxroute.holesky.blxrbdn.com \
+-relay https://0xb1d229d9c21298a87846c7022ebeef277dfc321fe674fa45312e20b5b6c400bfde9383f801848d7837ed5fc449083a12@relay-holesky.edennetwork.io \
+-relay https://0xafa4c6985aa049fb79dd37010438cfebeb0f2bd42b115b89dd678dab0670c1de38da0c4e9138c9290a398ecd9a0b3110@boost-relay-holesky.flashbots.net \
+-relay https://0xaa58208899c6105603b74396734a6263cc7d947f444f396a90f7b7d3e65d102aec7e5e5291b27e08d02c50a050825c2f@holesky.titanrelay.xyz \
+-relé https://0xab78bf8c781c58078c3beb5710c57940874dd96aef2835e7742c866b4c7c0406754376c2c8285a36c630346aa5c5f833@holesky.aestus.live \
+-relé https://0xb1559beef7b5ba3127485bbbb090362d9f497ba64e177ee2c8e7db74746306efad687f2cf8574e38d70067d40ef136dc@relay-stag.ultrasound.money
 
-[Install]
+[Instalar]
 WantedBy=multi-user.target
 ```
 {% endtab %}
 {% endtabs %}
 
 {% hint style="info" %}
-Using `-min-bid` flag, you can set a minimum bid value in ETH.&#x20;
-
-* If all relays cannot bid higher than your minimum value, then your local execution client will produce the block.&#x20;
-* By setting this value, you can capture MEV opportunities for higher value blocks and maintain a degree of control for local block production which helps strengthen censorship resistance and a neutral Ethereum network.&#x20;
+Usando `-min -bandera `bid`, puede establecer un valor de oferta mínimo en ETH.&#x20;
+* Si todos los relés no pueden pujar por encima de su valor mínimo, su cliente de ejecución local producirá el bloque.&#x20;
+* Bal establecer este valor, puede capturar oportunidades MEV para bloques de mayor valor y mantener un grado de control para la producción local de bloques que ayuda a fortalecer la resistencia a la censura y una red Ethereum neutral..&#x20;
 {% endhint %}
 
-Reload systemctl to pickup the new service file.
+Recarga systemctl para recoger el nuevo archivo de servicio.
 
 ```bash
 sudo systemctl daemon-reload
 ```
 
 {% hint style="info" %}
-**Good to know**: If you add or remove relay endpoints, you'll need to re-run this systemctl`daemon-reload` command and restart the mevboost services.
+**Es bueno saberlo**: Si agrega o elimina puntos finales de retransmisión, deberá volver a ejecutar este comando systemctl`daemon-reload` y reiniciar los servicios de mevboost.
 
 ```bash
 sudo systemctl daemon-reload
@@ -223,72 +219,72 @@ sudo systemctl restart mevboost
 ```
 {% endhint %}
 
-Enable mevboost to automatically startup at system reboots and start the service.
+Habilite mevboost para que se inicie automáticamente al reiniciar el sistema e inicie el servicio.
 
 ```bash
 sudo systemctl enable mevboost
 sudo systemctl start mevboost
 ```
 
-Check that the service started successfully.
+Verifique que el servicio se haya iniciado correctamente.
 
 ```bash
 sudo systemctl status mevboost
 ```
 
-Sample of systemd logs showing mevboost running nominally.
+Ejemplo de registros de systemd que muestran que mevboost se ejecuta normalmente.
 
 ```
-● mevboost.service - mev-boost ethereum mainnet
-     Loaded: loaded (/etc/systemd/system/mevboost.service; enabled; vendor preset: enabled)
-     Active: active (running) since Mon 2022-09-17 23:32:00; 10s ago
-   Main PID: 12321 (mev-boost)
-      Tasks: 11 (limit: 34236)
-     Memory: 15.4M
-     CGroup: /system.slice/mevboost.service
-             └─12321 /usr/local/bin/mev-boost -mainnet -relay-check -relays https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net,https://0xad0a8bb54565c2211cee576363f3>
+● mevboost.service - red principal de Ethereum de mev-boost
+Cargado: cargado (/etc/systemd/system/mevboost.service; habilitado; valor predeterminado del proveedor: habilitado)
+Activo: activo (en ejecución) desde el lunes 17 de septiembre de 2022 a las 23:32:00; hace 10 s
+PID principal: 12321 (mev-boost)
+Tareas: 11 (límite: 34236)
+Memoria: 15,4 M
+CGroup: /system.slice/mevboost.service
+└─12321 /usr/local/bin/mev-boost -mainnet -relay-check -relays https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net,https://0xad0a8bb54565c2211cee576363f3>
 ```
 
-View Logs with the following command:
+Ver registros con el siguiente comando:
 
 ```bash
 sudo journalctl -fu mevboost
 ```
 
-Sample of logs showing mevboost running nominally.
+Ejemplo de registros que muestran que mevboost se está ejecutando normalmente.
 
 ```
-Sep 17 23:32:23 ethstaker systemd[1]: Started MEV-Boost Relay.
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="mev-boost v1.3.1" module=cli
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="Using genesis fork version: 0x00000000" module=cli
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="using 2 relays" module=cli relays="[{0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net} {0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118 https://0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118@bloxroute.ethical.blxrbdn.com}]"
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="Checking relay" module=service relay="https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net"
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="Checking relay" module=service relay="https://0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118@bloxroute.ethical.blxrbdn.com"
-Sep 17 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="listening on localhost:18550" module=cli
+17 de septiembre 23:32:23 ethstaker systemd[1]: Se inició el relé MEV-Boost.
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: tiempo="2022-09-17T23:32:32-00:00" nivel=info msg="mev-boost v1.3.1" módulo=cli
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: tiempo="2022-09-17T23:32:32-00:00" nivel=info msg="Usando la versión de la bifurcación de Génesis: 0x00000000" módulo=cli
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: tiempo="2022-09-17T23:32:32-00:00" nivel=info msg="usando 2 relés" módulo=cli relés="[{0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net} {0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118 https://0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118@bloxroute.ethical.blxrbdn.com}]"
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: hora="2022-09-17T23:32:32-00:00" nivel=información msg="Comprobando relé" módulo=servicio relé="https://0xac6e77dfe25ecd6110b8e780608cce0dab71fdd5ebea22a16c0205200f2f8e2e3ad3b71d3499c54ad14d6c21b41a37ae@boost-relay.flashbots.net"
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: hora="2022-09-17T23:32:32-00:00" nivel=información msg="Comprobando relé" módulo=servicio relay="https://0xad0a8bb54565c2211cee576363f3a347089d2f07cf72679d16911d740262694cadb62d7fd7483f27afd714ca0f1b9118@bloxroute.ethical.blxrbdn.com"
+17 de septiembre 23:32:23 ethstaker mev-boost[12321]: time="2022-09-17T23:32:32-00:00" level=info msg="listening on localhost:18550" module=cli
 ```
 
-### Step 3: Update consensus client and validator
+### Paso 3: Actualizar el cliente y el validador de la capa de consenso
 
 {% hint style="info" %}
-Both the consensus layer client and validator will require additional **Builder API** flags.
+Tanto el cliente como el validador de la capa de consenso requerirán **API de compilador** adicional banderas.
 {% endhint %}
 
-**Consensus Client Layer Changes (beacon chain)**
+**Cambios en la capa de cliente de consenso (cadena de balizas)**
 
-Add the appropriate flag to the `ExecStart` line of your **consensus** **client** service file.&#x20;
+Agregue la bandera adecuada a la línea `ExecStart` de su archivo de servicio de **cliente** de consenso.&#x20;
 
-Select the tab appropriate to your staking setup.
+Seleccione la pestaña adecuada para su configuración de staking.
 
-To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Para salir y guardar desde el editor `nano`, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
 {% tabs %}
-{% tab title="V2 Staking Setup (Current)" %}
+{% tab title="Configuración de staking V2 (actual)" %}
 ```bash
 sudo nano /etc/systemd/system/consensus.service
 ```
 {% endtab %}
 
-{% tab title="V1 Staking Setup" %}
+{% tab title="Configuración de staking V1" %}
 ```bash
 sudo nano /etc/systemd/system/beacon-chain.service
 ```
@@ -303,23 +299,23 @@ sudo nano /etc/systemd/system/beacon-chain.service
 {% endtab %}
 
 {% tab title="Teku" %}
-#### Option 1: Systemd service file configuration - Use for V2 Teku staking setup&#x20;
+#### Opción 1: Configuración del archivo de servicio Systemd - Uso para la configuración de staking de Teku V2
 
-If your Teku client is configured by --parameters in the **systemd service file,** add the following changes.
+Si su cliente Teku está configurado por --parameters en el **archivo de servicio systemd**, agregue los siguientes cambios.
 
 ```bash
 --validators-builder-registration-default-enabled=true --builder-endpoint=http://127.0.0.1:18550
 ```
 
-#### Option 2: TOML Configuration - Use for V1 Teku staking setup
+#### Opción 2: Configuración de TOML - Uso para la configuración de staking de Teku V1
 
-If your Teku client is configured by passing in a **TOML file (i.e. teku.yaml),** edit `teku.yaml` with nano.
+Si su cliente Teku está configurado pasando un **archivo TOML (es decir, teku.yaml),** edite `teku.yaml` con nano.
 
 ```bash
 sudo nano /etc/teku/teku.yaml
 ```
 
-Add the following lines to the yaml file:
+Agregue las siguientes líneas al archivo yaml:
 
 ```bash
 # mevboost
@@ -328,7 +324,7 @@ builder-endpoint: "http://127.0.0.1:18550"
 ```
 
 {% hint style="info" %}
-Use one configuration or the other but not both!
+¡Use una configuración u otra, pero no ambas!
 {% endhint %}
 {% endtab %}
 
@@ -351,27 +347,27 @@ Use one configuration or the other but not both!
 {% endtab %}
 {% endtabs %}
 
-For example, here is the expected result of an updated `ExecStart` line of a **V2 Staking Setup Prysm consensus** **client** service file.&#x20;
+Por ejemplo, este es el resultado esperado de una línea `ExecStart` actualizada de un consenso de Prysm de **V2 Staking Setup** **Archivo de servicio del cliente**.
 
-Flag is added on the last line.
+La bandera se agrega en la última línea.
 
-When adding a new line, notice that previous lines require a backslash `\`
+Al agregar una nueva línea, tenga en cuenta que las líneas anteriores requieren una barra invertida `\`
 
 ```bash
 ExecStart=/usr/local/bin/beacon-chain \
-  --mainnet \
-  --checkpoint-sync-url=https://beaconstate.info \
-  --genesis-beacon-api-url=https://beaconstate.info \
-  --execution-endpoint=http://localhost:8551 \
-  --jwt-secret=/secrets/jwtsecret \
-  --suggested-fee-recipient=0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS \
-  --accept-terms-of-use \
-  --http-mev-relay=http://127.0.0.1:18550
+--mainnet \
+--checkpoint-sync-url=https://beaconstate.info \
+--genesis-beacon-api-url=https://beaconstate.info \
+--execution-endpoint=http://localhost:8551 \
+--jwt-secret=/secrets/jwtsecret \
+--suggested-fee-recipient=0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS \
+--accept-terms-of-use \
+--http-mev-relay=http://127.0.0.1:18550
 ```
 
-**Validator Client Changes**
+**Cambios en el cliente del validador**
 
-If required, add the appropriate flag to the `ExecStart` line of your **validator** **client** service file. To exit and save from the `nano` editor, press `Ctrl` + `X`, then `Y`, then`Enter`.
+Si es necesario, agregue el indicador apropiado a la línea `ExecStart` de su Archivo de servicio **cliente** del validador. Para salir y guardar desde el editor `nano`, presione `Ctrl` + `X`, luego `Y`, luego `Enter`.
 
 ```bash
 sudo nano /etc/systemd/system/validator.service
@@ -385,13 +381,13 @@ sudo nano /etc/systemd/system/validator.service
 {% endtab %}
 
 {% tab title="Teku" %}
-For Teku running in standalone validator configuration,
+Para Teku que se ejecuta en una configuración de validador independiente,
 
 ```bash
 --validators-builder-registration-default-enabled=true
 ```
 
-For Teku running in combined BN+VC configuration, there is no extra configuration needed.
+Para Teku que se ejecuta en una configuración combinada de BN+VC, no se necesita ninguna configuración adicional.
 {% endtab %}
 
 {% tab title="Lodestar" %}
@@ -401,13 +397,13 @@ For Teku running in combined BN+VC configuration, there is no extra configuratio
 {% endtab %}
 
 {% tab title="Nimbus" %}
-For Nimbus running in standalone validator configuration,
+Para Nimbus que se ejecuta en una configuración de validador independiente,
 
 ```
 --payload-builder=true
 ```
 
-For Nimbus running in combined BN+VC configuration, there is no extra configuration needed.
+Para Nimbus que se ejecuta en una configuración combinada de BN+VC, no se necesita ninguna configuración adicional.
 {% endtab %}
 
 {% tab title="Prysm" %}
@@ -417,58 +413,57 @@ For Nimbus running in combined BN+VC configuration, there is no extra configurat
 {% endtab %}
 {% endtabs %}
 
-For example, here is the expected result of an updated `ExecStart` line of a **V2 Staking Setup Prysm validator client** service file.&#x20;
+Por ejemplo, aquí está el resultado esperado de una línea `ExecStart` actualizada de un archivo de servicio del cliente de validación de Prysm de **V2 Staking Setup**.&#x20;
 
-Flag is added on the last line.
+Se agrega una bandera en la última línea.
 
-When adding a new line, notice that previous lines require a backslash `\`
+Al agregar una nueva línea, tenga en cuenta que las líneas anteriores requieren una barra invertida `\`
 
 ```bash
 ExecStart=/usr/local/bin/validator \
-  --mainnet \
-  --accept-terms-of-use \
-  --datadir=/var/lib/prysm/validators \
-  --beacon-rpc-provider=localhost:4000 \
-  --wallet-dir=/var/lib/prysm/validators \
-  --wallet-password-file=/var/lib/prysm/validators/password.txt \
-  --graffiti "" \
-  --suggested-fee-recipient=<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS> \
-  --enable-builder
+--mainnet \
+--accept-terms-of-use \
+--datadir=/var/lib/prysm/validators \
+--beacon-rpc-provider=localhost:4000 \
+--wallet-dir=/var/lib/prysm/validators \
+--wallet-password-file=/var/lib/prysm/validators/password.txt \
+--graffiti "" \
+--suggested-fee-recipient=<0x_CHANGE_THIS_TO_MY_ETH_FEE_RECIPIENT_ADDRESS> \
+--enable-builder
 ```
 
-After configuring your consensus client and validator to enable mevboost, reload and restart your services. Finally, verify your logs look error-free and show use of the new MEV configurations.
-
+Después de configurar su cliente de consenso y validador para habilitar mevboost, vuelva a cargar y reinicie sus servicios. Por último, verifique que sus registros estén libres de errores y muestren el uso de las nuevas configuraciones de MEV.
 {% tabs %}
 {% tab title="V2 Staking Setup (Current)" %}
 **Lighthouse, Lodestar, Prysm**
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl daemon-reload
-</strong>sudo systemctl restart consensus validator
+</strong>sudo systemctl restart consensuado validador
 
-sudo journalctl -fu consensus
-sudo journalctl -fu validator
+sudo journalctl -fu consensuado
+sudo journalctl -fu consensuado
 </code></pre>
 
-**Teku or Nimbus**
+**Teku o Nimbus**
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl daemon-reload
-</strong>sudo systemctl restart consensus
+</strong>sudo systemctl restart consensuado
 
-sudo journalctl -fu consensus
+sudo journalctl -fu consensuado
 </code></pre>
 {% endtab %}
 
-{% tab title="V1 Staking Setup" %}
+{% tab title="Configuración de staking V1" %}
 **Lighthouse, Lodestar, Prysm**
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl daemon-reload
-</strong>sudo systemctl restart beacon-chain validator
+</strong>sudo systemctl restart Validador de beacon-chain
 
 sudo journalctl -fu beacon-chain
 sudo journalctl -fu validator
 </code></pre>
 
-**Teku or Nimbus**
+**Teku o Nimbus**
 
 <pre class="language-bash"><code class="lang-bash"><strong>sudo systemctl daemon-reload
 </strong>sudo systemctl restart beacon-chain
@@ -479,37 +474,37 @@ sudo journalctl -fu beacon-chain
 {% endtabs %}
 
 {% hint style="success" %}
-Congrats! Your validator with mev-boost will earn more rewards when proposing a block.
+¡Felicitaciones! Su validador con mev-boost obtendrá más recompensas al proponer un bloque.
 {% endhint %}
 
-## :dart: How to Update MEV-boost
+## :dart: Cómo actualizar MEV-boost
 
-Update to the latest release with the following commands.
+Actualice a la última versión con los siguientes comandos.
 
-[Review the latest MEV-boost release notes](https://github.com/flashbots/mev-boost/releases) for new requirements or breaking changes.
+[Revise las últimas notas de la versión de MEV-boost](https://github.com/flashbots/mev-boost/releases) para conocer los nuevos requisitos o los cambios importantes.
 
 <details>
 
-<summary>Option 1 - Download binaries</summary>
+<summary>Opción 1: descargar binarios</summary>
 
-Run the following to automatically download the latest linux release, un-tar and cleanup.
+Ejecute lo siguiente para descargar automáticamente la última versión de Linux, descomprimir y limpiar.
 
 ```bash
 RELEASE_URL="https://api.github.com/repos/flashbots/mev-boost/releases/latest"
 BINARIES_URL="$(curl -s $RELEASE_URL | jq -r ".assets[] | select(.name) | .browser_download_url" | grep linux_amd64.tar.gz$)"
 
-echo Downloading URL: $BINARIES_URL
+echo URL de descarga: $BINARIES_URL
 
 cd $HOME
-# Download
-wget -O  mev-boost.tar.gz $BINARIES_URL
-# Untar
+# Descargar
+wget -O mev-boost.tar.gz $BINARIES_URL
+# Descomprimir
 tar -xzvf mev-boost.tar.gz -C $HOME
-# Cleanup
-rm mev-boost.tar.gz LICENSE README.md
+# Limpieza
+rm mev-boost.tar.gz LICENCIA README.md
 ```
 
-Stop the service, install the binaries and start the service.
+Detenga el servicio, instale los binarios e inicie el servicio.
 
 ```bash
 sudo systemctl stop mevboost
@@ -517,8 +512,7 @@ sudo mv $HOME/mev-boost /usr/local/bin
 sudo systemctl start mevboost
 ```
 
-Verify the new version number.
-
+Verifique el nuevo número de versión.
 ```bash
 /usr/local/bin/mev-boost --version
 ```
@@ -527,23 +521,23 @@ Verify the new version number.
 
 <details>
 
-<summary>Option 2 - Build from source code</summary>
+<summary>Opción 2: compilar desde el código fuente</summary>
 
-Compile new binaries and stop the service.
+Compilar nuevos binarios y detener el servicio.
 
 ```bash
 CGO_CFLAGS="-O -D__BLST_PORTABLE__" go install github.com/flashbots/mev-boost@latest
 sudo systemctl stop mevboost
 ```
 
-Install new binaries and start the service.
+Instalar nuevos binarios e iniciar el servicio.
 
 ```bash
 sudo cp ~/go/bin/mev-boost /usr/local/bin
 sudo systemctl start mevboost
 ```
 
-Verify the new version number.
+Verificar el nuevo número de versión.
 
 ```bash
 /usr/local/bin/mev-boost --version
@@ -551,126 +545,125 @@ Verify the new version number.
 
 </details>
 
-## :wastebasket: Uninstalling MEV-boost
+## :wastebasket: Desinstalación de MEV-boost
 
 ```bash
 sudo systemctl stop mevboost
-sudo systemctl disable mevboost
+sudo systemctl deshabilitar mevboost
 sudo rm /etc/systemd/system/mevboost.service
 sudo rm /usr/local/bin/mev-boost
 sudo userdel mevboost
 ```
 
-Finally, remove the Builder API changes made in step 3 to your consensus client and validator.
+Por último, elimine los cambios de la API de Builder realizados en el paso 3 en su cliente de consenso y validador.
 
-## :question: FAQ
+## :question: Preguntas frecuentes
 
 <details>
 
-<summary>How do I verify I'm registered with my relays?</summary>
+<summary>¿Cómo verifico que estoy registrado en mis relés?</summary>
 
-Verify that your validator is registered with a particular relay by making a request to the relay's API.
+Verifique que su validador esté registrado en un relé en particular haciendo una solicitud a la API del relé.
 
-You can either manually query the relay's API or use [dabauxi's Check MEV-Boost Relay Registration script](https://github.com/dabauxi/check-mevboost-registration).
+Puede consultar manualmente la API del relé o usar el [script de dabauxi para verificar el registro del relé MEV-Boost](https://github.com/dabauxi/check-mevboost-registration).
 
-### Check MEV-Boost Relay Registration by dabauxi&#x20;
+### Verificar el registro del relé MEV-Boost por dabauxi&#x20;
 
-Review notes and source code [here](https://github.com/dabauxi/check-mevboost-registration). Requires python.
+Revise las notas y el código fuente [aquí](https://github.com/dabauxi/check-mevboost-registration). Requiere Python.
 
 ```
-# Install python
+# Instalar Python
 sudo apt install python3
 
-# Download the script
+# Descargar el script
 wget https://raw.githubusercontent.com/dabauxi/check-mevboost-registration/main/check_mevboost_registration.py
 
-# Assign execution permissions
+# Asignar permisos de ejecución
 chmod +x check_mevboost_registration.py
 
-# Check mevboost registration
+# Verificar el registro de mevboost
 ./check_mevboost_registration.py <your-validator-address>
 ```
 
-Sample output showing your validator's registration to relays.
+Ejemplo de salida que muestra el registro de su validador en los relés.
 
 ```
 ./check_mevboost_registration.py 0x8000a44457e18388c5be046e22e86aedae1a07638394df63adfcd32d29b4e86c030219e94782ebebe398c9a05a8a28e7
 
-Validator '0x8000a44457e18388c5be046e22e86aedae1a07638394df63adfcd32d29b4e86c030219e94782ebebe398c9a05a8a28e7'
-Relay: 'bloxroute.ethical.blxrbdn.com', ❌ not found
-Relay: 'relay.edennetwork.io', ❌ not found
-Relay: 'builder-relay-mainnet.blocknative.com', ✔️ registered
-Relay: 'bloxroute.max-profit.blxrbdn.com', ✔️ registered
-Relay: 'boost-relay.flashbots.net', ✔️ registered
-Relay: 'bloxroute.regulated.blxrbdn.com', ❌ not found
-Relay: 'builder-relay-mainnet.blocknative.com', ✔️ registered
-Relay: 'relay.edennetwork.io', ❌ not found
-Relay: 'mainnet-relay.securerpc.com', ✔️ registered
-Relay: 'relayooor.wtf', ✔️ registered
-Relay: 'relay.ultrasound.money', ✔️ registered
-Relay: 'agnostic-relay.net', ✔️ registered
+Validador '0x8000a44457e18388c5be046e22e86aedae1a07638394df63adfcd32d29b4e86c030219e94782ebebe398c9a05a8a28e7'
+Relé: 'bloxroute.ethical.blxrbdn.com', ❌ no encontrado
+Relé: 'relay.edennetwork.io', ❌ no encontrado
+Relay: 'builder-relay-mainnet.blocknative.com', ✔️ registrado
+Relay: 'bloxroute.max-profit.blxrbdn.com', ✔️ registrado
+Relay: 'boost-relay.flashbots.net', ✔️ registrado
+Relay: 'bloxroute.regulated.blxrbdn.com', ❌ no encontrado
+Relay: 'builder-relay-mainnet.blocknative.com', ✔️ registrado
+Relay: 'relay.edennetwork.io', ❌ no encontrado
+Relay: 'mainnet-relay.securerpc.com', ✔️ registrado
+Relay: 'relayooor.wtf', ✔️ registrado
+Relay: 'relay.ultrasound.money', ✔️ registrado
+Relay: 'agnostic-relay.net', ✔️ registrado
 ```
 
-### &#x20;Check Manually
+### &#x20;Verificar manualmente
 
-For example, to verify that your validator is registered with the flashbots relay, enter the following URL into your browser. Replace `<myPubKey>` with the public key of your validator and you will see registration data such as your fee recipient address.
+Por ejemplo, para verificar que su validador esté registrado con el relé flashbots, ingrese la siguiente URL en su navegador. Reemplace `<myPubKey>` con la clave pública de su validador y verá datos de registro como la dirección del destinatario de su tarifa.
 
 ```
 https://boost-relay.flashbots.net/relay/v1/data/validator_registration?pubkey=<myPubKey>
 ```
 
-Sample command:
+Ejemplo de comando:
 
 ```
 https://boost-relay.flashbots.net/relay/v1/data/validator_registration?pubkey=0xb510871a4600b184e83b1ca28402e4de31b5db968f28196419ab64c6e4e2b39920815a61b0bdfe8c928ae8a4db308517
 ```
 
-Sample output:
+Ejemplo salida:
 
 ```
-{"message":{"fee_recipient":"0xebec795c9c8bbd61ffc14a6662944748f299cacf","gas_limit":"30000000","timestamp":"1663454829","pubkey":"0xb510871a4600b184e83b1ca28402e4de31b5db968f28196419ab64c6e4e2b39920815a61b0bdfe8c928ae8a4db308517"},"signature":"0xaeaffeb2f67f378fc8e0e31929a958bf51895d64e93246372e6bb8609c15b3d64b4ad56a5454bc3ac1be0bc57dce031c12c066c973125312d7e4c5020509edd0aaf98a6a190081305723a89e3dcd7b3f6b1ca40b92bb1a50e5714c28407e1bf9"}
+{"mensaje":{"destinatario_de_tarifa": "0xebec795c9c8bbd61ffc14a6662944748f299cacf", "límite_de_gas": "30000000", "marca_de_tiempo": "1663454829", "clave pública": "0xb510871a4600b184e83b1ca28402e4de31b5db968f28196419ab64c6e4e2b39920815a61b0bdfe8c928ae8a4db308517"},"si gnature": "0xaeaffeb2f67f378fc8e0e31929a958bf51895d64e93246372e6bb8609c15b3d64b4ad56a5454bc3ac1be0bc57dce031c12c066c973125312d7e4c5020509edd0aaf98a6a190081305723a89e3dcd7b3f6b1ca40b92bb1a50e5714c28407e1bf9"}
 ```
 
 </details>
 
 <details>
 
-<summary>Where will I get MEV-boost payments?</summary>
+<summary>Dónde ¿Recibiré pagos de MEV-boost?</summary>
 
-When a block is produced using MEV-boost, you may receive your payment in 1 of 3 ways.
+Cuando se produce un bloque utilizando MEV-boost, puede recibir su pago de una de tres maneras.
 
-Specifically, your MEV payment may arrive as:
+Específicamente, su pago de MEV puede llegar como:
 
-1\) by setting you as the block's Fee Recipient&#x20;
+1\) al establecerlo como el Destinatario de la Tarifa del bloque
 
-2\) an internal transaction
+2\) una transacción interna
 
-3\) or a normal transaction
-
-</details>
-
-<details>
-
-<summary>Why run MEV-boost?</summary>
-
-Refer to [this article by Stephane Gosslin](https://writings.flashbots.net/writings/why-run-mevboost), which explains the benefits of MEV-boost to the network and you, as a validator.
+3\) o una transacción normal
 
 </details>
 
 <details>
 
-<summary>How does MEV-boost work?</summary>
+<summary>¿Por qué ejecutar MEV-boost?</summary>
 
-* Ethereum stakers must run three pieces of software: a validator client, consensus client, and an execution client.
-* MEV-boost is a separate piece of open source software, which queries and outsources block-building to a network of builders.
-* Block builders prepare full blocks, optimizing for MEV extraction and fair distribution of rewards.
-* They then submit their blocks to relays.
+Consulte [este artículo de Stephane Gosslin](https://writings.flashbots.net/writings/why-run-mevboost), que explica los beneficios de MEV-boost para la red y para usted, como validador.
 
+</details>
+
+<details>
+
+<summary>¿Cómo funciona MEV-boost?</summary>
+
+* Los participantes de Ethereum deben ejecutar tres piezas de software: un cliente de validación, un cliente de consenso y un cliente de ejecución.
+* MEV-boost es una pieza independiente de software de código abierto, que consulta y subcontrata la creación de bloques a una red de constructores.
+* Los constructores de bloques preparan bloques completos, optimizando la extracción de MEV y la distribución justa de las recompensas.
+* Luego envían sus bloques a los relés.
 <!---->
 
-* Relays aggregate blocks from **multiple** builders in order to select the block with the highest fees.
-* One instance of MEV-boost can be configured by a validator to connect to **multiple** relays.
-* The Consensus Layer client of a validator proposes the most profitable block received from MEV-boost to the Ethereum network for attestation and block inclusion.
+* Los relés agregan bloques de **varios** constructores para seleccionar el bloque con las tarifas más altas.
+* Un validador puede configurar una instancia de MEV-boost para conectarse a **varios** relés.
+* El cliente de la capa de consenso de un validador propone el bloque más rentable recibido de MEV-boost a la red Ethereum para su certificación e inclusión en bloque.
 
 <img src="../../../.gitbook/assets/mev-boost-integration-overview.png" alt="" data-size="original">
 
@@ -678,70 +671,69 @@ Refer to [this article by Stephane Gosslin](https://writings.flashbots.net/writi
 
 <details>
 
-<summary>What are the risks of running MEV-boost?</summary>
+<summary>¿Cuáles son los riesgos de ejecutar MEV-boost?</summary>
 
-* Adding more relays increases risk of adding a "bad" relay (hacked, withholds bid, performance issues) and causes your validator to miss a proposal.
-* More relays = more chance of getting a high-bid block however this also increases chance of getting rugged by "bad" relays and missing a proposal.Requires trust that relays and block builders will act honestly. MEV is not yet a trust-less process until there is protocol-level proposer-builder-separation (PBS).
+* Agregar más relés aumenta el riesgo de agregar un relé "malo" (pirateado, retiene la oferta, problemas de rendimiento) y hace que su validador pierda una propuesta.
+* Más relés = más posibilidades de obtener un bloque con una oferta alta; sin embargo, esto también aumenta las posibilidades de que los relés "malos" lo ataquen y de que pierda una propuesta. Requiere confianza en que los relés y los creadores de bloques actuarán honestamente. MEV aún no es un proceso sin confianza hasta que exista una separación entre proponente y creador a nivel de protocolo (PBS).
 
-Detailed explanation: [https://writings.flashbots.net/writings/understanding-mev-boost-liveness-risks](https://writings.flashbots.net/writings/understanding-mev-boost-liveness-risks/)
+Explicación detallada: [https://writings.flashbots.net/writings/understanding-mev-boost-liveness-risks](https://writings.flashbots.net/writings/understanding-mev-boost-liveness-risks/)
 
-Summary of risks: Only add relays you trust.
-
-</details>
-
-<details>
-
-<summary>What's the real-time status of MEV?</summary>
-
-Track network participation, recent MEV blocks, top relays and block builders at [https://www.mevboost.org](https://www.mevboost.org/)
+Resumen de riesgos: solo agregue relés en los que confíe.
 
 </details>
 
 <details>
 
-<summary>I'm using multiple relays. Which one is chosen?</summary>
+<summary>¿Cuál es el estado en tiempo real de MEV?</summary>
 
-If multiple relays are available, the relay bidding highest MEV reward will be chosen. If all relays are not available, the local execution client builds the block without MEV.
-
-</details>
-
-<details>
-
-<summary>What's makes a MEV relay ethical or not?</summary>
-
-Based on varying degrees of profit or censorship, MEV relays can decide on what transactions to bundle in a block.
-
-* Ethical relays: will not censor transactions or profit from front running / sandwich attacks, which is harmful to everyday users on Ethereum.
-* OFAC relays: will censor transactions according to the OFAC list.
-* Maximal profit relays: profit is all that matters, ethics have no meaning.
+Haga un seguimiento de la participación en la red, los bloques MEV recientes, los principales relés y los constructores de bloques en [https://www.mevboost.org](https://www.mevboost.org/)
 
 </details>
 
 <details>
 
-<summary>Do I need to open any incoming ports on the firewall?</summary>
+<summary>Estoy usando varios relés. ¿Cuál es el elegido?</summary>
 
-No changes needed. mevboost only makes outgoing tcp calls.
+Si hay varios relés disponibles, se elegirá el relé que ofrezca la recompensa MEV más alta. Si no están disponibles todos los relés, el cliente de ejecución local construye el bloque sin MEV.
 
 </details>
 
-## :track\_next: Next Steps
+<details>
 
-* :moneybag: **MEV Smoothing:** Earn rewards on a consistent basis! Potentially share lottery blocks. Average out your MEV rewards.
-  * **Smoothly -** [**https://docs.smoothly.money/how-to-guide**](https://docs.smoothly.money/how-to-guide)
-  * **Dappnode's Smooth -** [**https://smooth.dappnode.io/how-to**](https://smooth.dappnode.io/how-to)
-* :new: **Stay Updated**: Subscribe to [flashbot's mev-boost repository](https://github.com/flashbots/mev-boost/releases) to be notified of new releases. Hit the Notifications button.
-* :telephone\_receiver: **Stay in contact**: Follow [MEV-Boost Twitter contributors](https://github.com/thegostep/awesome-mev-boost#twitter)
-* :rocket: **Future ideas**: Learn about the future of MEV democratized by [PBS](https://members.delphidigital.io/reports/the-hitchhikers-guide-to-ethereum/).
-* ​:confetti\_ball: **Support us on Gitcoin Grants:** We build this guide exclusively by community support!🙏
+<summary>¿Qué hace que un relé MEV sea ético o no?</summary>
 
-## :books: References
+En función de los distintos grados de beneficio o censura, los relés MEV pueden decidir qué transacciones agrupar en un bloque.
+
+* Relés éticos: no censurarán las transacciones ni se beneficiarán de los ataques front running o sandwich, que son perjudiciales para los usuarios cotidianos de Ethereum. * Relés OFAC: censurarán las transacciones según la lista OFAC.
+* Relés de máxima ganancia: la ganancia es todo lo que importa, la ética no tiene importancia.
+
+</details>
+
+<details>
+
+<summary>¿Necesito abrir algún puerto de entrada en el firewall?</summary>
+
+No se necesitan cambios. mevboost solo realiza llamadas TCP salientes.
+
+</details>
+
+## :track\_next: Próximos pasos
+
+* :moneybag: **Suavizado MEV:** ¡Gana recompensas de manera constante! Comparte potencialmente bloques de lotería. Calcula el promedio de tus recompensas MEV.
+* **Smoothly -** [**https://docs.smoothly.money/how-to-guide**](https://docs.smoothly.money/how-to-guide)
+* **Smooth de Dappnode -** [**https://smooth.dappnode.io/how-to**](https://smooth.dappnode.io/how-to)
+* :new: **Manténgase actualizado**: Suscríbase al [repositorio mev-boost de flashbot](https://github.com/flashbots/mev-boost/releases) para recibir notificaciones sobre nuevos lanzamientos. Presione el botón Notificaciones.
+* :telephone\_receiver: **Manténgase en contacto**: Siga a los [colaboradores de Twitter de MEV-Boost](https://github.com/thegostep/awesome-mev-boost#twitter)
+* :rocket: **Ideas futuras**: Conozca el futuro de MEV democratizado por [PBS](https://members.delphidigital.io/reports/the-hitchhikers-guide-to-ethereum/).
+* ​:confetti\_ball: **Apóyanos en Gitcoin Grants:** ¡Creamos esta guía exclusivamente con el apoyo de la comunidad!🙏
+
+## :books: Referencias
 
 * [https://github.com/remyroy/ethstaker/blob/main/prepare-for-the-merge.md#choosing-and-configuring-an-mev-solution](https://github.com/remyroy/ethstaker/blob/main/prepare-for-the-merge.md#choosing-and-configuring-an-mev-solution)
 * [https://github.com/flashbots/mev-boost/wiki/Testing](https://github.com/flashbots/mev-boost/wiki/Testing)
 * [https://boost.flashbots.net/](https://boost.flashbots.net/)
 * [https://github.com/flashbots/mev-boost/blob/main/README.md](https://github.com/flashbots/mev-boost/blob/main/README.md)
 
-## :thumbsup: Credits
+## :thumbsup: Créditos
 
-Inspired by [Remyroy's Guide on how to Prepare for The Merge](https://github.com/remyroy/ethstaker/blob/main/prepare-for-the-merge.md#choosing-and-configuring-an-mev-solution)
+Inspirado en la [Guía de Remyyroy sobre cómo prepararse para la fusión](https://github.com/remyroy/ethstaker/blob/main/prepare-for-the-merge.md#choosing-and-configuring-an-mev-solution)
